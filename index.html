@@ -286,8 +286,8 @@
             font-size: clamp(1.8rem, 4vw, 2.5rem);
             position: relative;
             display: inline-block;
-            /*left: 50%;
-            transform: translateX(-50%);*/
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .section-title::after {
@@ -489,21 +489,21 @@
             padding: 6rem 5%;
             background: var(--darker);
         }
-        
+
         .section-header {
             text-align: center;
             max-width: 100%;
             margin: 0 auto 3rem;
             padding: 0 15px;
         }
-        
+
         .section-title {
             font-size: clamp(1.8rem, 4vw, 2.5rem);
             margin-bottom: 1rem;
             position: relative;
             display: inline-block;
         }
-        
+
         .section-title::after {
             content: '';
             position: absolute;
@@ -514,14 +514,14 @@
             background: linear-gradient(to right, var(--primary), var(--secondary));
             border-radius: 2px;
         }
-        
+
         .section-subtitle {
             font-size: 1.1rem;
             opacity: 0.9;
             max-width: 800px;
             margin: 0 auto;
         }
-        
+
         .download-subtitle {
             max-width: 800px;
             margin: 0 auto 3rem;
@@ -529,7 +529,7 @@
             font-size: 1.1rem;
             opacity: 0.9;
         }
-        
+
         .download-options {
             display: flex;
             justify-content: center;
@@ -538,7 +538,7 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-        
+
         .download-card {
             background: var(--gray);
             padding: 2rem;
@@ -551,13 +551,13 @@
             flex-direction: column;
             height: 100%;
         }
-        
+
         .download-icon {
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
             color: var(--primary);
         }
-        
+
         .download-card h3 {
             margin-bottom: 1.5rem;
             color: white;
@@ -566,22 +566,22 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .download-card-content {
             flex-grow: 1;
             margin-bottom: 1.5rem;
         }
-        
+
         .download-card-content p {
             opacity: 0.85;
             line-height: 1.6;
         }
-        
+
         .download-btn-container {
             margin-top: auto;
             padding-top: 1.5rem;
         }
-        
+
         .download-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
@@ -798,7 +798,7 @@
                 flex-direction: column;
                 align-items: center;
             }
-            
+
             .download-card {
                 max-width: 100%;
                 width: 100%;
@@ -975,8 +975,8 @@
 
     <!-- Download -->
 <section class="download" id="download">
+    <h2 class="section-title animate__animated animate__fadeIn" data-ru="Cкачать EN OS" data-en="Download EN OS">Скачать EN OS</h2>
     <div class="section-header">
-        <h2 class="section-title" data-ru="Скачать EN-OS" data-en="Download EN-OS">Скачать EN-OS</h2>
         <p class="section-subtitle" data-ru="Выберите подходящую версию для загрузки" data-en="Choose the appropriate version to download">Выберите подходящую версию для загрузки</p>
     </div>
     <div class="download-options">
@@ -1081,7 +1081,7 @@
 
         mobileMenuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
-            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ?
                 '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
         });
 
@@ -1128,7 +1128,7 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    
+
                     // Special case for hero image
                     if (entry.target === heroImage) {
                         setTimeout(() => {
@@ -1166,11 +1166,11 @@
         langBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const lang = btn.dataset.lang;
-                
+
                 // Update active button
                 langBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                
+
                 // Update all elements with translations
                 langElements.forEach(el => {
                     if (el.dataset[lang]) {
@@ -1181,7 +1181,7 @@
                         }
                     }
                 });
-                
+
                 // Update HTML lang attribute
                 document.documentElement.lang = lang;
             });
