@@ -488,32 +488,38 @@
         .download {
             padding: 6rem 5%;
             background: var(--darker);
+        }
+        
+        .section-header {
             text-align: center;
+            max-width: 100%;
+            margin: 0 auto 3rem;
+            padding: 0 15px;
         }
-        .section-title-container {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            margin-bottom: 1rem;
-        }
+        
         .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 1rem;
             position: relative;
             display: inline-block;
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-            text-align: center;
-            margin: 0 auto;
-            padding-bottom: 15px;
         }
-
+        
         .section-title::after {
             content: '';
             position: absolute;
-            width: 50%;
+            width: 70%;
             height: 4px;
-            bottom: 0;
-            left: 25%;
+            bottom: -10px;
+            left: 15%;
             background: linear-gradient(to right, var(--primary), var(--secondary));
             border-radius: 2px;
+        }
+        
+        .section-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
         }
         
         .download-subtitle {
@@ -776,7 +782,7 @@
                 justify-content: center;
             }
 
-            /**.download-options {
+            .download-options {
                 flex-direction: column;
                 align-items: center;
             }
@@ -784,7 +790,7 @@
             .download-card {
                 width: 100%;
                 max-width: 350px;
-            }*//
+            }
         }
 
         @media (max-width: 768px) {
@@ -969,10 +975,10 @@
 
     <!-- Download -->
 <section class="download" id="download">
-    <div class="section-title-container">
-        <h2 class="section-title animate__animated animate__fadeIn" data-ru="Скачать EN-OS" data-en="Download EN-OS">Скачать EN-OS</h2>
+    <div class="section-header">
+        <h2 class="section-title" data-ru="Скачать EN-OS" data-en="Download EN-OS">Скачать EN-OS</h2>
+        <p class="section-subtitle" data-ru="Выберите подходящую версию для загрузки" data-en="Choose the appropriate version to download">Выберите подходящую версию для загрузки</p>
     </div>
-    <p class="animate__animated animate__fadeIn download-subtitle" data-ru="Выберите подходящую версию для загрузки" data-en="Choose the appropriate version to download">Выберите подходящую версию для загрузки</p>
     <div class="download-options">
         <div class="download-card animate-on-scroll">
             <div class="download-icon">
