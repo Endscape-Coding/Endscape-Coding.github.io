@@ -490,6 +490,12 @@
             background: var(--darker);
             text-align: center;
         }
+        .section-title-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
         
         .download-subtitle {
             max-width: 800px;
@@ -943,8 +949,10 @@
     </section>
 
     <!-- Download -->
-    <section class="download" id="download">
-    <h2 class="section-title animate__animated animate__fadeIn" data-ru="Скачать EN-OS" data-en="Download EN-OS">Скачать EN-OS</h2>
+<section class="download" id="download">
+    <div class="section-title-container">
+        <h2 class="section-title animate__animated animate__fadeIn" data-ru="Скачать EN-OS" data-en="Download EN-OS">Скачать EN-OS</h2>
+    </div>
     <p class="animate__animated animate__fadeIn download-subtitle" data-ru="Выберите подходящую версию для загрузки" data-en="Choose the appropriate version to download">Выберите подходящую версию для загрузки</p>
     <div class="download-options">
         <div class="download-card animate-on-scroll">
