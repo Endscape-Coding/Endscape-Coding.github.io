@@ -944,35 +944,58 @@
     </section>
 
     <!-- Installation -->
-    <section class="installation" id="installation">
-        <h2 class="section-title animate__animated animate__fadeIn" data-ru="Установка" data-en="Installation">Установка</h2>
-        <div class="steps">
-            <div class="step animate-on-scroll">
-                <div class="step-number">1</div>
-                <div class="step-content">
-                    <h3 data-ru="Скачайте образ" data-en="Download the image">Скачайте образ</h3>
-                    <p data-ru="Загрузите последнюю версию EN-OS с нашей страницы релизов." data-en="Download the latest version of EN-OS from our releases page.">Загрузите последнюю версию EN-OS с нашей страницы релизов.</p>
-                    <code>wget https://en-os.org/downloads/en-os-latest.iso</code>
-                </div>
-            </div>
-            <div class="step animate-on-scroll">
-                <div class="step-number">2</div>
-                <div class="step-content">
-                    <h3 data-ru="Запишите на USB" data-en="Write to USB">Запишите на USB</h3>
-                    <p data-ru="Используйте BalenaEtcher или dd для записи образа на флешку." data-en="Use BalenaEtcher or dd to write the image to a USB drive.">Используйте BalenaEtcher или dd для записи образа на флешку.</p>
-                    <code>dd if=en-os.iso of=/dev/sdX bs=4M status=progress</code>
-                </div>
-            </div>
-            <div class="step animate-on-scroll">
-                <div class="step-number">3</div>
-                <div class="step-content">
-                    <h3 data-ru="Установите систему" data-en="Install the system">Установите систему</h3>
-                    <p data-ru="Загрузитесь с USB и следуйте инструкциям установщика Calamares." data-en="Boot from USB and follow the Calamares installer instructions.">Загрузитесь с USB и следуйте инструкциям установщика Calamares.</p>
-                </div>
+    <section class="usb-creation" id="usb-creation">
+    <h2 class="section-title animate__animated animate__fadeIn" data-ru="Создание Live USB" data-en="Live USB Creation">Создание Live USB</h2>
+    <div class="steps">
+        <div class="step animate-on-scroll">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h3 data-ru="Скачайте образ" data-en="Download the image">Скачайте образ</h3>
+                <p data-ru="Загрузите последнюю версию EN-OS Live с нашей страницы релизов." data-en="Download the latest version of EN-OS Live from our releases page.">Загрузите последнюю версию EN-OS Live с нашей страницы релизов.</p>
+                <code>wget https://en-os.org/downloads/en-os-latest.iso</code>
             </div>
         </div>
-    </section>
-
+        <div class="step animate-on-scroll">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h3 data-ru="Запишите на USB" data-en="Write to USB">Запишите на USB</h3>
+                <p data-ru="Используйте один из предложенных методов для записи Live-образа на флешку:" data-en="Use one of the following methods to write the Live image to a USB drive:">Используйте один из предложенных методов для записи Live-образа на флешку:</p>
+                
+                <h4 data-ru="Rufus (Windows)" data-en="Rufus (Windows)">Rufus (Windows)</h4>
+                <ol>
+                    <li data-ru="Запустите Rufus и выберите вашу USB-флешку" data-en="Run Rufus and select your USB drive">Запустите Rufus и выберите вашу USB-флешку</li>
+                    <li data-ru="Нажмите 'ВЫБРАТЬ' и укажите скачанный ISO-образ" data-en="Click 'SELECT' and choose the downloaded ISO image">Нажмите 'ВЫБРАТЬ' и укажите скачанный ISO-образ</li>
+                    <li data-ru="Оставьте остальные настройки по умолчанию" data-en="Leave other settings as default">Оставьте остальные настройки по умолчанию</li>
+                    <li data-ru="Нажмите 'СТАРТ' и дождитесь завершения" data-en="Click 'START' and wait for completion">Нажмите 'СТАРТ' и дождитесь завершения</li>
+                </ol>
+                
+                <h4 data-ru="Balena Etcher (Windows/macOS/Linux)" data-en="Balena Etcher (Windows/macOS/Linux)">Balena Etcher (Windows/macOS/Linux)</h4>
+                <ol>
+                    <li data-ru="Запустите Balena Etcher" data-en="Run Balena Etcher">Запустите Balena Etcher</li>
+                    <li data-ru="Выберите скачанный ISO-образ" data-en="Select the downloaded ISO image">Выберите скачанный ISO-образ</li>
+                    <li data-ru="Выберите USB-накопитель" data-en="Select the USB drive">Выберите USB-накопитель</li>
+                    <li data-ru="Нажмите 'Flash!' и дождитесь завершения" data-en="Click 'Flash!' and wait for completion">Нажмите 'Flash!' и дождитесь завершения</li>
+                </ol>
+                
+                <h4 data-ru="dd (Linux/macOS)" data-en="dd (Linux/macOS)">dd (Linux/macOS)</h4>
+                <ol>
+                    <li data-ru="Определите путь к вашему USB-устройству (например, /dev/sdX)" data-en="Identify your USB device path (e.g. /dev/sdX)">Определите путь к вашему USB-устройству (например, /dev/sdX)</li>
+                    <li data-ru="Размонтируйте устройство, если оно смонтировано" data-en="Unmount the device if mounted">Размонтируйте устройство, если оно смонтировано</li>
+                    <li data-ru="Выполните команду записи:" data-en="Run the write command:">Выполните команду записи:</li>
+                </ol>
+                <code>dd if=en-os-latest.iso of=/dev/sdX bs=4M status=progress oflag=sync</code>
+                <p data-ru="Замените /dev/sdX на фактический путь к вашему устройству" data-en="Replace /dev/sdX with your actual device path">Замените /dev/sdX на фактический путь к вашему устройству</p>
+            </div>
+        </div>
+        <div class="step animate-on-scroll">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h3 data-ru="Загрузитесь с USB" data-en="Boot from USB">Загрузитесь с USB</h3>
+                <p data-ru="Перезагрузите компьютер и выберите загрузку с созданного USB-носителя в BIOS/UEFI." data-en="Reboot your computer and select boot from the created USB drive in BIOS/UEFI.">Перезагрузите компьютер и выберите загрузку с созданного USB-носителя в BIOS/UEFI.</p>
+            </div>
+        </div>
+    </div>
+</section>
     <!-- Download -->
 <section class="download" id="download">
     <h2 class="section-title animate__animated animate__fadeIn" data-ru="Cкачать EN OS" data-en="Download EN OS">Скачать EN OS</h2>
