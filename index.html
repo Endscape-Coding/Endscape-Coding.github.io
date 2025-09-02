@@ -9,13 +9,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
         :root {
-            --primary: #6e48aa;
-            --secondary: #9d50bb;
+            --primary: #8a2be2;
+            --secondary: #6a0dad;
             --accent: #ff6b6b;
-            --dark: #121212;
-            --darker: #0d0d0d;
+            --dark: #0a0a0a;
+            --darker: #050505;
             --light: #e0e0e0;
-            --gray: #2a2a2a;
+            --gray: #1a1a1a;
             --glass: rgba(255, 255, 255, 0.05);
             --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -32,6 +32,54 @@
             color: var(--light);
             overflow-x: hidden;
             line-height: 1.6;
+        }
+
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--darker);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            position: relative;
+        }
+
+        .loader:before, .loader:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: var(--primary);
+            opacity: 0.6;
+            animation: pulse 2.0s infinite ease-in-out;
+        }
+
+        .loader:after {
+            animation-delay: -1.0s;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(0); opacity: 0.6; }
+            50% { transform: scale(1); opacity: 0; }
         }
 
         .lang-switcher {
@@ -96,7 +144,7 @@
 
         header.scrolled {
             padding: 0.5rem 5%;
-            background: rgba(13, 13, 13, 0.9);
+            background: rgba(5, 5, 5, 0.95);
         }
 
         nav {
@@ -175,7 +223,7 @@
             display: flex;
             align-items: center;
             padding: 0 5%;
-            background: linear-gradient(-45deg, #1a1a2e, #16213e, #0f3460, #533483);
+            background: linear-gradient(-45deg, #0a0a0a, #1a1a2e, #16213e, #0f3460);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             position: relative;
@@ -189,8 +237,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.03)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>');
-            background-size: cover;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(138, 43, 226, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(106, 13, 173, 0.1) 0%, transparent 40%);
             pointer-events: none;
         }
 
@@ -241,7 +290,7 @@
 
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(110, 72, 170, 0.6);
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.6);
         }
 
         .btn-outline {
@@ -328,7 +377,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(110, 72, 170, 0.1), rgba(157, 80, 187, 0.1));
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(106, 13, 173, 0.1));
             z-index: -1;
         }
 
@@ -340,7 +389,7 @@
         .feature-card:hover {
             transform: translateY(-10px) !important;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            border-color: rgba(110, 72, 170, 0.3);
+            border-color: rgba(138, 43, 226, 0.3);
         }
 
         .feature-icon {
@@ -455,7 +504,7 @@
             margin-right: 1.5rem;
             flex-shrink: 0;
             font-size: 1.2rem;
-            box-shadow: 0 5px 15px rgba(110, 72, 170, 0.4);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
         }
 
         .step-content {
@@ -483,8 +532,34 @@
             font-size: 0.9rem;
         }
 
+        .method-tabs {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .method-tab {
+            padding: 0.8rem 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .method-tab.active {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+
+        .method-content {
+            display: none;
+        }
+
+        .method-content.active {
+            display: block;
+        }
+
         /* Download */
-        /* Download section */
         .download {
             padding: 6rem 5%;
             background: var(--darker);
@@ -585,12 +660,30 @@
         .download-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            border-color: rgba(110, 72, 170, 0.3);
+            border-color: rgba(138, 43, 226, 0.3);
+        }
+
+        .coming-soon {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coming-soon::after {
+            content: 'Soon';
+            position: absolute;
+            top: 10px;
+            right: -25px;
+            background: var(--accent);
+            color: white;
+            padding: 5px 30px;
+            font-size: 0.8rem;
+            transform: rotate(45deg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
         /* Footer */
         footer {
-            background: #0a0a0a;
+            background: #050505;
             padding: 4rem 5% 2rem;
             position: relative;
         }
@@ -719,7 +812,7 @@
             opacity: 0;
             visibility: hidden;
             transition: var(--transition);
-            box-shadow: 0 5px 20px rgba(110, 72, 170, 0.4);
+            box-shadow: 0 5px 20px rgba(138, 43, 226, 0.4);
             z-index: 999;
         }
 
@@ -730,7 +823,7 @@
 
         .back-to-top:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(110, 72, 170, 0.6);
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.6);
         }
 
         /* Responsive */
@@ -741,7 +834,7 @@
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             .nav-links {
                 position: fixed;
                 top: 80px;
@@ -755,6 +848,7 @@
                 clip-path: circle(0px at 90% -10%);
                 transition: all 0.5s ease-out;
                 pointer-events: none;
+                z-index: 999;
             }
 
             .nav-links.active {
@@ -803,6 +897,10 @@
                 max-width: 100%;
                 width: 100%;
             }
+
+            .method-tabs {
+                flex-direction: column;
+            }
         }
 
         @media (max-width: 480px) {
@@ -822,10 +920,21 @@
             .footer-content {
                 grid-template-columns: 1fr;
             }
+
+            .lang-switcher {
+                top: 15px;
+                right: 15px;
+                padding: 6px 10px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="loader"></div>
+    </div>
+
     <div class="lang-switcher">
         <button class="lang-btn active" data-lang="ru">RU</button>
         <button class="lang-btn" data-lang="en">EN</button>
@@ -944,104 +1053,131 @@
     </section>
 
     <!-- Installation -->
-    <!-- Стало -->
-<section class="installation" id="installation">
-    <h2 class="section-title animate__animated animate__fadeIn" data-ru="Создание Live USB" data-en="Live USB Creation">Создание Live USB</h2>
-    <div class="steps">
-        <div class="step animate-on-scroll">
-            <div class="step-number">1</div>
-            <div class="step-content">
-                <h3 data-ru="Скачайте образ" data-en="Download the image">Скачайте образ</h3>
-                <p data-ru="Загрузите последнюю версию EN-OS 0.6 BETA с нашей страницы релизов." data-en="Download the latest version of EN-OS 0.6 BETA from our releases page.">Загрузите последнюю версию EN-OS 0.6 BETA с нашей страницы релизов.</p>
-                <code>wget https://mega.nz/file/KItgmbRL#X71m1gE7NFjxsOhwVvdS1Nu9z5L6iYYvKfFActY-FEU</code>
+    <section class="installation" id="installation">
+        <h2 class="section-title animate__animated animate__fadeIn" data-ru="Создание Live USB" data-en="Live USB Creation">Создание Live USB</h2>
+        <div class="steps">
+            <div class="step animate-on-scroll">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3 data-ru="Скачайте образ" data-en="Download the image">Скачайте образ</h3>
+                    <p data-ru="Загрузите последнюю версию EN-OS 0.6 BETA с нашей страницы релизов." data-en="Download the latest version of EN-OS 0.6 BETA from our releases page.">Загрузите последнюю версию EN-OS 0.6 BETA с нашей страницы релизов.</p>
+                    <a href="#download" class="btn" style="margin-top: 1rem;">
+                        <i class="fas fa-download"></i>
+                        <span data-ru="Скачать EN-OS" data-en="Download EN-OS">Скачать EN-OS</span>
+                    </a>
+                </div>
+            </div>
+            <div class="step animate-on-scroll">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3 data-ru="Запишите на USB" data-en="Write to USB">Запишите на USB</h3>
+                    <p data-ru="Используйте один из предложенных методов для записи Live-образа на флешку:" data-en="Use one of the following methods to write the Live image to a USB drive:">Используйте один из предложенных методов для записи Live-образа на флешку:</p>
+                    
+                    <div class="method-tabs">
+                        <div class="method-tab active" data-method="rufus">Rufus</div>
+                        <div class="method-tab" data-method="dd">dd</div>
+                        <div class="method-tab" data-method="ventoy">Ventoy</div>
+                    </div>
+                    
+                    <div class="method-content active" id="rufus-method">
+                        <h4 data-ru="Rufus (Windows)" data-en="Rufus (Windows)">Rufus (Windows)</h4>
+                        <ol>
+                            <li data-ru="Запустите Rufus и выберите вашу USB-флешку" data-en="Run Rufus and select your USB drive">Запустите Rufus и выберите вашу USB-флешку</li>
+                            <li data-ru="Нажмите 'ВЫБРАТЬ' и укажите скачанный ISO-образ" data-en="Click 'SELECT' and choose the downloaded ISO image">Нажмите 'ВЫБРАТЬ' и укажите скачанный ISO-образ</li>
+                            <li data-ru="Оставьте остальные настройки по умолчанию" data-en="Leave other settings as default">Оставьте остальные настройки по умолчанию</li>
+                            <li data-ru="Нажмите 'СТАРТ' и дождитесь завершения" data-en="Click 'START' and wait for completion">Нажмите 'СТАРТ' и дождитесь завершения</li>
+                        </ol>
+                        <a href="https://rufus.ie/" target="_blank" class="btn btn-outline" style="margin-top: 1rem;">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span data-ru="Скачать Rufus" data-en="Download Rufus">Скачать Rufus</span>
+                        </a>
+                    </div>
+                    
+                    <div class="method-content" id="dd-method">
+                        <h4 data-ru="dd (Linux/macOS)" data-en="dd (Linux/macOS)">dd (Linux/macOS)</h4>
+                        <ol>
+                            <li data-ru="Определите путь к вашему USB-устройству (например, /dev/sdX)" data-en="Identify your USB device path (e.g. /dev/sdX)">Определите путь к вашему USB-устройству (например, /dev/sdX)</li>
+                            <li data-ru="Размонтируйте устройство, если оно смонтировано" data-en="Unmount the device if mounted">Размонтируйте устройство, если оно смонтировано</li>
+                            <li data-ru="Выполните команду записи:" data-en="Run the write command:">Выполните команду записи:</li>
+                        </ol>
+                        <code>dd if=en-os-0.6-beta.iso of=/dev/sdX bs=4M status=progress oflag=sync</code>
+                        <p data-ru="ВАЖНО: Замените /dev/sdX на фактический путь к вашему устройству. Неправильное использование может привести к потере данных!" data-en="IMPORTANT: Replace /dev/sdX with your actual device path. Incorrect usage may lead to data loss!">ВАЖНО: Замените /dev/sdX на фактический путь к вашему устройству. Неправильное использование может привести к потере данных!</p>
+                    </div>
+                    
+                    <div class="method-content" id="ventoy-method">
+                        <h4 data-ru="Ventoy (Multi-Platform)" data-en="Ventoy (Multi-Platform)">Ventoy (Multi-Platform)</h4>
+                        <ol>
+                            <li data-ru="Скачайте и установите Ventoy на вашу USB-флешку" data-en="Download and install Ventoy to your USB drive">Скачайте и установите Ventoy на вашу USB-флешку</li>
+                            <li data-ru="Скопируйте ISO-образ EN-OS на флешку" data-en="Copy the EN-OS ISO image to the USB drive">Скопируйте ISO-образ EN-OS на флешку</li>
+                            <li data-ru="Загрузитесь с USB и выберите образ EN-OS в меню Ventoy" data-en="Boot from USB and select the EN-OS image in the Ventoy menu">Загрузитесь с USB и выберите образ EN-OS в меню Ventoy</li>
+                        </ol>
+                        <a href="https://www.ventoy.net/" target="_blank" class="btn btn-outline" style="margin-top: 1rem;">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span data-ru="Скачать Ventoy" data-en="Download Ventoy">Скачать Ventoy</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="step animate-on-scroll">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3 data-ru="Загрузитесь с USB" data-en="Boot from USB">Загрузитесь с USB</h3>
+                    <p data-ru="Перезагрузите компьютер и выберите загрузку с созданного USB-носителя в BIOS/UEFI." data-en="Reboot your computer and select boot from the created USB drive in BIOS/UEFI.">Перезагрузите компьютер и выберите загрузку с созданного USB-носителя в BIOS/UEFI.</p>
+                </div>
             </div>
         </div>
-        <div class="step animate-on-scroll">
-            <div class="step-number">2</div>
-            <div class="step-content">
-                <h3 data-ru="Запишите на USB" data-en="Write to USB">Запишите на USB</h3>
-                <p data-ru="Используйте один из предложенных методов для записи Live-образа на флешку:" data-en="Use one of the following methods to write the Live image to a USB drive:">Используйте один из предложенных методов для записи Live-образа на флешку:</p>
-                
-                <h4 data-ru="Rufus (Windows)" data-en="Rufus (Windows)">Rufus (Windows)</h4>
-                <ol>
-                    <li data-ru="Запустите Rufus и выберите вашу USB-флешку" data-en="Run Rufus and select your USB drive">Запустите Rufus и выберите вашу USB-флешку</li>
-                    <li data-ru="Нажмите 'ВЫБРАТЬ' и укажите скачанный ISO-образ" data-en="Click 'SELECT' and choose the downloaded ISO image">Нажмите 'ВЫБРАТЬ' и укажите скачанный ISO-образ</li>
-                    <li data-ru="Оставьте остальные настройки по умолчанию" data-en="Leave other settings as default">Оставьте остальные настройки по умолчанию</li>
-                    <li data-ru="Нажмите 'СТАРТ' и дождитесь завершения" data-en="Click 'START' and wait for completion">Нажмите 'СТАРТ' и дождитесь завершения</li>
-                </ol>
-                
-                <h4 data-ru="Balena Etcher (Windows/macOS/Linux)" data-en="Balena Etcher (Windows/macOS/Linux)">Balena Etcher (Windows/macOS/Linux)</h4>
-                <ol>
-                    <li data-ru="Запустите Balena Etcher" data-en="Run Balena Etcher">Запустите Balena Etcher</li>
-                    <li data-ru="Выберите скачанный ISO-образ" data-en="Select the downloaded ISO image">Выберите скачанный ISO-образ</li>
-                    <li data-ru="Выберите USB-накопитель" data-en="Select the USB drive">Выберите USB-накопитель</li>
-                    <li data-ru="Нажмите 'Flash!' и дождитесь завершения" data-en="Click 'Flash!' and wait for completion">Нажмите 'Flash!' и дождитесь завершения</li>
-                </ol>
-                
-                <h4 data-ru="dd (Linux/macOS)" data-en="dd (Linux/macOS)">dd (Linux/macOS)</h4>
-                <ol>
-                    <li data-ru="Определите путь к вашему USB-устройству (например, /dev/sdX)" data-en="Identify your USB device path (e.g. /dev/sdX)">Определите путь к вашему USB-устройству (например, /dev/sdX)</li>
-                    <li data-ru="Размонтируйте устройство, если оно смонтировано" data-en="Unmount the device if mounted">Размонтируйте устройство, если оно смонтировано</li>
-                    <li data-ru="Выполните команду записи:" data-en="Run the write command:">Выполните команду записи:</li>
-                </ol>
-                <code>dd if=en-os-latest.iso of=/dev/sdX bs=4M status=progress oflag=sync</code>
-                <p data-ru="Замените /dev/sdX на фактический путь к вашему устройству" data-en="Replace /dev/sdX with your actual device path">Замените /dev/sdX на фактический путь к вашему устройству</p>
-            </div>
-        </div>
-        <div class="step animate-on-scroll">
-            <div class="step-number">3</div>
-            <div class="step-content">
-                <h3 data-ru="Загрузитесь с USB" data-en="Boot from USB">Загрузитесь с USB</h3>
-                <p data-ru="Перезагрузите компьютер и выберите загрузку с созданного USB-носителя в BIOS/UEFI." data-en="Reboot your computer and select boot from the created USB drive in BIOS/UEFI.">Перезагрузите компьютер и выберите загрузку с созданного USB-носителя в BIOS/UEFI.</p>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
+
     <!-- Download -->
-<section class="download" id="download">
-    <h2 class="section-title animate__animated animate__fadeIn" data-ru="Cкачать EN OS" data-en="Download EN OS">Скачать EN OS</h2>
-    <div class="section-header">
-        <p class="section-subtitle" data-ru="Выберите подходящую версию для загрузки" data-en="Choose the appropriate version to download">Выберите подходящую версию для загрузки</p>
-    </div>
-    <div class="download-options">
-        <div class="download-card animate-on-scroll">
-            <div class="download-icon">
-                <i class="fas fa-desktop"></i>
+    <section class="download" id="download">
+        <h2 class="section-title animate__animated animate__fadeIn" data-ru="Cкачать EN OS" data-en="Download EN OS">Скачать EN OS</h2>
+        <div class="section-header">
+            <p class="section-subtitle" data-ru="Выберите подходящую версию для загрузки" data-en="Choose the appropriate version to download">Выберите подходящую версию для загрузки</p>
+        </div>
+        <div class="download-options">
+            <div class="download-card animate-on-scroll">
+                <div class="download-icon">
+                    <i class="fas fa-desktop"></i>
+                </div>
+                <h3 data-ru="Стандартная версия" data-en="Standard Edition">EN-OS 0.6 BETA</h3>
+                <div class="download-card-content">
+                    <p data-ru="Первая и пока единственная готовая версия EN-OS" data-en="First version">Первая и пока единственная готовая версия EN-OS</p>
+                    <ul style="margin-top: 1rem; padding-left: 1.2rem; opacity: 0.8;">
+                        <li data-ru="Размер: ~4.2 ГБ" data-en="Size: ~4.2 GB">Размер: ~4.2 ГБ</li>
+                        <li data-ru="Дата выпуска: 2025" data-en="Release date: 2025">Дата выпуска: 2025</li>
+                        <li data-ru="Архитектура: x86_64" data-en="Architecture: x86_64">Архитектура: x86_64</li>
+                    </ul>
+                </div>
+                <div class="download-btn-container">
+                    <a href="https://mega.nz/file/KItgmbRL#X71m1gE7NFjxsOhwVvdS1Nu9z5L6iYYvKfFActY-FEU" class="btn" data-ru="Скачать" data-en="Download">Скачать</a>
+                </div>
             </div>
-            <h3 data-ru="Стандартная версия" data-en="Standard Edition">EN-OS 0.6 BETA</h3>
-            <div class="download-card-content">
-                <p data-ru="Стандартная версия EN-OS с базовым набором пакетов" data-en="First version">Первая и пока единственная готовая версия EN-OS </p>
+            <div class="download-card animate-on-scroll coming-soon">
+                <div class="download-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3 data-ru="Версия для разработки" data-en="Developer Edition">Версия для разработки</h3>
+                <div class="download-card-content">
+                    <p data-ru="Инструменты для разработки и программирования" data-en="Development and programming tools">Инструменты для разработки и программирования</p>
+                </div>
+                <div class="download-btn-container">
+                    <button class="btn" disabled data-ru="Скоро" data-en="Soon">Скоро</button>
+                </div>
             </div>
-            <div class="download-btn-container">
-                <a href="https://mega.nz/file/KItgmbRL#X71m1gE7NFjxsOhwVvdS1Nu9z5L6iYYvKfFActY-FEU" class="btn" data-ru="Скачать" data-en="Download">Скачать</a>
+            <div class="download-card animate-on-scroll coming-soon">
+                <div class="download-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <h3 data-ru="Игровая версия" data-en="Gaming Edition">Игровая версия</h3>
+                <div class="download-card-content">
+                    <p data-ru="Оптимизировано для игр с предустановленным Steam" data-en="Optimized for gaming with pre-installed Steam">Оптимизировано для игр с предустановленным Steam</p>
+                </div>
+                <div class="download-btn-container">
+                    <button class="btn" disabled data-ru="Скоро" data-en="Soon">Скоро</button>
+                </div>
             </div>
         </div>
-        <div class="download-card animate-on-scroll">
-            <div class="download-icon">
-                <i class="fas fa-code"></i>
-            </div>
-            <h3 data-ru="Версия для разработки" data-en="Developer Edition">Версия для разработки (в разработке)</h3>
-            <div class="download-card-content">
-                <p data-ru="Инструменты для разработки и программирования" data-en="Development and programming tools">Инструменты для разработки и программирования</p>
-            </div>
-            <div class="download-btn-container">
-                <a href="https://example.com/download/developer" class="btn" data-ru="Скачать" data-en="Download">Скачать</a>
-            </div>
-        </div>
-        <div class="download-card animate-on-scroll">
-            <div class="download-icon">
-                <i class="fas fa-gamepad"></i>
-            </div>
-            <h3 data-ru="Игровая версия" data-en="Gaming Edition">Игровая версия (в разработке)</h3>
-            <div class="download-card-content">
-                <p data-ru="Оптимизировано для игр с предустановленным Steam" data-en="Optimized for gaming with pre-installed Steam">Оптимизировано для игр с предустановленным Steam</p>
-            </div>
-            <div class="download-btn-container">
-                <a href="https://example.com/download/gaming" class="btn" data-ru="Скачать" data-en="Download">Скачать</a>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
     <!-- Footer -->
     <footer>
@@ -1059,12 +1195,6 @@
                     <a href="https://t.me/Linux_EN_OS" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
                         <i class="fab fa-telegram"></i>
                     </a>
-                    <!--<a href="https://discord.gg/your-invite" target="_blank" rel="noopener noreferrer" aria-label="Discord">
-                        <i class="fab fa-discord"></i>
-                    </a>
-                    <a href="https://twitter.com/EN_OS_Linux" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-                        <i class="fab fa-twitter"></i>
-                    </a>-->
                 </div>
             </div>
             <div class="footer-section">
@@ -1084,7 +1214,6 @@
                     <li><a href="https://t.me/enos_community" target="_blank"><i class="fas fa-chevron-right"></i> <span data-ru="Форум" data-en="Forum">Форум</span></a></li>
                     <li><a href="https://t.me/enbugreports" target="_blank"><i class="fas fa-chevron-right"></i> <span data-ru="Багрепорты" data-en="Bug Reports">Багрепорты</span></a></li>
                     <li><a href="https://t.me/Linux_EN_OS" target="_blank"><i class="fas fa-chevron-right"></i> <span data-ru="Блог" data-en="Blog">Блог</span></a></li>
-                    <!--<li><a href="https://donate.en-os.org" target="_blank"><i class="fas fa-chevron-right"></i> <span data-ru="Поддержать проект" data-en="Support Us">Поддержать проект</span></a></li>-->
                 </ul>
             </div>
         </div>
@@ -1099,6 +1228,14 @@
     </div>
 
     <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.classList.add('hidden');
+            }, 1500);
+        });
+
         // Mobile menu toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.querySelector('.nav-links');
@@ -1208,6 +1345,24 @@
 
                 // Update HTML lang attribute
                 document.documentElement.lang = lang;
+            });
+        });
+
+        // Method tabs
+        const methodTabs = document.querySelectorAll('.method-tab');
+        methodTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const method = tab.dataset.method;
+                
+                // Update active tab
+                methodTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Show corresponding content
+                document.querySelectorAll('.method-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(`${method}-method`).classList.add('active');
             });
         });
 
