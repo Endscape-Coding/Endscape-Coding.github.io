@@ -245,8 +245,9 @@
 
         .hero-content {
             max-width: 600px;
-            z-index: 1;
+            z-index: 2;
             animation: fadeIn 1s ease-out;
+            position: relative;
         }
 
         .hero h1 {
@@ -268,6 +269,66 @@
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
+        }
+
+        .desktop-preview {
+            position: absolute;
+            right: 5%;
+            width: 45%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            animation: float 6s ease-in-out infinite;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 1s ease;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .desktop-preview.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .desktop-video, .desktop-gif {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            display: block;
+        }
+
+        .desktop-gif {
+            display: none; /* По умолчанию скрыто, показывается через JS если нужно */
+        }
+
+        .media-controls {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            z-index: 3;
+            display: flex;
+            gap: 8px;
+        }
+
+        .media-btn {
+            background: rgba(0, 0, 0, 0.7);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+
+        .media-btn:hover {
+            background: var(--primary);
+            transform: scale(1.1);
         }
 
         .btn {
@@ -961,7 +1022,7 @@
     </header>
 
     <!-- Hero section -->
-    <section class="hero" id="home">
+     <section class="hero" id="home">
         <div class="hero-content">
             <h1 class="animate__animated animate__fadeInDown" data-ru="EN-OS" data-en="EN-OS">EN-OS</h1>
             <p class="animate__animated animate__fadeInDown animate__delay-1s" data-ru="Современный дистрибутив на базе Arch Linux с предустановленным KDE Plasma, оптимизированный для производительности и удобства прямо из коробки без каких либо дополнительных настроек." data-en="Modern Arch-based distribution with pre-installed KDE Plasma, optimized for performance and convenience out of the box without any additional configuration.">Современный дистрибутив на базе Arch Linux с предустановленным KDE Plasma, оптимизированный для производительности и удобства прямо из коробки без каких либо дополнительных настроек.</p>
@@ -976,7 +1037,27 @@
                 </a>
             </div>
         </div>
-        <img src="/images/desktop.png" alt="EN-OS Desktop Preview" class="hero-image" id="heroImage">
+        
+        <div class="desktop-preview" id="desktopPreview">
+            <!-- Видео по умолчанию -->
+            <video class="desktop-video" id="desktopVideo" loop muted playsinline>
+                <source src="/videos/desktop-demo.mp4" type="video/mp4">
+                <source src="/videos/desktop-demo.webm" type="video/webm">
+                Ваш браузер не поддерживает видео.
+            </video>
+            
+            <!-- GIF альтернатива -->
+            <img class="desktop-gif" id="desktopGif" src="/images/desktop-demo.gif" alt="EN-OS Desktop Demo">
+            
+            <div class="media-controls">
+                <button class="media-btn" id="playPauseBtn">
+                    <i class="fas fa-pause" id="playPauseIcon"></i>
+                </button>
+                <button class="media-btn" id="muteBtn">
+                    <i class="fas fa-volume-mute" id="muteIcon"></i>
+                </button>
+            </div>
+        </div>
     </section>
 
     <!-- Features -->
@@ -1278,6 +1359,85 @@
                 top: 0,
                 behavior: 'smooth'
             });
+        });
+
+         const desktopPreview = document.getElementById('desktopPreview');
+        const desktopVideo = document.getElementById('desktopVideo');
+        const desktopGif = document.getElementById('desktopGif');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const playPauseIcon = document.getElementById('playPauseIcon');
+        const muteBtn = document.getElementById('muteBtn');
+        const muteIcon = document.getElementById('muteIcon');
+
+        // Проверяем поддержку видео и переключаемся на GIF если нужно
+        function checkVideoSupport() {
+            if (desktopVideo.canPlayType) {
+                // Браузер поддерживает видео, оставляем видео
+                desktopVideo.style.display = 'block';
+                desktopGif.style.display = 'none';
+                setupVideoControls();
+            } else {
+                // Браузер не поддерживает видео, показываем GIF
+                desktopVideo.style.display = 'none';
+                desktopGif.style.display = 'block';
+                // Скрываем кнопки управления для GIF
+                document.querySelector('.media-controls').style.display = 'none';
+            }
+        }
+
+        function setupVideoControls() {
+            // Play/Pause
+            playPauseBtn.addEventListener('click', () => {
+                if (desktopVideo.paused) {
+                    desktopVideo.play();
+                    playPauseIcon.className = 'fas fa-pause';
+                } else {
+                    desktopVideo.pause();
+                    playPauseIcon.className = 'fas fa-play';
+                }
+            });
+
+            // Mute/Unmute
+            muteBtn.addEventListener('click', () => {
+                if (desktopVideo.muted) {
+                    desktopVideo.muted = false;
+                    muteIcon.className = 'fas fa-volume-up';
+                } else {
+                    desktopVideo.muted = true;
+                    muteIcon.className = 'fas fa-volume-mute';
+                }
+            });
+
+            // Обновляем иконку при изменении состояния звука
+            desktopVideo.addEventListener('volumechange', () => {
+                muteIcon.className = desktopVideo.muted ? 
+                    'fas fa-volume-mute' : 'fas fa-volume-up';
+            });
+
+            // Автовоспроизведение при появлении в viewport
+            const videoObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        desktopVideo.play().catch(e => {
+                            console.log('Autoplay prevented:', e);
+                        });
+                    } else {
+                        desktopVideo.pause();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            videoObserver.observe(desktopPreview);
+        }
+
+        // Инициализация при загрузке
+        window.addEventListener('DOMContentLoaded', () => {
+            checkVideoSupport();
+            
+            // Предзагрузка медиа для лучшей производительности
+            if (desktopVideo.style.display !== 'none') {
+                desktopVideo.preload = 'auto';
+            }
         });
 
         // Scroll animations
