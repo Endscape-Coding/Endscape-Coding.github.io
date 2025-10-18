@@ -277,18 +277,20 @@
             margin-bottom: 2rem;
             font-size: clamp(1.8rem, 4vw, 2.5rem);
             position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
+            display: block; /* Изменено с inline-block */
+            width: 100%; /* Добавлено */
+            left: auto; /* Убрано смещение */
+            transform: none; /* Убрано трансформирование */
         }
-
+        
         .section-title::after {
             content: '';
             position: absolute;
             width: 50%;
             height: 4px;
             bottom: -15px;
-            left: 25%;
+            left: 50%; /* Центрируем */
+            transform: translateX(-50%); /* Центрируем */
             background: linear-gradient(to right, var(--primary), var(--secondary));
             border-radius: 2px;
         }
