@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon1.ico">  
+    <meta charset="UTF-8">
+    <meta name="description" content="EN-OS - все версии для загрузки. Современный дистрибутив на базе Arch Linux с предустановленным KDE Plasma.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Загрузки - EN-OS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #3498db;
+            --primary-light: #5dade2;
+            --primary-dark: #2980b9;
+            --secondary: #8a2be2;
+            --secondary-light: #9b59b6;
+            --accent: #1abc9c;
+            --dark: #0a0a0a;
+            --darker: #050505;
+            --light: #e0e0e0;
+            --gray: #1a1a1a;
+            --glass: rgba(255, 255, 255, 0.05);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--darker);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            position: relative;
+        }
+
+        .loader:before, .loader:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: var(--primary);
+            opacity: 0.6;
+            animation: pulse 2.0s infinite ease-in-out;
+        }
+
+        .loader:after {
+            animation-delay: -1.0s;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(0); opacity: 0.6; }
+            50% { transform: scale(1); opacity: 0; }
+        }
+
+        .lang-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            display: flex;
+            gap: 10px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 8px 12px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            color: var(--light);
+            cursor: pointer;
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 20px;
+            transition: var(--transition);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--darker), #1a1a2e);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            padding: 0.5rem 5%;
+            background: rgba(5, 5, 5, 0.95);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 0.9rem 2.2rem;
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.6);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--light);
+        }
+
+        .btn-outline:hover {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(to right, var(--secondary), var(--secondary-light));
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.6);
+        }
+
+        .btn-small {
+            padding: 0.7rem 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .downloads-page {
+            padding-top: 100px;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #0a0a0a, #1a1a2e);
+        }
+
+        .downloads-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .downloads-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 4px;
+            bottom: -15px;
+            left: 25%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .downloads-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .download-item {
+            background: var(--gray);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .download-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border-color: rgba(52, 152, 219, 0.3);
+        }
+
+        .download-item-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .download-item-icon {
+            font-size: 2.5rem;
+            margin-right: 1rem;
+            color: var(--primary);
+        }
+
+        .download-item-info {
+            flex-grow: 1;
+        }
+
+        .download-item-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .download-item-version {
+            color: var(--primary-light);
+            font-weight: 500;
+        }
+
+        .download-item-description {
+            margin-bottom: 1.5rem;
+            opacity: 0.85;
+            line-height: 1.6;
+        }
+
+        .download-item-details {
+            margin-bottom: 1.5rem;
+        }
+
+        .download-item-details ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .download-item-details li {
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+        }
+
+        .download-item-details i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+
+        .download-item-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .download-item-actions .btn {
+            flex: 1;
+        }
+
+        .download-item-actions .btn-secondary {
+            flex: 0 0 auto;
+        }
+
+        .release-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .badge-stable {
+            background: var(--accent);
+            color: white;
+        }
+
+        .badge-beta {
+            background: #f39c12;
+            color: white;
+        }
+
+        .badge-alpha {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .system-requirements {
+            margin-top: 4rem;
+            background: var(--gray);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .requirement-card {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .requirement-card h4 {
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .requirement-card p {
+            opacity: 0.8;
+        }
+
+        footer {
+            background: #050505;
+            padding: 4rem 5% 2rem;
+            position: relative;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-about p {
+            opacity: 0.8;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 1.8rem;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: var(--gray);
+            color: var(--light);
+            border-radius: 50%;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: var(--transition);
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--primary);
+            padding-left: 5px;
+        }
+
+        .footer-links i {
+            font-size: 0.8rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 2rem;
+            text-align: center;
+        }
+
+        .copyright {
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            box-shadow: 0 5px 20px rgba(52, 152, 219, 0.4);
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.6);
+        }
+
+        @media (max-width: 900px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: var(--darker);
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                gap: 1.5rem;
+                clip-path: circle(0px at 90% -10%);
+                transition: all 0.5s ease-out;
+                pointer-events: none;
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                clip-path: circle(1000px at 90% -10%);
+                pointer-events: all;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .downloads-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .download-item-actions {
+                flex-direction: column;
+            }
+
+            .downloads-container {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .lang-switcher {
+                top: 15px;
+                right: 15px;
+                padding: 6px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="preloader" id="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="ru">RU</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+
+    <header id="header">
+        <nav>
+            <a href="index.html" class="logo">
+                <i class="fas fa-code"></i>
+                <span>EN-OS</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link" data-ru="Главная" data-en="Home">Главная</a>
+                <a href="index.html#features" class="nav-link" data-ru="Особенности" data-en="Features">Особенности</a>
+                <a href="index.html#screenshots" class="nav-link" data-ru="Скриншоты" data-en="Screenshots">Скриншоты</a>
+                <a href="index.html#installation" class="nav-link" data-ru="Установка" data-en="Installation">Установка</a>
+                <a href="downloads.html" class="nav-link" data-ru="Загрузки" data-en="Downloads">Загрузки</a>
+                <a href="https://github.com/Endscape-Coding/EN-OS" target="_blank" class="nav-link" data-ru="GitHub" data-en="GitHub">GitHub</a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <section class="downloads-page">
+        <div class="downloads-container">
+            <div class="downloads-header">
+                <h1 class="section-title" data-ru="Загрузки EN-OS" data-en="EN-OS Downloads">Загрузки EN-OS</h1>
+                <p class="section-subtitle" data-ru="Выберите подходящую версию для загрузки. Все образы проверены на безопасность и готовы к использованию." data-en="Choose the appropriate version to download. All images are security checked and ready to use.">Выберите подходящую версию для загрузки. Все образы проверены на безопасность и готовы к использованию.</p>
+            </div>
+
+            <div class="downloads-grid">
+                <div class="download-item animate-on-scroll">
+                    <div class="download-item-header">
+                        <div class="download-item-icon">
+                            <i class="fas fa-desktop"></i>
+                        </div>
+                        <div class="download-item-info">
+                            <h3 class="download-item-title">EN-OS 0.8 BETA</h3>
+                            <div class="download-item-version">
+                                <span data-ru="Версия 0.8 BETA" data-en="Version 0.8 BETA">Версия 0.8 BETA</span>
+                                <span class="release-badge badge-beta" data-ru="БЕТА" data-en="BETA">БЕТА</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="download-item-description" data-ru="Первая стабильная бета-версия EN-OS с предустановленным KDE Plasma, набором офисных приложений и медиа-плееров." data-en="First stable beta version of EN-OS with pre-installed KDE Plasma, office applications and media players.">
+                        Первая стабильная бета-версия EN-OS с предустановленным KDE Plasma, набором офисных приложений и медиа-плееров.
+                    </div>
+                    <div class="download-item-details">
+                        <ul>
+                            <li><i class="fas fa-hdd"></i> <span data-ru="Размер: 4.6 ГБ" data-en="Size: 4.6 GB">Размер: 4.6 ГБ</span></li>
+                            <li><i class="fas fa-calendar"></i> <span data-ru="Дата выпуска: 28.09.2025" data-en="Release date: 09/28/2025">Дата выпуска: 28.09.2025</span></li>
+                            <li><i class="fas fa-microchip"></i> <span data-ru="Архитектура: x86_64" data-en="Architecture: x86_64">Архитектура: x86_64</span></li>
+                            <li><i class="fas fa-shield-alt"></i> <span data-ru="SHA256: Проверено" data-en="SHA256: Verified">SHA256: Проверено</span></li>
+                        </ul>
+                    </div>
+                    <div class="download-item-actions">
+                        <a href="https://sourceforge.net/projects/en-os/files/EN-OS-0.8-BETA/EN-OS-EN-OS%200.8%20beta2025.09.28-x86_64.iso/download" class="btn">
+                            <i class="fas fa-download"></i>
+                            <span data-ru="Скачать ISO" data-en="Download ISO">Скачать ISO</span>
+                        </a>
+                        <a href="https://github.com/Endscape-Coding/EN-OS/releases/tag/v0.8-beta" class="btn btn-outline btn-small" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span data-ru="Релиз" data-en="Release">Релиз</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="download-item animate-on-scroll">
+                    <div class="download-item-header">
+                        <div class="download-item-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="download-item-info">
+                            <h3 class="download-item-title">EN-OS Developer Edition</h3>
+                            <div class="download-item-version">
+                                <span data-ru="Версия 0.7 ALPHA" data-en="Version 0.7 ALPHA">Версия 0.7 ALPHA</span>
+                                <span class="release-badge badge-alpha" data-ru="АЛЬФА" data-en="ALPHA">АЛЬФА</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="download-item-description" data-ru="Версия для разработчиков с предустановленными инструментами: VS Code, Git, Docker, Node.js, Python и многое другое." data-en="Developer version with pre-installed tools: VS Code, Git, Docker, Node.js, Python and more.">
+                        Версия для разработчиков с предустановленными инструментами: VS Code, Git, Docker, Node.js, Python и многое другое.
+                    </div>
+                    <div class="download-item-details">
+                        <ul>
+                            <li><i class="fas fa-hdd"></i> <span data-ru="Размер: 5.2 ГБ" data-en="Size: 5.2 GB">Размер: 5.2 ГБ</span></li>
+                            <li><i class="fas fa-calendar"></i> <span data-ru="Дата выпуска: 15.08.2025" data-en="Release date: 08/15/2025">Дата выпуска: 15.08.2025</span></li>
+                            <li><i class="fas fa-microchip"></i> <span data-ru="Архитектура: x86_64" data-en="Architecture: x86_64">Архитектура: x86_64</span></li>
+                            <li><i class="fas fa-shield-alt"></i> <span data-ru="SHA256: Проверено" data-en="SHA256: Verified">SHA256: Проверено</span></li>
+                        </ul>
+                    </div>
+                    <div class="download-item-actions">
+                        <a href="#" class="btn" disabled>
+                            <i class="fas fa-download"></i>
+                            <span data-ru="Скоро" data-en="Soon">Скоро</span>
+                        </a>
+                        <a href="https://github.com/Endscape-Coding/EN-OS" class="btn btn-outline btn-small" target="_blank">
+                            <i class="fab fa-github"></i>
+                            <span data-ru="Исходный код" data-en="Source Code">Исходный код</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="download-item animate-on-scroll">
+                    <div class="download-item-header">
+                        <div class="download-item-icon">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <div class="download-item-info">
+                            <h3 class="download-item-title">EN-OS Gaming Edition</h3>
+                            <div class="download-item-version">
+                                <span data-ru="Версия 0.6 ALPHA" data-en="Version 0.6 ALPHA">Версия 0.6 ALPHA</span>
+                                <span class="release-badge badge-alpha" data-ru="АЛЬФА" data-en="ALPHA">АЛЬФА</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="download-item-description" data-ru="Игровая версия с предустановленным Steam, Wine, PlayOnLinux и оптимизациями для игр. Поддержка NVIDIA и AMD драйверов." data-en="Gaming version with pre-installed Steam, Wine, PlayOnLinux and gaming optimizations. NVIDIA and AMD driver support.">
+                        Игровая версия с предустановленным Steam, Wine, PlayOnLinux и оптимизациями для игр. Поддержка NVIDIA и AMD драйверов.
+                    </div>
+                    <div class="download-item-details">
+                        <ul>
+                            <li><i class="fas fa-hdd"></i> <span data-ru="Размер: 6.1 ГБ" data-en="Size: 6.1 GB">Размер: 6.1 ГБ</span></li>
+                            <li><i class="fas fa-calendar"></i> <span data-ru="Дата выпуска: 01.07.2025" data-en="Release date: 07/01/2025">Дата выпуска: 01.07.2025</span></li>
+                            <li><i class="fas fa-microchip"></i> <span data-ru="Архитектура: x86_64" data-en="Architecture: x86_64">Архитектура: x86_64</span></li>
+                            <li><i class="fas fa-shield-alt"></i> <span data-ru="SHA256: Проверено" data-en="SHA256: Verified">SHA256: Проверено</span></li>
+                        </ul>
+                    </div>
+                    <div class="download-item-actions">
+                        <a href="#" class="btn" disabled>
+                            <i class="fas fa-download"></i>
+                            <span data-ru="Скоро" data-en="Soon">Скоро</span>
+                        </a>
+                        <a href="https://github.com/Endscape-Coding/EN-OS" class="btn btn-outline btn-small" target="_blank">
+                            <i class="fab fa-github"></i>
+                            <span data-ru="Исходный код" data-en="Source Code">Исходный код</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="download-item animate-on-scroll">
+                    <div class="download-item-header">
+                        <div class="download-item-icon">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <div class="download-item-info">
+                            <h3 class="download-item-title">EN-OS Server Edition</h3>
+                            <div class="download-item-version">
+                                <span data-ru="Версия 0.5 ALPHA" data-en="Version 0.5 ALPHA">Версия 0.5 ALPHA</span>
+                                <span class="release-badge badge-alpha" data-ru="АЛЬФА" data-en="ALPHA">АЛЬФА</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="download-item-description" data-ru="Серверная версия без графического интерфейса с предустановленными Docker, Nginx, PostgreSQL и инструментами мониторинга." data-en="Server version without GUI with pre-installed Docker, Nginx, PostgreSQL and monitoring tools.">
+                        Серверная версия без графического интерфейса с предустановленными Docker, Nginx, PostgreSQL и инструментами мониторинга.
+                    </div>
+                    <div class="download-item-details">
+                        <ul>
+                            <li><i class="fas fa-hdd"></i> <span data-ru="Размер: 2.3 ГБ" data-en="Size: 2.3 GB">Размер: 2.3 ГБ</span></li>
+                            <li><i class="fas fa-calendar"></i> <span data-ru="Дата выпуска: 10.05.2025" data-en="Release date: 05/10/2025">Дата выпуска: 10.05.2025</span></li>
+                            <li><i class="fas fa-microchip"></i> <span data-ru="Архитектура: x86_64" data-en="Architecture: x86_64">Архитектура: x86_64</span></li>
+                            <li><i class="fas fa-shield-alt"></i> <span data-ru="SHA256: Проверено" data-en="SHA256: Verified">SHA256: Проверено</span></li>
+                        </ul>
+                    </div>
+                    <div class="download-item-actions">
+                        <a href="#" class="btn" disabled>
+                            <i class="fas fa-download"></i>
+                            <span data-ru="Скоро" data-en="Soon">Скоро</span>
+                        </a>
+                        <a href="https://github.com/Endscape-Coding/EN-OS" class="btn btn-outline btn-small" target="_blank">
+                            <i class="fab fa-github"></i>
+                            <span data-ru="Исходный код" data-en="Source Code">Исходный код</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="system-requirements animate-on-scroll">
+                <h2 class="section-title" data-ru="Системные требования" data-en="System Requirements">Системные требования</h2>
+                <div class="requirements-grid">
+                    <div class="requirement-card">
+                        <h4 data-ru="Процессор" data-en="Processor">Процессор</h4>
+                        <p data-ru="64-битный двухъядерный 2.0 ГГц или лучше" data-en="64-bit dual-core 2.0 GHz or better">64-битный двухъядерный 2.0 ГГц или лучше</p>
+                    </div>
+                    <div class="requirement-card">
+                        <h4 data-ru="Оперативная память" data-en="Memory">Оперативная память</h4>
+                        <p data-ru="4 ГБ минимум, 8 ГБ рекомендуется" data-en="4 GB minimum, 8 GB recommended">4 ГБ минимум, 8 ГБ рекомендуется</p>
+                    </div>
+                    <div class="requirement-card">
+                        <h4 data-ru="Хранилище" data-en="Storage">Хранилище</h4>
+                        <p data-ru="20 ГБ свободного места, 40 ГБ рекомендуется" data-en="20 GB free space, 40 GB recommended">20 ГБ свободного места, 40 ГБ рекомендуется</p>
+                    </div>
+                    <div class="requirement-card">
+                        <h4 data-ru="Графика" data-en="Graphics">Графика</h4>
+                        <p data-ru="OpenGL 3.3 или лучше, 1024×768 разрешение" data-en="OpenGL 3.3 or better, 1024×768 resolution">OpenGL 3.3 или лучше, 1024×768 разрешение</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <a href="index.html" class="footer-logo">
+                    <i class="fas fa-rocket"></i>
+                    <span>EN-OS</span>
+                </a>
+                <p data-ru="Современный дистрибутив Linux на базе Arch с KDE Plasma" data-en="Modern Linux distribution based on Arch with KDE Plasma">Современный дистрибутив Linux на базе Arch с KDE Plasma</p>
+                <div class="social-links">
+                    <a href="https://github.com/Endscape-Coding" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://t.me/Linux_EN_OS" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3 data-ru="Ссылки" data-en="Links">Ссылки</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fas fa-chevron-right"></i> <span data-ru="Главная" data-en="Home">Главная</span></a></li>
+                    <li><a href="index.html#features"><i class="fas fa-chevron-right"></i> <span data-ru="Особенности" data-en="Features">Особенности</span></a></li>
+                    <li><a href="index.html#screenshots"><i class="fas fa-chevron-right"></i> <span data-ru="Скриншоты" data-en="Screenshots">Скриншоты</span></a></li>
+                    <li><a href="index.html#installation"><i class="fas fa-chevron-right"></i> <span data-ru="Установка" data-en="Installation">Установка</span></a></li>
+                    <li><a href="downloads.html"><i class="fas fa-chevron-right"></i> <span data-ru="Загрузки" data-en="Downloads">Загрузки</span></a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 data-ru="Ресурсы" data-en="Resources">Ресурсы</h3>
+                <ul class="footer-links">
+                    <li><a href="https://endscape-coding.github.io/en-search.html" target="_blank"><i class="fas fa-chevron-right"></i> <span data-ru="EN-Search" data-en="EN-Search">EN-Search</span></a></li>
+                    <li><a href="https://t.me/enos_community" target="_blank"><i class="fas fa-chevron-right"></i> <span data-ru="Форум" data-en="Forum">Форум</span></a></li>
+                    <li><a href="https://t.me/enbugreports" target="_blank"><i class="fas fa-chevron-right"></i> <span data-ru="Багрепорты" data-en="Bug Reports">Багрепорты</span></a></li>
+                    <li><a href="https://t.me/Linux_EN_OS" target="_blank"><i class="fas fa-chevron-right"></i> <span data-ru="Блог" data-en="Blog">Блог</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="copyright" data-ru="© 2025 EN-OS. Все права защищены." data-en="© 2025 EN-OS. All rights reserved.">© 2025 EN-OS. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.classList.add('hidden');
+            }, 1500);
+        });
+
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ?
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        const animateElements = document.querySelectorAll('.animate-on-scroll');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        });
+
+        animateElements.forEach(el => observer.observe(el));
+
+        const langBtns = document.querySelectorAll('.lang-btn');
+        const langElements = document.querySelectorAll('[data-ru], [data-en]');
+
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.dataset.lang;
+                langBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                langElements.forEach(el => {
+                    if (el.dataset[lang]) {
+                        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                            el.value = el.dataset[lang];
+                        } else {
+                            el.textContent = el.dataset[lang];
+                        }
+                    }
+                });
+                document.documentElement.lang = lang;
+            });
+        });
+    </script>
+</body>
+</html>
