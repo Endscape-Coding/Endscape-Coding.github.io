@@ -10,9 +10,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
         :root {
-            --primary: #8a2be2;
-            --secondary: #6a0dad;
-            --accent: #ff6b6b;
+            --primary: #3498db;
+            --primary-light: #5dade2;
+            --primary-dark: #2980b9;
+            --secondary: #8a2be2;
+            --secondary-light: #9b59b6;
+            --accent: #1abc9c;
             --dark: #0a0a0a;
             --darker: #050505;
             --light: #e0e0e0;
@@ -129,7 +132,7 @@
         }
 
         header {
-            background: linear-gradient(135deg, var(--darker), var(--gray));
+            background: linear-gradient(135deg, var(--darker), #1a1a2e);
             padding: 1rem 5%;
             position: fixed;
             width: 100%;
@@ -234,8 +237,8 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(138, 43, 226, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(106, 13, 173, 0.1) 0%, transparent 40%);
+                radial-gradient(circle at 20% 30%, rgba(52, 152, 219, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(138, 43, 226, 0.1) 0%, transparent 40%);
             pointer-events: none;
         }
 
@@ -249,7 +252,7 @@
         .hero h1 {
             font-size: clamp(2.5rem, 5vw, 4rem);
             margin-bottom: 1.5rem;
-            background: linear-gradient(to right, #fff, #aaa);
+            background: linear-gradient(to right, #fff, var(--primary-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             line-height: 1.2;
@@ -273,13 +276,13 @@
             justify-content: center;
             gap: 8px;
             padding: 0.9rem 2.2rem;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
             color: white;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
             transition: var(--transition);
-            box-shadow: 0 4px 15px rgba(110, 72, 170, 0.4);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
             border: none;
             cursor: pointer;
             font-size: 1rem;
@@ -287,7 +290,7 @@
 
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.6);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.6);
         }
 
         .btn-outline {
@@ -297,8 +300,17 @@
         }
 
         .btn-outline:hover {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
             color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(to right, var(--secondary), var(--secondary-light));
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.6);
         }
 
         .desktop-preview {
@@ -368,6 +380,7 @@
             padding: 6rem 5%;
             position: relative;
             overflow: hidden;
+            background: linear-gradient(to bottom, var(--darker), #1a1a2e);
         }
 
         .section-title {
@@ -418,7 +431,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(106, 13, 173, 0.1));
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(138, 43, 226, 0.1));
             z-index: -1;
         }
 
@@ -430,7 +443,7 @@
         .feature-card:hover {
             transform: translateY(-10px) !important;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            border-color: rgba(138, 43, 226, 0.3);
+            border-color: rgba(52, 152, 219, 0.3);
         }
 
         .feature-icon {
@@ -510,6 +523,7 @@
         .installation {
             padding: 6rem 5%;
             position: relative;
+            background: linear-gradient(to bottom, #1a1a2e, var(--darker));
         }
 
         .steps {
@@ -543,7 +557,7 @@
             margin-right: 1.5rem;
             flex-shrink: 0;
             font-size: 1.2rem;
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
         }
 
         .step-content {
@@ -698,7 +712,7 @@
         .download-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            border-color: rgba(138, 43, 226, 0.3);
+            border-color: rgba(52, 152, 219, 0.3);
         }
 
         .coming-soon {
@@ -851,7 +865,7 @@
             opacity: 0;
             visibility: hidden;
             transition: var(--transition);
-            box-shadow: 0 5px 20px rgba(138, 43, 226, 0.4);
+            box-shadow: 0 5px 20px rgba(52, 152, 219, 0.4);
             z-index: 999;
         }
 
@@ -862,7 +876,112 @@
 
         .back-to-top:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.6);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.6);
+        }
+
+        /* Стили для отдельной страницы загрузок */
+        .downloads-page {
+            padding-top: 100px;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #0a0a0a, #1a1a2e);
+        }
+
+        .downloads-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .downloads-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .downloads-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .download-item {
+            background: var(--gray);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .download-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border-color: rgba(52, 152, 219, 0.3);
+        }
+
+        .download-item-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .download-item-icon {
+            font-size: 2.5rem;
+            margin-right: 1rem;
+            color: var(--primary);
+        }
+
+        .download-item-info {
+            flex-grow: 1;
+        }
+
+        .download-item-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .download-item-version {
+            color: var(--primary-light);
+            font-weight: 500;
+        }
+
+        .download-item-description {
+            margin-bottom: 1.5rem;
+            opacity: 0.85;
+            line-height: 1.6;
+        }
+
+        .download-item-details {
+            margin-bottom: 1.5rem;
+        }
+
+        .download-item-details ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .download-item-details li {
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+        }
+
+        .download-item-details i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+
+        .download-item-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .download-item-actions .btn {
+            flex: 1;
+        }
+
+        .download-item-actions .btn-secondary {
+            flex: 0 0 auto;
         }
 
         @media (max-width: 1024px) {
@@ -923,6 +1042,10 @@
                 width: 100%;
                 max-width: 350px;
             }
+
+            .downloads-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 768px) {
@@ -937,6 +1060,10 @@
             }
 
             .method-tabs {
+                flex-direction: column;
+            }
+
+            .download-item-actions {
                 flex-direction: column;
             }
         }
@@ -964,6 +1091,46 @@
                 right: 15px;
                 padding: 6px 10px;
             }
+
+            .downloads-container {
+                padding: 1rem;
+            }
+        }
+
+        /* Оптимизация видео для мобильных устройств */
+        @media (max-width: 768px) {
+            .desktop-video {
+                /* Уменьшаем качество видео на мобильных устройствах для лучшей производительности */
+                max-width: 100%;
+                height: auto;
+            }
+            
+            .desktop-preview {
+                /* Убираем анимацию на мобильных для экономии ресурсов */
+                animation: none;
+                position: relative;
+                width: 100%;
+                margin-top: 2rem;
+            }
+            
+            .media-controls {
+                /* Увеличиваем кнопки управления для удобства на мобильных */
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .media-btn {
+                width: 44px;
+                height: 44px;
+            }
+        }
+
+        /* Отключение автовоспроизведения видео на мобильных устройствах для экономии трафика */
+        @media (max-width: 768px) {
+            .desktop-video {
+                /* Автовоспроизведение отключено по умолчанию на мобильных */
+                autoplay: false;
+            }
         }
     </style>
 </head>
@@ -989,6 +1156,7 @@
                 <a href="#screenshots" class="nav-link" data-ru="Скриншоты" data-en="Screenshots">Скриншоты</a>
                 <a href="#installation" class="nav-link" data-ru="Установка" data-en="Installation">Установка</a>
                 <a href="#download" class="nav-link" data-ru="Скачать" data-en="Download">Скачать</a>
+                <a href="downloads.html" class="nav-link" data-ru="Все загрузки" data-en="All Downloads">Все загрузки</a>
                 <a href="https://github.com/Endscape-Coding/EN-OS" target="_blank" class="nav-link" data-ru="GitHub" data-en="GitHub">GitHub</a>
             </div>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -1010,11 +1178,15 @@
                     <i class="fas fa-terminal"></i>
                     <span data-ru="Установка" data-en="Install">Установка</span>
                 </a>
+                <a href="downloads.html" class="btn btn-secondary">
+                    <i class="fas fa-arrow-down"></i>
+                    <span data-ru="Все загрузки" data-en="All Downloads">Все загрузки</span>
+                </a>
             </div>
         </div>
         
         <div class="desktop-preview" id="desktopPreview">
-            <video class="desktop-video" id="desktopVideo" loop muted playsinline>
+            <video class="desktop-video" id="desktopVideo" loop muted playsinline preload="metadata">
                 <source src="/videos/desktop-demo.mp4" type="video/mp4">
                 <source src="/videos/desktop-demo.webm" type="video/webm">
             </video>
@@ -1180,7 +1352,7 @@
     <section class="download" id="download">
         <h2 class="section-title animate__animated animate__fadeIn" data-ru="Cкачать EN OS" data-en="Download EN OS">Скачать EN OS</h2>
         <div class="section-header">
-            <p class="section-subtitle" data-ru="Выберите подходящую версию для загрузки" data-en="Choose the appropriate version to download">Выберите подходящую версию для загрузки</p>
+            <p class="section-subtitle" data-ru='Остальные версии и редакции EN-OS находятся во "всех загрузках"' data-en='The remaining versions and editions of EN-OS are in "all downloads"'>Остальные версии и редакции EN-OS находятся во "всех загрузках"</p>
         </div>
         <div class="download-options">
             <div class="download-card animate-on-scroll">
@@ -1200,7 +1372,17 @@
                     <a href="https://sourceforge.net/projects/en-os/files/EN-OS-0.8-BETA/EN-OS-EN-OS%200.8%20beta2025.09.28-x86_64.iso/download" class="btn" data-ru="Скачать" data-en="Download">Скачать</a>
                 </div>
             </div>
-            <div class="download-card animate-on-scroll coming-soon">
+        </div>
+        
+        <!-- Кнопка для перехода на страницу всех загрузок -->
+        <div class="all-downloads-btn-container" style="text-align: center; margin-top: 2rem;">
+            <a href="/downloads" class="btn btn-secondary" data-ru="Все загрузки" data-en="All Downloads">
+                <i class="fas fa-download" style="margin-right: 0.5rem;"></i>
+                Все загрузки
+            </a>
+        </div>
+    </section>
+           <!--<div class="download-card animate-on-scroll coming-soon">
                 <div class="download-icon">
                     <i class="fas fa-code"></i>
                 </div>
@@ -1223,7 +1405,7 @@
                 <div class="download-btn-container">
                     <button class="btn" disabled data-ru="Скоро" data-en="Soon">Скоро</button>
                 </div>
-            </div>
+            </div>-->
         </div>
     </section>
 
@@ -1252,6 +1434,7 @@
                     <li><a href="#screenshots"><i class="fas fa-chevron-right"></i> <span data-ru="Скриншоты" data-en="Screenshots">Скриншоты</span></a></li>
                     <li><a href="#installation"><i class="fas fa-chevron-right"></i> <span data-ru="Установка" data-en="Installation">Установка</span></a></li>
                     <li><a href="#download"><i class="fas fa-chevron-right"></i> <span data-ru="Скачать" data-en="Download">Скачать</span></a></li>
+                    <li><a href="downloads.html"><i class="fas fa-chevron-right"></i> <span data-ru="Все загрузки" data-en="All Downloads">Все загрузки</span></a></li>
                 </ul>
             </div>
             <div class="footer-section">
@@ -1436,25 +1619,43 @@
                     'fas fa-volume-mute' : 'fas fa-volume-up';
             });
 
-            const videoObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        desktopVideo.play().catch(e => {
-                            console.log('Autoplay prevented:', e);
-                        });
-                    } else {
-                        desktopVideo.pause();
-                    }
-                });
-            }, { threshold: 0.5 });
+            // Оптимизация для мобильных устройств
+            const isMobile = window.innerWidth <= 768;
+            
+            if (!isMobile) {
+                const videoObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            desktopVideo.play().catch(e => {
+                                console.log('Autoplay prevented:', e);
+                            });
+                        } else {
+                            desktopVideo.pause();
+                        }
+                    });
+                }, { threshold: 0.5 });
 
-            videoObserver.observe(desktopPreview);
+                videoObserver.observe(desktopPreview);
+            } else {
+                // На мобильных устройствах не автовоспроизводим видео для экономии трафика
+                desktopVideo.pause();
+                playPauseIcon.className = 'fas fa-play';
+            }
         }
 
         window.addEventListener('DOMContentLoaded', () => {
             checkVideoSupport();
             if (desktopVideo.style.display !== 'none') {
-                desktopVideo.preload = 'auto';
+                desktopVideo.preload = 'metadata'; // Оптимизация загрузки
+            }
+        });
+
+        // Адаптация видео для мобильных устройств
+        window.addEventListener('resize', () => {
+            const isMobile = window.innerWidth <= 768;
+            if (isMobile && desktopVideo) {
+                desktopVideo.pause();
+                playPauseIcon.className = 'fas fa-play';
             }
         });
     </script>
