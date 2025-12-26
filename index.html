@@ -1321,7 +1321,7 @@
                             <li data-ru="Размонтируйте устройство, если оно смонтировано" data-en="Unmount the device if mounted">Размонтируйте устройство, если оно смонтировано</li>
                             <li data-ru="Выполните команду записи:" data-en="Run the write command:">Выполните команду записи:</li>
                         </ol>
-                        <code>dd if=en-os-0.6-beta.iso of=/dev/sdX bs=4M status=progress oflag=sync</code>
+                        <code>dd if=en-os-0.9-beta.iso of=/dev/sdX bs=4M status=progress oflag=sync</code>
                         <p data-ru="ВАЖНО: Замените /dev/sdX на фактический путь к вашему устройству. Неправильное использование может привести к потере данных!" data-en="IMPORTANT: Replace /dev/sdX with your actual device path. Incorrect usage may lead to data loss!">ВАЖНО: Замените /dev/sdX на фактический путь к вашему устройству. Неправильное использование может привести к потере данных!</p>
                     </div>
                     
@@ -1359,7 +1359,7 @@
                 <div class="download-icon">
                     <i class="fas fa-desktop"></i>
                 </div>
-                <h3 data-ru="Стандартная версия" data-en="Standard Edition">EN-OS 0.8 BETA</h3>
+                <h3 data-ru="Стандартная версия" data-en="Standard Edition">EN-OS 0.9 BETA</h3>
                 <div class="download-card-content">
                     <p data-ru="Первая и пока единственная готовая версия EN-OS" data-en="First version">Первая и пока единственная готовая версия EN-OS</p>
                     <ul style="margin-top: 1rem; padding-left: 1.2rem; opacity: 0.8;">
@@ -1369,12 +1369,11 @@
                     </ul>
                 </div>
                 <div class="download-btn-container">
-                    <a href="https://sourceforge.net/projects/en-os/files/EN-OS-0.8-BETA/EN-OS-EN-OS%200.8%20beta2025.09.28-x86_64.iso/download" class="btn" data-ru="Скачать" data-en="Download">Скачать</a>
+                    <a href="https://sourceforge.net/projects/en-os/files/EN-OS-0.9-BETA/EN-OS-EN-OS%200.9%20beta2025.12.26-x86_64.iso/download" class="btn" data-ru="Скачать" data-en="Download">Скачать</a>
                 </div>
             </div>
         </div>
         
-        <!-- Кнопка для перехода на страницу всех загрузок -->
         <div class="all-downloads-btn-container" style="text-align: center; margin-top: 2rem;">
             <a href="/downloads" class="btn btn-secondary" data-ru="Все загрузки" data-en="All Downloads">
                 <i class="fas fa-download" style="margin-right: 0.5rem;"></i>
@@ -1618,8 +1617,6 @@
                 muteIcon.className = desktopVideo.muted ? 
                     'fas fa-volume-mute' : 'fas fa-volume-up';
             });
-
-            // Оптимизация для мобильных устройств
             const isMobile = window.innerWidth <= 768;
             
             if (!isMobile) {
@@ -1637,7 +1634,6 @@
 
                 videoObserver.observe(desktopPreview);
             } else {
-                // На мобильных устройствах не автовоспроизводим видео для экономии трафика
                 desktopVideo.pause();
                 playPauseIcon.className = 'fas fa-play';
             }
@@ -1646,11 +1642,10 @@
         window.addEventListener('DOMContentLoaded', () => {
             checkVideoSupport();
             if (desktopVideo.style.display !== 'none') {
-                desktopVideo.preload = 'metadata'; // Оптимизация загрузки
+                desktopVideo.preload = 'metadata'; 
             }
         });
 
-        // Адаптация видео для мобильных устройств
         window.addEventListener('resize', () => {
             const isMobile = window.innerWidth <= 768;
             if (isMobile && desktopVideo) {
