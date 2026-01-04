@@ -778,7 +778,6 @@
                     </div>
                 </div>
 
-                <!-- Developer Edition -->
                 <div class="download-item animate-on-scroll">
                     <div class="download-item-header">
                         <div class="download-item-icon">
@@ -815,7 +814,6 @@
                     </div>
                 </div>
 
-                <!-- Gaming Edition -->
                 <div class="download-item animate-on-scroll">
                     <div class="download-item-header">
                         <div class="download-item-icon">
@@ -924,13 +922,10 @@
     </div>
 
     <script>
-        // Инициализация данных из config.js
         document.addEventListener('DOMContentLoaded', function() {
-            // Заполняем ссылки для скачивания
             document.getElementById('downloadSourceForge').href = config.downloadLinks.sourceForge;
             document.getElementById('downloadTorrent').href = config.downloadLinks.torrent;
             
-            // Заполняем данные основной версии
             const mainVersion = config.versions.main;
             document.getElementById('mainVersionTitle').textContent = mainVersion.title;
             document.getElementById('mainVersionText').textContent = mainVersion.versionText;
@@ -940,7 +935,6 @@
             document.getElementById('mainVersionSize').textContent = mainVersion.size;
             document.getElementById('mainVersionDate').textContent = mainVersion.releaseDate;
             
-            // Устанавливаем data-атрибуты для перевода
             document.getElementById('mainVersionText').dataset.ru = mainVersion.versionText;
             document.getElementById('mainVersionText').dataset.en = mainVersion.versionText;
             document.getElementById('mainVersionBadge').dataset.ru = mainVersion.stability;
@@ -952,7 +946,6 @@
             document.getElementById('mainVersionDate').dataset.ru = mainVersion.releaseDate;
             document.getElementById('mainVersionDate').dataset.en = mainVersion.releaseDate;
             
-            // Заполняем данные Developer Edition
             const devVersion = config.versions.developer;
             document.getElementById('devVersionTitle').textContent = devVersion.title;
             document.getElementById('devVersionText').textContent = devVersion.versionText;
@@ -962,7 +955,6 @@
             document.getElementById('devVersionSize').textContent = devVersion.size;
             document.getElementById('devVersionDate').textContent = devVersion.releaseDate;
             
-            // Заполняем данные Gaming Edition
             const gamingVersion = config.versions.gaming;
             document.getElementById('gamingVersionTitle').textContent = gamingVersion.title;
             document.getElementById('gamingVersionText').textContent = gamingVersion.versionText;
@@ -972,19 +964,16 @@
             document.getElementById('gamingVersionSize').textContent = gamingVersion.size;
             document.getElementById('gamingVersionDate').textContent = gamingVersion.releaseDate;
             
-            // Заполняем системные требования
             document.getElementById('requirementsCpu').textContent = config.systemRequirements.cpu;
             document.getElementById('requirementsRam').textContent = config.systemRequirements.ram;
             document.getElementById('requirementsStorage').textContent = config.systemRequirements.storage;
             document.getElementById('requirementsGraphics').textContent = config.systemRequirements.graphics;
             
-            // Устанавливаем копирайт
             document.getElementById('copyrightText').textContent = config.copyright;
             document.getElementById('copyrightText').dataset.ru = config.copyright;
             document.getElementById('copyrightText').dataset.en = config.copyright;
         });
 
-        // Остальные функции остаются без изменений
         function openDownloadModal() {
             document.getElementById('downloadModal').classList.add('active');
         }
