@@ -24,6 +24,39 @@
             --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
+        .download-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s ease;
+            z-index: 2000;
+        }
+        
+        .download-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .download-modal-content {
+            background: var(--gray);
+            padding: 2rem;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 350px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            text-align: center;
+            animation: fadeInUp 0.4s ease;
+        }
+
+
         * {
             margin: 0;
             padding: 0;
@@ -645,6 +678,31 @@
         }
     </style>
 </head>
+
+<div class="download-modal" id="downloadModal">
+    <div class="download-modal-content">
+        <h3 data-ru="Выберите способ загрузки" data-en="Choose download method">
+            Выберите способ загрузки
+        </h3>
+
+        <a href="https://sourceforge.net/projects/en-os/files/latest/download"
+           class="btn">
+            <i class="fas fa-cloud-download-alt"></i>
+            SourceForge
+        </a>
+
+        <a href="magnet:?xt=urn:btih:9a80d514f53859986c0eff2ccb74dc1947dcf749&dn=EN-OS-EN-OS%201.0%20Len_region2025.12.31-x86_64.iso&xl=4897609728"
+           class="btn btn-secondary">
+            <i class="fas fa-magnet"></i>
+            Torrent
+        </a>
+
+        <button class="btn btn-outline btn-small" onclick="closeDownloadModal()">
+            ✖ Закрыть
+        </button>
+    </div>
+</div>
+
 <body>
     <div class="preloader" id="preloader">
         <div class="loader"></div>
@@ -710,7 +768,7 @@
                         </ul>
                     </div>
                     <div class="download-item-actions">
-                        <a href="https://sourceforge.net/projects/en-os/files/latest/download" class="btn">
+                        <button class="btn" onclick="openDownloadModal()">
                             <i class="fas fa-download"></i>
                             <span data-ru="Скачать ISO" data-en="Download ISO">Скачать ISO</span>
                         </a>
@@ -865,6 +923,15 @@
     </div>
 
     <script>
+
+        function openDownloadModal() {
+            document.getElementById('downloadModal').classList.add('active');
+        }
+        
+        function closeDownloadModal() {
+            document.getElementById('downloadModal').classList.remove('active');
+        }
+
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             setTimeout(() => {
