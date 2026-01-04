@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <script src="config.js"></script>
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon1.ico">  
     <meta charset="UTF-8">
     <meta name="description" content="EN-OS - современный дистрибутив на базе Arch Linux с предустановленным и настроенным графическим окружением. Оптимизирован для производительности и удобства прямо из коробки для радового пользователя. Скачайте бесплатно <3">
@@ -22,6 +23,49 @@
             --gray: #1a1a1a;
             --glass: rgba(255, 255, 255, 0.05);
             --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .download-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s ease;
+            z-index: 2000;
+        }
+        
+        .download-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .download-modal-content {
+            background: var(--gray);
+            padding: 2rem;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 350px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            text-align: center;
+            animation: fadeInUp 0.4s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         * {
@@ -1128,6 +1172,26 @@
         }
     </style>
 </head>
+    
+    <div class="download-modal" id="downloadModal">
+        <div class="download-modal-content">
+            <h3 data-ru="Выберите способ загрузки" data-en="Choose download method">
+                Выберите способ загрузки
+            </h3>
+            <a id="modalSourceForge" href="#" class="btn">
+                <i class="fas fa-cloud-download-alt"></i>
+                SourceForge
+            </a>
+            <a id="modalTorrent" href="#" class="btn btn-secondary">
+                <i class="fas fa-magnet"></i>
+                Torrent
+            </a>
+            <button class="btn btn-outline btn-small" id="closeModal">
+                ✖ <span data-ru="Закрыть" data-en="Close">Закрыть</span>
+            </button>
+        </div>
+    </div>
+    
 <body>
     <div class="preloader" id="preloader">
         <div class="loader"></div>
@@ -1452,6 +1516,83 @@
     </div>
 
     <script>
+
+        unction openDownloadModal() {
+            const modal = document.getElementById('downloadModal');
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        function closeDownloadModal() {
+            const modal = document.getElementById('downloadModal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof config === 'undefined') {
+                console.error('config.js не загружен!');
+                return;
+            }
+            
+            console.log('Конфиг загружен:', config);
+            
+            const downloadBtn = document.querySelector('.download-card .btn');
+            if (downloadBtn && downloadBtn.href.includes('sourceforge.net')) {
+                downloadBtn.href = config.downloadLinks.sourceForge;
+            }
+            
+            initModal();
+            
+            const copyrightEl = document.querySelector('.copyright');
+            if (copyrightEl) {
+                copyrightEl.textContent = config.copyright;
+                copyrightEl.dataset.ru = config.copyright;
+                copyrightEl.dataset.en = config.copyright;
+            }
+        });
+        
+        function initModal() {
+            const modal = document.getElementById('downloadModal');
+            if (!modal) return;
+            
+            const sourceForgeBtn = document.getElementById('modalSourceForge');
+            const torrentBtn = document.getElementById('modalTorrent');
+            const closeBtn = document.getElementById('closeModal');
+            
+            if (sourceForgeBtn) {
+                sourceForgeBtn.href = config.downloadLinks.sourceForge;
+            }
+            
+            if (torrentBtn) {
+                torrentBtn.href = config.downloadLinks.torrent;
+                torrentBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.location.href = this.href;
+                });
+            }
+            
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeDownloadModal);
+            }
+            
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeDownloadModal();
+                }
+            });
+            
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    closeDownloadModal();
+                }
+            });
+        }
+        
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             setTimeout(() => {
