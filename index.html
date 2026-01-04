@@ -1572,8 +1572,14 @@
             const torrentBtn = document.getElementById('modalTorrent');
             const closeBtn = document.getElementById('closeModal');
             
-            if (sourceForgeBtn) {
+           if (sourceForgeBtn && config.downloadLinks) {
+                console.log('SourceForge ссылка:', config.downloadLinks.sourceForge);
                 sourceForgeBtn.href = config.downloadLinks.sourceForge;
+                sourceForgeBtn.addEventListener('click', function(e) {
+                    console.log('Клик по SourceForge');
+                    window.open(this.href, '_blank');
+                    closeDownloadModal();
+                });
             }
             
             if (torrentBtn) {
