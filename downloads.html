@@ -685,14 +685,12 @@
             Выберите способ загрузки
         </h3>
 
-        <a href="https://sourceforge.net/projects/en-os/files/latest/download"
-           class="btn">
+        <a id="downloadSourceForge" href="#" class="btn">
             <i class="fas fa-cloud-download-alt"></i>
             SourceForge
         </a>
 
-        <a href="magnet:?xt=urn:btih:9a80d514f53859986c0eff2ccb74dc1947dcf749&dn=EN-OS-EN-OS%201.0%20Len_region2025.12.31-x86_64.iso&xl=4897609728"
-           class="btn btn-secondary">
+        <a id="downloadTorrent" href="#" class="btn btn-secondary">
             <i class="fas fa-magnet"></i>
             Torrent
         </a>
@@ -741,26 +739,27 @@
             </div>
 
             <div class="downloads-grid">
+                <!-- Основная версия -->
                 <div class="download-item animate-on-scroll">
                     <div class="download-item-header">
                         <div class="download-item-icon">
                             <i class="fas fa-desktop"></i>
                         </div>
                         <div class="download-item-info">
-                            <h3 class="download-item-title">EN-OS 1.0 RELEASE</h3>
+                            <h3 class="download-item-title" id="mainVersionTitle">EN-OS 1.0 RELEASE</h3>
                             <div class="download-item-version">
-                                <span data-ru="Версия 1.0 RELEASE" data-en="Version 1.0 Release">Версия 1.0 Release</span>
-                                <span class="release-badge badge-release" data-ru="RELEASE" data-en="RELEASE">RELEASE</span>
+                                <span id="mainVersionText" data-ru="Версия 1.0 RELEASE" data-en="Version 1.0 Release">Версия 1.0 Release</span>
+                                <span id="mainVersionBadge" class="release-badge badge-stable" data-ru="STABLE" data-en="STABLE">STABLE</span>
                             </div>
                         </div>
                     </div>
-                    <div class="download-item-description" data-ru="Первая стабильная версия EN-OS с предустановленным KDE Plasma, набором офисных приложений и медиа-плееров." data-en="First stable version of EN-OS with pre-installed KDE Plasma, office applications and media players.">
+                    <div class="download-item-description" id="mainVersionDescription" data-ru="Первая стабильная версия EN-OS с предустановленным KDE Plasma, набором офисных приложений и медиа-плееров." data-en="First stable version of EN-OS with pre-installed KDE Plasma, office applications and media players.">
                         Первая стабильная версия EN-OS с предустановленным KDE Plasma, набором офисных приложений и медиа-плееров.
                     </div>
                     <div class="download-item-details">
                         <ul>
-                            <li><i class="fas fa-hdd"></i> <span data-ru="Размер: 4.6 ГБ" data-en="Size: 4.6 GB">Размер: 4.6 ГБ</span></li>
-                            <li><i class="fas fa-calendar"></i> <span data-ru="Дата выпуска: 28.09.2025" data-en="Release date: 09/28/2025">Дата выпуска: 01.01.2026</span></li>
+                            <li><i class="fas fa-hdd"></i> <span id="mainVersionSize" data-ru="Размер: 4.6 ГБ" data-en="Size: 4.6 GB">Размер: 4.6 ГБ</span></li>
+                            <li><i class="fas fa-calendar"></i> <span id="mainVersionDate" data-ru="Дата выпуска: 28.09.2025" data-en="Release date: 09/28/2025">Дата выпуска: 01.01.2026</span></li>
                             <li><i class="fas fa-microchip"></i> <span data-ru="Архитектура: x86_64" data-en="Architecture: x86_64">Архитектура: x86_64</span></li>
                             <li><i class="fas fa-shield-alt"></i> <span data-ru="SHA256: Проверено" data-en="SHA256: Verified">SHA256: Проверено</span></li>
                             <li data-ru="Логин live пользователя: root" data-en="Login live user: root">Логин live пользователя: root</li>
@@ -771,7 +770,7 @@
                         <button class="btn" onclick="openDownloadModal()">
                             <i class="fas fa-download"></i>
                             <span data-ru="Скачать ISO" data-en="Download ISO">Скачать ISO</span>
-                        </a>
+                        </button>
                         <a href="https://github.com/Endscape-Coding/EN-OS" class="btn btn-outline btn-small" target="_blank">
                             <i class="fas fa-external-link-alt"></i>
                             <span data-ru="Github" data-en="Github">Github</span>
@@ -779,26 +778,27 @@
                     </div>
                 </div>
 
+                <!-- Developer Edition -->
                 <div class="download-item animate-on-scroll">
                     <div class="download-item-header">
                         <div class="download-item-icon">
                             <i class="fas fa-code"></i>
                         </div>
                         <div class="download-item-info">
-                            <h3 class="download-item-title">EN-OS Developer Edition</h3>
+                            <h3 class="download-item-title" id="devVersionTitle">EN-OS Developer Edition</h3>
                             <div class="download-item-version">
-                                <span data-ru="XXX" data-en="XXX">XXX</span>
-                                <span class="release-badge badge-alpha" data-ru="Soon" data-en="Soon">Soon</span>
+                                <span id="devVersionText" data-ru="XXX" data-en="XXX">XXX</span>
+                                <span id="devVersionBadge" class="release-badge badge-alpha" data-ru="Soon" data-en="Soon">Soon</span>
                             </div>
                         </div>
                     </div>
-                    <div class="download-item-description" data-ru="XXX" data-en="XXX">
+                    <div class="download-item-description" id="devVersionDescription" data-ru="XXX" data-en="XXX">
                         XXX
                     </div>
                     <div class="download-item-details">
                         <ul>
-                            <li><i class="fas fa-hdd"></i> <span data-ru="Размер: XXX ГБ" data-en="Size: XXX GB">Размер: XXX ГБ</span></li>
-                            <li><i class="fas fa-calendar"></i> <span data-ru="Дата выпуска: XXX" data-en="Release date: XXX">Дата выпуска: XXX</span></li>
+                            <li><i class="fas fa-hdd"></i> <span id="devVersionSize" data-ru="Размер: XXX ГБ" data-en="Size: XXX GB">Размер: XXX ГБ</span></li>
+                            <li><i class="fas fa-calendar"></i> <span id="devVersionDate" data-ru="Дата выпуска: XXX" data-en="Release date: XXX">Дата выпуска: XXX</span></li>
                             <li><i class="fas fa-microchip"></i> <span data-ru="Архитектура: x86_64" data-en="Architecture: x86_64">Архитектура: x86_64</span></li>
                             <li><i class="fas fa-shield-alt"></i> <span data-ru="SHA256: Проверено" data-en="SHA256: Verified">SHA256: Проверено</span></li>
                         </ul>
@@ -810,31 +810,32 @@
                         </a>
                         <a href="https://github.com/Endscape-Coding/EN-OS" class="btn btn-outline btn-small" target="_blank">
                             <i class="fab fa-github"></i>
-                            <span data-ru="Github" data-en="Github">Guthub</span>
+                            <span data-ru="Github" data-en="Github">Github</span>
                         </a>
                     </div>
                 </div>
 
+                <!-- Gaming Edition -->
                 <div class="download-item animate-on-scroll">
                     <div class="download-item-header">
                         <div class="download-item-icon">
                             <i class="fas fa-gamepad"></i>
                         </div>
                         <div class="download-item-info">
-                            <h3 class="download-item-title">EN-OS Gaming Edition</h3>
+                            <h3 class="download-item-title" id="gamingVersionTitle">EN-OS Gaming Edition</h3>
                             <div class="download-item-version">
-                                <span data-ru="Версия XXX" data-en="Version XXX">Версия XXX</span>
-                                <span class="release-badge badge-alpha" data-ru="Soon" data-en="Soon">Soon</span>
+                                <span id="gamingVersionText" data-ru="Версия XXX" data-en="Version XXX">Версия XXX</span>
+                                <span id="gamingVersionBadge" class="release-badge badge-alpha" data-ru="Soon" data-en="Soon">Soon</span>
                             </div>
                         </div>
                     </div>
-                    <div class="download-item-description" data-ru="XXX" data-en="XXX">
+                    <div class="download-item-description" id="gamingVersionDescription" data-ru="XXX" data-en="XXX">
                        XXX
                     </div>
                     <div class="download-item-details">
                         <ul>
-                            <li><i class="fas fa-hdd"></i> <span data-ru="Размер: XXX ГБ" data-en="Size: XXX GB">Размер: XXX ГБ</span></li>
-                            <li><i class="fas fa-calendar"></i> <span data-ru="Дата выпуска: XXX" data-en="Release date: XXX">Дата выпуска: XXX</span></li>
+                            <li><i class="fas fa-hdd"></i> <span id="gamingVersionSize" data-ru="Размер: XXX ГБ" data-en="Size: XXX GB">Размер: XXX ГБ</span></li>
+                            <li><i class="fas fa-calendar"></i> <span id="gamingVersionDate" data-ru="Дата выпуска: XXX" data-en="Release date: XXX">Дата выпуска: XXX</span></li>
                             <li><i class="fas fa-microchip"></i> <span data-ru="Архитектура: x86_64" data-en="Architecture: x86_64">Архитектура: x86_64</span></li>
                             <li><i class="fas fa-shield-alt"></i> <span data-ru="SHA256: Проверено" data-en="SHA256: Verified">SHA256: Проверено</span></li>
                         </ul>
@@ -857,19 +858,19 @@
                 <div class="requirements-grid">
                     <div class="requirement-card">
                         <h4 data-ru="Процессор" data-en="Processor">Процессор</h4>
-                        <p data-ru="64-битный двухъядерный 2.0 ГГц или лучше" data-en="64-bit dual-core 2.0 GHz or better">64-битный двухъядерный 2.0 ГГц или лучше</p>
+                        <p id="requirementsCpu" data-ru="64-битный двухъядерный 2.0 ГГц или лучше" data-en="64-bit dual-core 2.0 GHz or better">64-битный двухъядерный 2.0 ГГц или лучше</p>
                     </div>
                     <div class="requirement-card">
                         <h4 data-ru="Оперативная память" data-en="Memory">Оперативная память</h4>
-                        <p data-ru="4 ГБ минимум, 8 ГБ рекомендуется" data-en="4 GB minimum, 8 GB recommended">4 ГБ минимум, 8 ГБ рекомендуется</p>
+                        <p id="requirementsRam" data-ru="4 ГБ минимум, 8 ГБ рекомендуется" data-en="4 GB minimum, 8 GB recommended">4 ГБ минимум, 8 ГБ рекомендуется</p>
                     </div>
                     <div class="requirement-card">
                         <h4 data-ru="Хранилище" data-en="Storage">Хранилище</h4>
-                        <p data-ru="10 ГБ свободного места, 30 ГБ рекомендуется" data-en="10 GB free space, 30 GB recommended">10 ГБ свободного места, 30 ГБ рекомендуется</p>
+                        <p id="requirementsStorage" data-ru="10 ГБ свободного места, 30 ГБ рекомендуется" data-en="10 GB free space, 30 GB recommended">10 ГБ свободного места, 30 ГБ рекомендуется</p>
                     </div>
                     <div class="requirement-card">
                         <h4 data-ru="Графика" data-en="Graphics">Графика</h4>
-                        <p data-ru="OpenGL 2.0 или лучше, 1024×768 разрешение" data-en="OpenGL 2.0 or better, 1024×768 resolution">OpenGL 2.0 или лучше, 1024×768 разрешение</p>
+                        <p id="requirementsGraphics" data-ru="OpenGL 2.0 или лучше, 1024×768 разрешение" data-en="OpenGL 2.0 or better, 1024×768 resolution">OpenGL 2.0 или лучше, 1024×768 разрешение</p>
                     </div>
                 </div>
             </div>
@@ -914,7 +915,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p class="copyright" data-ru="© 2025 EN-OS. Все права защищены." data-en="© 2025 EN-OS. All rights reserved.">© 2025 EN-OS. Все права защищены.</p>
+            <p class="copyright" id="copyrightText" data-ru="© 2025 EN-OS. Все права защищены." data-en="© 2025 EN-OS. All rights reserved.">© 2025 EN-OS. Все права защищены.</p>
         </div>
     </footer>
 
@@ -923,7 +924,67 @@
     </div>
 
     <script>
+        // Инициализация данных из config.js
+        document.addEventListener('DOMContentLoaded', function() {
+            // Заполняем ссылки для скачивания
+            document.getElementById('downloadSourceForge').href = config.downloadLinks.sourceForge;
+            document.getElementById('downloadTorrent').href = config.downloadLinks.torrent;
+            
+            // Заполняем данные основной версии
+            const mainVersion = config.versions.main;
+            document.getElementById('mainVersionTitle').textContent = mainVersion.title;
+            document.getElementById('mainVersionText').textContent = mainVersion.versionText;
+            document.getElementById('mainVersionBadge').textContent = mainVersion.stability;
+            document.getElementById('mainVersionBadge').className = 'release-badge ' + mainVersion.badgeClass;
+            document.getElementById('mainVersionDescription').textContent = mainVersion.description;
+            document.getElementById('mainVersionSize').textContent = mainVersion.size;
+            document.getElementById('mainVersionDate').textContent = mainVersion.releaseDate;
+            
+            // Устанавливаем data-атрибуты для перевода
+            document.getElementById('mainVersionText').dataset.ru = mainVersion.versionText;
+            document.getElementById('mainVersionText').dataset.en = mainVersion.versionText;
+            document.getElementById('mainVersionBadge').dataset.ru = mainVersion.stability;
+            document.getElementById('mainVersionBadge').dataset.en = mainVersion.stability;
+            document.getElementById('mainVersionDescription').dataset.ru = mainVersion.description;
+            document.getElementById('mainVersionDescription').dataset.en = mainVersion.description;
+            document.getElementById('mainVersionSize').dataset.ru = mainVersion.size;
+            document.getElementById('mainVersionSize').dataset.en = mainVersion.size;
+            document.getElementById('mainVersionDate').dataset.ru = mainVersion.releaseDate;
+            document.getElementById('mainVersionDate').dataset.en = mainVersion.releaseDate;
+            
+            // Заполняем данные Developer Edition
+            const devVersion = config.versions.developer;
+            document.getElementById('devVersionTitle').textContent = devVersion.title;
+            document.getElementById('devVersionText').textContent = devVersion.versionText;
+            document.getElementById('devVersionBadge').textContent = devVersion.stability;
+            document.getElementById('devVersionBadge').className = 'release-badge ' + devVersion.badgeClass;
+            document.getElementById('devVersionDescription').textContent = devVersion.description;
+            document.getElementById('devVersionSize').textContent = devVersion.size;
+            document.getElementById('devVersionDate').textContent = devVersion.releaseDate;
+            
+            // Заполняем данные Gaming Edition
+            const gamingVersion = config.versions.gaming;
+            document.getElementById('gamingVersionTitle').textContent = gamingVersion.title;
+            document.getElementById('gamingVersionText').textContent = gamingVersion.versionText;
+            document.getElementById('gamingVersionBadge').textContent = gamingVersion.stability;
+            document.getElementById('gamingVersionBadge').className = 'release-badge ' + gamingVersion.badgeClass;
+            document.getElementById('gamingVersionDescription').textContent = gamingVersion.description;
+            document.getElementById('gamingVersionSize').textContent = gamingVersion.size;
+            document.getElementById('gamingVersionDate').textContent = gamingVersion.releaseDate;
+            
+            // Заполняем системные требования
+            document.getElementById('requirementsCpu').textContent = config.systemRequirements.cpu;
+            document.getElementById('requirementsRam').textContent = config.systemRequirements.ram;
+            document.getElementById('requirementsStorage').textContent = config.systemRequirements.storage;
+            document.getElementById('requirementsGraphics').textContent = config.systemRequirements.graphics;
+            
+            // Устанавливаем копирайт
+            document.getElementById('copyrightText').textContent = config.copyright;
+            document.getElementById('copyrightText').dataset.ru = config.copyright;
+            document.getElementById('copyrightText').dataset.en = config.copyright;
+        });
 
+        // Остальные функции остаются без изменений
         function openDownloadModal() {
             document.getElementById('downloadModal').classList.add('active');
         }
