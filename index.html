@@ -1544,10 +1544,15 @@
             
             console.log('Конфиг загружен:', config);
             
-            const downloadBtn = document.querySelector('.download-card .btn');
-            if (downloadBtn && downloadBtn.href.includes('sourceforge.net')) {
-                downloadBtn.href = config.downloadLinks.sourceForge;
-            }
+        const downloadBtn = document.querySelector('.download-card .btn');
+        if (downloadBtn) {
+            downloadBtn.onclick = null;
+            
+            downloadBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openDownloadModal();
+            });
+        }
             
             initModal();
             
