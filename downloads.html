@@ -923,6 +923,11 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('Config loaded:', config);
+            console.log('SourceForge link:', config.downloadLinks.sourceForge);
+            console.log('Torrent link:', config.downloadLinks.torrent);
+        });
+        document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('downloadSourceForge').href = config.downloadLinks.sourceForge;
             document.getElementById('downloadTorrent').href = config.downloadLinks.torrent;
             
