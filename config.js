@@ -43,7 +43,7 @@ const config = {
                 url: "https://mega.nz/file/ваша_ссылка",
                 type: "direct",
                 colorClass: "btn-alternative"
-            },
+            }
         ]
     },
     
