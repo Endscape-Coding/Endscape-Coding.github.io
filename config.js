@@ -12,36 +12,8 @@ const config = {
                 descriptionRu: "Современное окружение рабочего стола с эффектами и настройками",
                 descriptionEn: "Modern desktop environment with effects and customization",
                 screenshots: [
-                    { src: "/images/kde-desktop.png", alt: "KDE Desktop" },
-                    { src: "/images/kde-apps.png", alt: "KDE Applications" }
-                ]
-            },
-            {
-                id: "xfce",
-                name: "XFCE",
-                nameRu: "XFCE",
-                nameEn: "XFCE",
-                icon: "fas fa-tachometer-alt",
-                description: "Легкое и быстрое окружение для слабых компьютеров",
-                descriptionRu: "Легкое и быстрое окружение для слабых компьютеров",
-                descriptionEn: "Lightweight and fast environment for low-end computers",
-                comingSoon: true,
-                screenshots: [
-                    { src: "/images/xfce-preview.jpg", alt: "XFCE Preview" }
-                ]
-            },
-            {
-                id: "gnome",
-                name: "GNOME",
-                nameRu: "GNOME",
-                nameEn: "GNOME",
-                icon: "fas fa-compass",
-                description: "Минималистичное и интуитивное окружение",
-                descriptionRu: "Минималистичное и интуитивное окружение",
-                descriptionEn: "Minimalistic and intuitive environment",
-                comingSoon: true,
-                screenshots: [
-                    { src: "/images/gnome-preview.jpg", alt: "GNOME Preview" }
+                    { src: "/images/desktop.png", alt: "KDE Desktop" },
+                    { src: "/images/apps.png", alt: "KDE Applications" }
                 ]
             }
         ]
