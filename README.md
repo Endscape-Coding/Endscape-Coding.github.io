@@ -1,1 +1,5 @@
-# Endscape-Coding.github.io
+Просто сайт для системы)
+
+Да, вайбкод, но чтож поделать
+
+[для прехода](endscape-coding.github.io)
