@@ -2490,13 +2490,16 @@
             }
         }
         
-        // Глобальные функции
         window.openDownloadModal = openDownloadModal;
         window.closeDownloadModal = closeDownloadModal;
-        window.openScreenshotModal = openScreenshotModal;
-        window.closeScreenshotModal = closeScreenshotModal;
         
-        // Автоматическая прокрутка при загрузке
+        if (typeof openScreenshotModal !== 'undefined') {
+            window.openScreenshotModal = openScreenshotModal;
+        }
+        if (typeof closeScreenshotModal !== 'undefined') {
+            window.closeScreenshotModal = closeScreenshotModal;
+        }
+        
         window.addEventListener('load', function() {
             const envSection = document.querySelector('.environment-selector-section');
             if (envSection && window.location.hash === '#environments') {
@@ -2509,6 +2512,10 @@
                 }, 500);
             }
         });
+
+    }); 
+
+});
     </script>
 </body>
 </html>
