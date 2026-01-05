@@ -915,7 +915,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p class="copyright" id="copyrightText" data-ru="© 2025 EN-OS. Все права защищены." data-en="© 2025 EN-OS. All rights reserved.">© 2025 EN-OS. Все права защищены.</p>
+            <p class="copyright" id="copyrightText" data-ru="© 2026 EN-OS. Все права защищены." data-en="© 2026 EN-OS. All rights reserved.">© 2026 EN-OS. Все права защищены.</p>
         </div>
     </footer>
 
@@ -924,16 +924,13 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Config loaded:', config);
-            console.log('SourceForge link:', config.downloadLinks.sourceForge);
-            console.log('Torrent link:', config.downloadLinks.torrent);
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('downloadSourceForge').href = config.downloadLinks.sourceForge;
-            document.getElementById('downloadTorrent').href = config.downloadLinks.torrent;
-            
-            const mainVersion = config.versions.main;
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Config loaded:', config);
+        
+        initDownloadModal();
+        
+        const mainVersion = config.versions.main;
+        if (mainVersion) {
             document.getElementById('mainVersionTitle').textContent = mainVersion.title;
             document.getElementById('mainVersionText').textContent = mainVersion.versionText;
             document.getElementById('mainVersionBadge').textContent = mainVersion.stability;
@@ -952,8 +949,10 @@
             document.getElementById('mainVersionSize').dataset.en = mainVersion.size;
             document.getElementById('mainVersionDate').dataset.ru = mainVersion.releaseDate;
             document.getElementById('mainVersionDate').dataset.en = mainVersion.releaseDate;
-            
-            const devVersion = config.versions.developer;
+        }
+        
+        const devVersion = config.versions.developer;
+        if (devVersion) {
             document.getElementById('devVersionTitle').textContent = devVersion.title;
             document.getElementById('devVersionText').textContent = devVersion.versionText;
             document.getElementById('devVersionBadge').textContent = devVersion.stability;
@@ -961,8 +960,10 @@
             document.getElementById('devVersionDescription').textContent = devVersion.description;
             document.getElementById('devVersionSize').textContent = devVersion.size;
             document.getElementById('devVersionDate').textContent = devVersion.releaseDate;
-            
-            const gamingVersion = config.versions.gaming;
+        }
+        
+        const gamingVersion = config.versions.gaming;
+        if (gamingVersion) {
             document.getElementById('gamingVersionTitle').textContent = gamingVersion.title;
             document.getElementById('gamingVersionText').textContent = gamingVersion.versionText;
             document.getElementById('gamingVersionBadge').textContent = gamingVersion.stability;
@@ -970,49 +971,187 @@
             document.getElementById('gamingVersionDescription').textContent = gamingVersion.description;
             document.getElementById('gamingVersionSize').textContent = gamingVersion.size;
             document.getElementById('gamingVersionDate').textContent = gamingVersion.releaseDate;
-            
+        }
+        
+        if (config.systemRequirements) {
             document.getElementById('requirementsCpu').textContent = config.systemRequirements.cpu;
             document.getElementById('requirementsRam').textContent = config.systemRequirements.ram;
             document.getElementById('requirementsStorage').textContent = config.systemRequirements.storage;
             document.getElementById('requirementsGraphics').textContent = config.systemRequirements.graphics;
-            
+        }
+        
+        if (config.copyright) {
             document.getElementById('copyrightText').textContent = config.copyright;
             document.getElementById('copyrightText').dataset.ru = config.copyright;
             document.getElementById('copyrightText').dataset.en = config.copyright;
-        });
+        }
+    });
 
-        function openDownloadModal() {
-            document.getElementById('downloadModal').classList.add('active');
+    function openDownloadModal() {
+        document.getElementById('downloadModal').classList.add('active');
+        document.body.style.overflow = 'hidden'; 
+    }
+    
+    function closeDownloadModal() {
+        document.getElementById('downloadModal').classList.remove('active');
+        document.body.style.overflow = 'auto'; 
+    }
+
+    function initDownloadModal() {
+        const modal = document.getElementById('downloadModal');
+        if (!modal) return;
+        
+        const primaryLinksContainer = document.getElementById('primaryDownloadLinks');
+        const alternativeLinksContainer = document.getElementById('alternativeDownloadLinks');
+        const alternativeSection = document.getElementById('alternativeDownloadsSection');
+        const closeBtn = document.getElementById('closeModal');
+        
+        if (primaryLinksContainer && config.downloadLinks && config.downloadLinks.primary) {
+            primaryLinksContainer.innerHTML = '';
+            config.downloadLinks.primary.forEach(link => {
+                const button = createDownloadButton(link);
+                primaryLinksContainer.appendChild(button);
+            });
         }
         
-        function closeDownloadModal() {
-            document.getElementById('downloadModal').classList.remove('active');
+        if (alternativeLinksContainer && config.downloadLinks && config.downloadLinks.alternative) {
+            alternativeLinksContainer.innerHTML = '';
+            config.downloadLinks.alternative.forEach(link => {
+                const button = createDownloadButton(link);
+                alternativeLinksContainer.appendChild(button);
+            });
+            
+            if (alternativeSection) {
+                if (config.downloadLinks.alternative.length > 0) {
+                    alternativeSection.style.display = 'block';
+                } else {
+                    alternativeSection.style.display = 'none';
+                }
+            }
         }
+        
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeDownloadModal);
+        }
+        
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeDownloadModal();
+            }
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeDownloadModal();
+            }
+        });
+    }
 
-        window.addEventListener('load', () => {
-            const preloader = document.getElementById('preloader');
+    function createDownloadButton(linkData) {
+        const button = document.createElement('a');
+        button.href = linkData.url || '#';
+        button.className = `btn ${linkData.colorClass || 'btn-primary'} btn-small`;
+        button.style.display = 'flex';
+        button.style.alignItems = 'center';
+        button.style.justifyContent = 'center';
+        button.style.gap = '8px';
+        button.style.marginBottom = '5px';
+        
+        const icon = document.createElement('i');
+        icon.className = linkData.icon || 'fas fa-download';
+        button.appendChild(icon);
+        
+        const textSpan = document.createElement('span');
+        if (linkData.nameRu && linkData.nameEn) {
+            textSpan.dataset.ru = linkData.nameRu;
+            textSpan.dataset.en = linkData.nameEn;
+            textSpan.textContent = linkData.nameRu;
+        } else {
+            textSpan.textContent = linkData.name || 'Download';
+        }
+        button.appendChild(textSpan);
+        
+        button.addEventListener('click', function(e) {
+            if (linkData.type === 'magnet') {
+                e.preventDefault();
+                window.location.href = linkData.url;
+            } else {
+                window.open(linkData.url, '_blank');
+            }
+            
+            closeDownloadModal();
+            
+            console.log(`Download clicked: ${linkData.id}`);
+        });
+        
+        return button;
+    }
+
+    function updateDownloadLinksText(lang) {
+        const allDownloadButtons = document.querySelectorAll('#downloadModal .btn span[data-ru]');
+        allDownloadButtons.forEach(span => {
+            if (span.dataset[lang]) {
+                span.textContent = span.dataset[lang];
+            }
+        });
+        
+        const sectionTitles = document.querySelectorAll('#downloadModal h3[data-ru], #downloadModal h4[data-ru]');
+        sectionTitles.forEach(title => {
+            if (title.dataset[lang]) {
+                title.textContent = title.dataset[lang];
+            }
+        });
+    }
+
+    window.addEventListener('load', () => {
+        const preloader = document.getElementById('preloader');
+        if (preloader) {
             setTimeout(() => {
                 preloader.classList.add('hidden');
             }, 1500);
-        });
+        }
+    });
 
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.querySelector('.nav-links');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.querySelector('.nav-links');
 
+    if (mobileMenuBtn && navLinks) {
         mobileMenuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
             mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ?
                 '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
         });
+    }
 
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (navLinks) {
                 navLinks.classList.remove('active');
-                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-            });
+                if (mobileMenuBtn) {
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            }
         });
+    });
 
-        const header = document.getElementById('header');
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href === '#' || href === '#!') return;
+            
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: target.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    const header = document.getElementById('header');
+    if (header) {
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
                 header.classList.add('scrolled');
@@ -1020,8 +1159,10 @@
                 header.classList.remove('scrolled');
             }
         });
+    }
 
-        const backToTop = document.getElementById('backToTop');
+    const backToTop = document.getElementById('backToTop');
+    if (backToTop) {
         window.addEventListener('scroll', () => {
             if (window.scrollY > 300) {
                 backToTop.classList.add('visible');
@@ -1036,9 +1177,10 @@
                 behavior: 'smooth'
             });
         });
+    }
 
-        const animateElements = document.querySelectorAll('.animate-on-scroll');
-
+    const animateElements = document.querySelectorAll('.animate-on-scroll');
+    if (animateElements.length > 0) {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1051,15 +1193,18 @@
         });
 
         animateElements.forEach(el => observer.observe(el));
+    }
 
-        const langBtns = document.querySelectorAll('.lang-btn');
-        const langElements = document.querySelectorAll('[data-ru], [data-en]');
+    const langBtns = document.querySelectorAll('.lang-btn');
+    const langElements = document.querySelectorAll('[data-ru], [data-en]');
 
+    if (langBtns.length > 0) {
         langBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const lang = btn.dataset.lang;
                 langBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
+                
                 langElements.forEach(el => {
                     if (el.dataset[lang]) {
                         if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
@@ -1069,9 +1214,13 @@
                         }
                     }
                 });
+                
                 document.documentElement.lang = lang;
+            
+                updateDownloadLinksText(lang);
             });
         });
-    </script>
+    }
+</script>
 </body>
 </html>
