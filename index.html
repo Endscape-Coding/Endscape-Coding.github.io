@@ -2746,17 +2746,25 @@
         const playPauseIcon = document.getElementById('playPauseIcon');
         const muteBtn = document.getElementById('muteBtn');
         const muteIcon = document.getElementById('muteIcon');
+        const desktopPreview = document.getElementById('desktopPreview');
         
-        if (!desktopVideo || !playPauseBtn) return;
+        if (!desktopVideo || !desktopPreview) return;
+        
+        if (desktopVideo) {
+            desktopVideo.style.display = 'block';
+        }
+        if (desktopImage) {
+            desktopImage.style.display = 'none';
+        }
         
         function checkVideoSupport() {
-            if (desktopVideo.canPlayType) {
+            if (desktopVideo.canPlayType && desktopVideo.canPlayType('video/mp4')) {
                 desktopVideo.style.display = 'block';
-                desktopImage.style.display = 'none';
+                if (desktopImage) desktopImage.style.display = 'none';
                 setupVideoControls();
             } else {
-                desktopVideo.style.display = 'none';
-                desktopImage.style.display = 'block';
+                if (desktopVideo) desktopVideo.style.display = 'none';
+                if (desktopImage) desktopImage.style.display = 'block';
                 const mediaControls = document.querySelector('.media-controls');
                 if (mediaControls) {
                     mediaControls.style.display = 'none';
@@ -2765,6 +2773,8 @@
         }
         
         function setupVideoControls() {
+            if (!playPauseBtn || !muteBtn) return;
+            
             playPauseBtn.addEventListener('click', () => {
                 if (desktopVideo.paused) {
                     desktopVideo.play();
@@ -2784,32 +2794,54 @@
             const isMobile = window.innerWidth <= 768;
             
             if (!isMobile) {
+                desktopVideo.play().catch(e => {
+                    console.log('Autoplay prevented, waiting for user interaction');
+                    desktopPreview.addEventListener('click', function initVideo() {
+                        desktopVideo.play().catch(e => console.log('Video play error:', e));
+                        desktopPreview.removeEventListener('click', initVideo);
+                    });
+                });
+                
                 const videoObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
                             desktopVideo.play().catch(e => {
-                                console.log('Autoplay prevented:', e);
+                                console.log('Autoplay prevented when visible:', e);
                             });
                         } else {
                             desktopVideo.pause();
                         }
                     });
-                }, { threshold: 0.5 });
+                }, { threshold: 0.3 });
                 
-                const desktopPreview = document.getElementById('desktopPreview');
-                if (desktopPreview) videoObserver.observe(desktopPreview);
+                videoObserver.observe(desktopPreview);
             } else {
                 desktopVideo.pause();
-                playPauseIcon.className = 'fas fa-play';
+                if (playPauseIcon) playPauseIcon.className = 'fas fa-play';
             }
+            
+            desktopVideo.addEventListener('play', () => {
+                if (playPauseIcon) playPauseIcon.className = 'fas fa-pause';
+            });
+            
+            desktopVideo.addEventListener('pause', () => {
+                if (playPauseIcon) playPauseIcon.className = 'fas fa-play';
+            });
         }
         
         checkVideoSupport();
+        
         window.addEventListener('resize', () => {
             const isMobile = window.innerWidth <= 768;
             if (isMobile && desktopVideo) {
                 desktopVideo.pause();
-                playPauseIcon.className = 'fas fa-play';
+                if (playPauseIcon) playPauseIcon.className = 'fas fa-play';
+            }
+        });
+        
+        desktopVideo.addEventListener('loadeddata', () => {
+            if (desktopPreview) {
+                desktopPreview.classList.add('visible');
             }
         });
     }
