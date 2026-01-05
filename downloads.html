@@ -1099,10 +1099,17 @@
         button.style.gap = '8px';
         button.style.marginBottom = '5px';
         
+        // Предотвращаем переход по ссылке по умолчанию
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+        });
+        
+        // Добавляем иконку
         const icon = document.createElement('i');
         icon.className = linkData.icon || 'fas fa-download';
         button.appendChild(icon);
         
+        // Добавляем текст с поддержкой локализации
         const textSpan = document.createElement('span');
         if (linkData.nameRu && linkData.nameEn) {
             textSpan.dataset.ru = linkData.nameRu;
@@ -1113,17 +1120,25 @@
         }
         button.appendChild(textSpan);
         
+        // Обработчик клика с предупреждением о дублировании
         button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation(); // Останавливаем всплытие
+            
+            console.log(`Download clicked: ${linkData.id}`);
+            
             if (linkData.type === 'magnet') {
-                e.preventDefault();
+                // Для magnet-ссылок используем window.location
                 window.location.href = linkData.url;
             } else {
+                // Для обычных ссылок открываем в новой вкладке
                 window.open(linkData.url, '_blank');
             }
             
+            // Закрываем модальное окно
             closeDownloadModal();
             
-            console.log(`Download clicked: ${linkData.id}`);
+            return false;
         });
         
         return button;
