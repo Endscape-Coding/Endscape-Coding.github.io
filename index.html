@@ -173,7 +173,8 @@
         .lang-switcher {
             position: fixed;
             top: 20px;
-            right: 20px;
+            left: 20px; /* Переместить слева */
+            right: auto; /* Убрать right */
             z-index: 1001;
             display: flex;
             gap: 10px;
@@ -182,6 +183,7 @@
             padding: 8px 12px;
             border-radius: 50px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
 
         .lang-btn {
             background: none;
