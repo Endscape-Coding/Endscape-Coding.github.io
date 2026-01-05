@@ -1822,10 +1822,8 @@
     </div>
 
     <script>
-        // Текущее выбранное окружение
         let currentEnvironment = config.environments ? config.environments.default : "kde";
         
-        // Инициализация при загрузке страницы
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Config loaded:', config);
             
@@ -1834,7 +1832,6 @@
                 return;
             }
             
-            // Основные инициализации
             initPreloader();
             initEnvironmentSelector();
             initScreenshotModal();
@@ -1848,13 +1845,10 @@
             initMethodTabs();
             initVideoControls();
             
-            // Обновление данных из конфига
             updateCopyright();
             
-            // Установка начального языка
             setInitialLanguage();
             
-            // Обновление кнопки скачивания
             const downloadBtn = document.querySelector('.download-card .btn');
             if (downloadBtn) {
                 downloadBtn.onclick = null;
@@ -1865,7 +1859,6 @@
             }
         });
         
-        // ========== ВЫБОР ОКРУЖЕНИЯ ==========
         function initEnvironmentSelector() {
             const environmentsGrid = document.getElementById('environmentsGrid');
             if (!environmentsGrid || !config.environments) {
@@ -1928,7 +1921,6 @@
                 environmentsGrid.appendChild(card);
             });
             
-            // Показываем скриншоты для выбранного окружения
             updateEnvironmentScreenshots(currentEnvironment);
         }
         
@@ -1937,13 +1929,11 @@
             
             currentEnvironment = envId;
             
-            // Обновляем активную карточку
             document.querySelectorAll('.environment-card').forEach(card => {
                 card.classList.remove('active');
                 if (card.dataset.env === envId) {
                     card.classList.add('active');
                     
-                    // Обновляем бейдж
                     const badge = card.querySelector('.environment-badge');
                     if (badge) {
                         const currentLang = document.querySelector('.lang-btn.active')?.dataset.lang || 'ru';
@@ -1952,10 +1942,8 @@
                 }
             });
             
-            // Обновляем описание в карточке скачивания
             updateDownloadCardForEnvironment(envId);
             
-            // Обновляем скриншоты
             updateEnvironmentScreenshots(envId);
             
             console.log(`Environment selected: ${envId}`);
@@ -1978,7 +1966,6 @@
                 titleEl.dataset.en = `EN-OS 1.0 ${env.nameEn || env.name}`;
             }
             
-            // Обновляем описание в карточке скачивания
             const descEl = downloadCard.querySelector('.download-card-content p');
             if (descEl && env.description) {
                 descEl.textContent = env.description;
@@ -1994,7 +1981,6 @@
             const screenshotsContainer = document.getElementById('environmentScreenshots');
             if (!screenshotsContainer) return;
             
-            // Показываем или скрываем секцию скриншотов
             if (env.screenshots && env.screenshots.length > 0) {
                 screenshotsContainer.innerHTML = `
                     <h3 data-ru="Скриншоты ${env.nameRu || env.name}" data-en="${env.nameEn || env.name} Screenshots">
@@ -2010,7 +1996,6 @@
                     </div>
                 `;
                 
-                // Инициализируем анимацию для новых элементов
                 setTimeout(() => {
                     initAnimations();
                 }, 100);
@@ -2019,7 +2004,6 @@
             }
         }
         
-        // ========== МОДАЛЬНОЕ ОКНО ДЛЯ СКРИНШОТОВ ==========
         function initScreenshotModal() {
             const modalHTML = `
                 <div class="screenshot-modal" id="screenshotModal">
@@ -2032,10 +2016,8 @@
                 </div>
             `;
             
-            // Добавляем модальное окно в DOM
             document.body.insertAdjacentHTML('beforeend', modalHTML);
             
-            // Инициализируем обработчики событий
             const modal = document.getElementById('screenshotModal');
             const closeBtn = document.getElementById('screenshotModalClose');
             
@@ -2078,14 +2060,12 @@
             }
         }
         
-        // ========== МОДАЛЬНОЕ ОКНО ДЛЯ СКАЧИВАНИЯ ==========
         function initDownloadModal() {
             const modal = document.getElementById('downloadModal');
             if (!modal) return;
             
             const closeBtn = document.getElementById('closeModal');
             
-            // Инициализация ссылок для текущего окружения
             updateDownloadLinksForEnvironment(currentEnvironment);
             
             if (closeBtn) {
@@ -2112,7 +2092,6 @@
             
             if (!config.downloadLinks) return;
             
-            // Фильтруем ссылки по окружению
             const filteredPrimary = config.downloadLinks.primary ? 
                 config.downloadLinks.primary.filter(link => 
                     !link.environments || link.environments.includes(envId)
@@ -2123,7 +2102,6 @@
                     !link.environments || link.environments.includes(envId)
                 ) : [];
             
-            // Обновляем контейнеры
             if (primaryLinksContainer) {
                 primaryLinksContainer.innerHTML = '';
                 if (filteredPrimary.length > 0) {
@@ -2144,7 +2122,6 @@
                 });
             }
             
-            // Показываем/скрываем секцию альтернативных ссылок
             if (alternativeSection) {
                 alternativeSection.style.display = filteredAlternative.length > 0 ? 'block' : 'none';
             }
@@ -2160,17 +2137,14 @@
             button.style.gap = '8px';
             button.style.marginBottom = '5px';
             
-            // Предотвращаем переход по ссылке по умолчанию
             button.addEventListener('click', function(e) {
                 e.preventDefault();
             });
             
-            // Добавляем иконку
             const icon = document.createElement('i');
             icon.className = linkData.icon || 'fas fa-download';
             button.appendChild(icon);
             
-            // Добавляем текст с поддержкой локализации
             const textSpan = document.createElement('span');
             if (linkData.nameRu && linkData.nameEn) {
                 textSpan.dataset.ru = linkData.nameRu;
@@ -2181,7 +2155,6 @@
             }
             button.appendChild(textSpan);
             
-            // Обработчик клика
             button.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -2203,7 +2176,6 @@
         }
         
         function openDownloadModal() {
-            // Обновляем ссылки для текущего окружения
             updateDownloadLinksForEnvironment(currentEnvironment);
             
             const modal = document.getElementById('downloadModal');
@@ -2221,7 +2193,6 @@
             }
         }
         
-        // ========== ЛОКАЛИЗАЦИЯ ==========
         function setInitialLanguage() {
             const savedLang = localStorage.getItem('en-os-language') || 'ru';
             const langBtn = document.querySelector(`.lang-btn[data-lang="${savedLang}"]`);
@@ -2254,7 +2225,6 @@
         function updateLanguage(lang) {
             document.documentElement.lang = lang;
             
-            // Обновляем все элементы с атрибутами data-ru/data-en
             document.querySelectorAll('[data-ru], [data-en]').forEach(el => {
                 if (el.dataset[lang]) {
                     if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
@@ -2265,10 +2235,8 @@
                 }
             });
             
-            // Обновляем выбранное окружение
             updateSelectedEnvironmentText(lang);
             
-            // Обновляем заголовки скриншотов
             updateScreenshotTitles(lang);
         }
         
@@ -2290,7 +2258,6 @@
             }
         }
         
-        // ========== ОСНОВНЫЕ ФУНКЦИИ САЙТА ==========
         function initPreloader() {
             const preloader = document.getElementById('preloader');
             if (preloader) {
@@ -2514,7 +2481,7 @@
                     });
                 }, 500);
             }
-        });
+         });
     </script>
 </body>
 </html>
