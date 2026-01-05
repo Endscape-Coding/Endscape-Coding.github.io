@@ -30,7 +30,7 @@ const config = {
                 nameRu: "Яндекс Диск",
                 nameEn: "Yandex Disk",
                 icon: "fas fa-hdd",
-                url: "https://disk.yandex.ru/d/ваша_ссылка",
+                url: "https://disk.yandex.ru/d/b_-O61kvX9HOHQ",
                 type: "direct",
                 colorClass: "btn-alternative"
             },
@@ -40,7 +40,7 @@ const config = {
                 nameRu: "MEGA",
                 nameEn: "MEGA",
                 icon: "fas fa-cloud",
-                url: "https://mega.nz/file/ваша_ссылка",
+                url: "https://mega.nz/file/SR9ATaxJ#DUmz5R3GSOwdyfINufopCV6IHE-NUbTb3gQfNJzETjo",
                 type: "direct",
                 colorClass: "btn-alternative"
             }
