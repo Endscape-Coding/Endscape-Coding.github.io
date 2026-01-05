@@ -72,6 +72,82 @@
             line-height: 1.6;
         }
 
+        .environment-selector-section {
+            padding: 4rem 5%;
+            background: linear-gradient(to bottom, #0a0a0a, #141414);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .environments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .environment-card {
+            background: var(--gray);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        .environment-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(52, 152, 219, 0.2);
+        }
+        
+        .environment-card.active {
+            border-color: var(--primary);
+            background: rgba(52, 152, 219, 0.1);
+        }
+        
+        .environment-card.coming-soon {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        
+        .environment-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .environment-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+        
+        .environment-description {
+            opacity: 0.8;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        
+        .environment-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: var(--accent);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .coming-soon-badge {
+            background: #f39c12;
+        }
+
         .preloader {
             position: fixed;
             top: 0;
@@ -719,6 +795,22 @@
         }
     </style>
 </head>
+
+<section class="environment-selector-section" id="environments">
+    <div class="container">
+        <h2 class="section-title" data-ru="Выберите окружение" data-en="Choose Environment">
+            Выберите окружение
+        </h2>
+        <p class="section-subtitle" data-ru="Выберите окружение рабочего стола для загрузки" 
+           data-en="Choose desktop environment to download">
+            Выберите окружение рабочего стола для загрузки
+        </p>
+        
+        <div class="environments-grid" id="environmentsGrid">
+            <!-- Окружения будут добавлены динамически из config.js -->
+        </div>
+    </div>
+</section>    
 
 <div class="download-modal" id="downloadModal">
     <div class="download-modal-content">
