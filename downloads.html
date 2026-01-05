@@ -678,6 +678,45 @@
                 padding: 6px 10px;
             }
         }
+        .download-links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .alternative-downloads-section {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .alternative-downloads-section h4 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+            text-align: center;
+        }
+        
+        .alternative-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.5rem;
+        }
+        
+        .btn-alternative {
+            background: linear-gradient(to right, var(--accent), #16a085);
+            box-shadow: 0 4px 15px rgba(26, 188, 156, 0.4);
+        }
+        
+        .btn-alternative:hover {
+            box-shadow: 0 8px 25px rgba(26, 188, 156, 0.6);
+        }
+        
+        .btn-small {
+            padding: 0.7rem 1.5rem;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 
@@ -686,19 +725,22 @@
         <h3 data-ru="Выберите способ загрузки" data-en="Choose download method">
             Выберите способ загрузки
         </h3>
-
-        <a id="downloadSourceForge" href="#" class="btn" onclick="startDownload('sourceforge')">
-            <i class="fas fa-cloud-download-alt"></i>
-            SourceForge
-        </a>
-
-        <a id="downloadTorrent" href="#" class="btn btn-secondary" onclick="startDownload('torrent')">
-            <i class="fas fa-magnet"></i>
-            Torrent
-        </a>
-
-        <button class="btn btn-outline btn-small" onclick="closeDownloadModal()">
-            ✖ Закрыть
+        
+        <div id="primaryDownloadLinks" class="download-links-container">
+            <!-- Основные ссылки будут добавлены динамически -->
+        </div>
+        
+        <div class="alternative-downloads-section" id="alternativeDownloadsSection">
+            <h4 data-ru="Альтернативные зеркала" data-en="Alternative mirrors">
+                Альтернативные зеркала
+            </h4>
+            <div id="alternativeDownloadLinks" class="download-links-container alternative-links">
+                <!-- Альтернативные ссылки будут добавлены динамически -->
+            </div>
+        </div>
+        
+        <button class="btn btn-outline btn-small" id="closeModal">
+            ✖ <span data-ru="Закрыть" data-en="Close">Закрыть</span>
         </button>
     </div>
 </div>
