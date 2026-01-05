@@ -1,8 +1,52 @@
 const config = {
     downloadLinks: {
-        sourceForge: "https://sourceforge.net/projects/en-os/files/latest/download",
-        torrent: "magnet:?xt=urn:btih:9a80d514f53859986c0eff2ccb74dc1947dcf749&dn=EN-OS-EN-OS%201.0%20Len_region2025.12.31-x86_64.iso&xl=4897609728"
+        primary: [
+            {
+                id: "sourceforge",
+                name: "SourceForge",
+                nameRu: "SourceForge",
+                nameEn: "SourceForge",
+                icon: "fas fa-cloud-download-alt",
+                url: "https://sourceforge.net/projects/en-os/files/latest/download",
+                type: "direct",
+                colorClass: "btn-primary"
+            },
+            {
+                id: "torrent",
+                name: "Torrent",
+                nameRu: "Торрент",
+                nameEn: "Torrent",
+                icon: "fas fa-magnet",
+                url: "magnet:?xt=urn:btih:9a80d514f53859986c0eff2ccb74dc1947dcf749&dn=EN-OS-EN-OS%201.0%20Len_region2025.12.31-x86_64.iso&xl=4897609728",
+                type: "magnet",
+                colorClass: "btn-secondary"
+            }
+        ],
+        
+        alternative: [
+            {
+                id: "yandex",
+                name: "Yandex Disk",
+                nameRu: "Яндекс Диск",
+                nameEn: "Yandex Disk",
+                icon: "fas fa-hdd",
+                url: "https://disk.yandex.ru/d/ваша_ссылка",
+                type: "direct",
+                colorClass: "btn-alternative"
+            },
+            {
+                id: "mega",
+                name: "MEGA",
+                nameRu: "MEGA",
+                nameEn: "MEGA",
+                icon: "fas fa-cloud",
+                url: "https://mega.nz/file/ваша_ссылка",
+                type: "direct",
+                colorClass: "btn-alternative"
+            },
+        ]
     },
+    
     
     versions: {
         main: {
