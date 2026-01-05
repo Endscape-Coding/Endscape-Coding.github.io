@@ -1193,24 +1193,30 @@
     </style>
 </head>
     
-    <div class="download-modal" id="downloadModal">
-        <div class="download-modal-content">
-            <h3 data-ru="Выберите способ загрузки" data-en="Choose download method">
-                Выберите способ загрузки
-            </h3>
-            <a id="modalSourceForge" href="#" class="btn">
-                <i class="fas fa-cloud-download-alt"></i>
-                SourceForge
-            </a>
-            <a id="modalTorrent" href="#" class="btn btn-secondary">
-                <i class="fas fa-magnet"></i>
-                Torrent
-            </a>
-            <button class="btn btn-outline btn-small" id="closeModal">
-                ✖ <span data-ru="Закрыть" data-en="Close">Закрыть</span>
-            </button>
+<div class="download-modal" id="downloadModal">
+    <div class="download-modal-content">
+        <h3 data-ru="Выберите способ загрузки" data-en="Choose download method">
+            Выберите способ загрузки
+        </h3>
+        
+        <div id="primaryDownloadLinks" class="download-links-container">
+            <!-- Основные ссылки будут добавлены динамически -->
         </div>
+        
+        <div class="alternative-downloads-section" id="alternativeDownloadsSection">
+            <h4 data-ru="Альтернативные зеркала" data-en="Alternative mirrors">
+                Альтернативные зеркала
+            </h4>
+            <div id="alternativeDownloadLinks" class="download-links-container alternative-links">
+                <!-- Альтернативные ссылки будут добавлены динамически -->
+            </div>
+        </div>
+        
+        <button class="btn btn-outline btn-small" id="closeModal">
+            ✖ <span data-ru="Закрыть" data-en="Close">Закрыть</span>
+        </button>
     </div>
+</div>
     
 <body>
     <div class="preloader" id="preloader">
@@ -1589,26 +1595,31 @@
             const modal = document.getElementById('downloadModal');
             if (!modal) return;
             
-            const sourceForgeBtn = document.getElementById('modalSourceForge');
-            const torrentBtn = document.getElementById('modalTorrent');
+            const primaryLinksContainer = document.getElementById('primaryDownloadLinks');
+            const alternativeLinksContainer = document.getElementById('alternativeDownloadLinks');
+            const alternativeSection = document.getElementById('alternativeDownloadsSection');
             const closeBtn = document.getElementById('closeModal');
             
-           if (sourceForgeBtn && config.downloadLinks) {
-                console.log('SourceForge ссылка:', config.downloadLinks.sourceForge);
-                sourceForgeBtn.href = config.downloadLinks.sourceForge;
-                sourceForgeBtn.addEventListener('click', function(e) {
-                    console.log('Клик по SourceForge');
-                    window.open(this.href, '_blank');
-                    closeDownloadModal();
+            if (primaryLinksContainer && config.downloadLinks.primary) {
+                primaryLinksContainer.innerHTML = '';
+                config.downloadLinks.primary.forEach(link => {
+                    const button = createDownloadButton(link);
+                    primaryLinksContainer.appendChild(button);
                 });
             }
             
-            if (torrentBtn) {
-                torrentBtn.href = config.downloadLinks.torrent;
-                torrentBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    window.location.href = this.href;
+            if (alternativeLinksContainer && config.downloadLinks.alternative) {
+                alternativeLinksContainer.innerHTML = '';
+                config.downloadLinks.alternative.forEach(link => {
+                    const button = createDownloadButton(link);
+                    alternativeLinksContainer.appendChild(button);
                 });
+                
+                if (config.downloadLinks.alternative.length > 0) {
+                    alternativeSection.style.display = 'block';
+                } else {
+                    alternativeSection.style.display = 'none';
+                }
             }
             
             if (closeBtn) {
@@ -1626,6 +1637,51 @@
                     closeDownloadModal();
                 }
             });
+        }
+        
+        function createDownloadButton(linkData) {
+            const button = document.createElement('a');
+            button.href = linkData.url;
+            button.className = `btn ${linkData.colorClass || 'btn-primary'} btn-small`;
+            button.style.display = 'flex';
+            button.style.alignItems = 'center';
+            button.style.justifyContent = 'center';
+            button.style.gap = '8px';
+            
+            // Добавляем иконку
+            const icon = document.createElement('i');
+            icon.className = linkData.icon;
+            button.appendChild(icon);
+            
+            // Добавляем текст с поддержкой локализации
+            const textSpan = document.createElement('span');
+            if (linkData.nameRu && linkData.nameEn) {
+                textSpan.dataset.ru = linkData.nameRu;
+                textSpan.dataset.en = linkData.nameEn;
+                textSpan.textContent = linkData.nameRu; // По умолчанию русский
+            } else {
+                textSpan.textContent = linkData.name;
+            }
+            button.appendChild(textSpan);
+            
+            // Обработчик клика
+            button.addEventListener('click', function(e) {
+                if (linkData.type === 'magnet') {
+                    e.preventDefault();
+                    window.location.href = linkData.url;
+                } else {
+                    // Для обычных ссылок открываем в новой вкладке
+                    window.open(linkData.url, '_blank');
+                }
+                
+                // Закрываем модальное окно
+                closeDownloadModal();
+                
+                // Можно добавить статистику/аналитику здесь
+                console.log(`Download clicked: ${linkData.id}`);
+            });
+            
+            return button;
         }
         
         window.addEventListener('load', () => {
