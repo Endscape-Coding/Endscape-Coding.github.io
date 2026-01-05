@@ -1,4 +1,20 @@
 const config = {
+    environments: {
+        default: "kde",
+        available: [
+            {
+                id: "kde",
+                name: "KDE Plasma",
+                nameRu: "KDE Plasma",
+                nameEn: "KDE Plasma",
+                icon: "fab fa-linux",
+                description: "Современное окружение рабочего стола с эффектами и настройками",
+                descriptionRu: "Современное окружение рабочего стола с эффектами и настройками",
+                descriptionEn: "Modern desktop environment with effects and customization"
+            },
+        ]
+    },
+    
     downloadLinks: {
         primary: [
             {
@@ -9,7 +25,8 @@ const config = {
                 icon: "fas fa-cloud-download-alt",
                 url: "https://sourceforge.net/projects/en-os/files/latest/download",
                 type: "direct",
-                colorClass: "btn-primary"
+                colorClass: "btn-primary",
+                environments: ["kde"] // Для каких окружений доступна эта ссылка
             },
             {
                 id: "torrent",
@@ -19,7 +36,8 @@ const config = {
                 icon: "fas fa-magnet",
                 url: "magnet:?xt=urn:btih:9a80d514f53859986c0eff2ccb74dc1947dcf749&dn=EN-OS-EN-OS%201.0%20Len_region2025.12.31-x86_64.iso&xl=4897609728",
                 type: "magnet",
-                colorClass: "btn-secondary"
+                colorClass: "btn-secondary",
+                environments: ["kde"]
             }
         ],
         
@@ -32,7 +50,8 @@ const config = {
                 icon: "fas fa-hdd",
                 url: "https://disk.yandex.ru/d/b_-O61kvX9HOHQ",
                 type: "direct",
-                colorClass: "btn-alternative"
+                colorClass: "btn-alternative",
+                environments: ["kde"]
             },
             {
                 id: "mega",
@@ -42,7 +61,8 @@ const config = {
                 icon: "fas fa-cloud",
                 url: "https://mega.nz/file/SR9ATaxJ#DUmz5R3GSOwdyfINufopCV6IHE-NUbTb3gQfNJzETjo",
                 type: "direct",
-                colorClass: "btn-alternative"
+                colorClass: "btn-alternative",
+                environments: ["kde"]
             }
         ]
     },
