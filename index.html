@@ -1447,18 +1447,307 @@
                 gap: 1rem;
             }
         }
+        .environments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .environments-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+        
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .environments-grid {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            }
+        }
+        
+        @media (min-width: 1025px) {
+            .environments-grid.has-1-item {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .environments-grid.has-2-items {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 800px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .environments-grid.has-3-items {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+            
+            .environments-grid.has-4-or-more {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+        
+        .environment-card {
+            background: var(--gray);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 300px;
+        }
+        
+        .environment-card:hover:not(.coming-soon) {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(52, 152, 219, 0.2);
+        }
+        
+        .environment-card.active {
+            border-color: var(--primary);
+            background: rgba(52, 152, 219, 0.1);
+        }
+        
+        .environment-card.coming-soon {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        
+        .environment-card.coming-soon:hover {
+            transform: none;
+            border-color: transparent;
+            box-shadow: none;
+        }
+        
+        .environment-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .environment-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: white;
+            word-break: break-word;
+        }
+        
+        .environment-description {
+            opacity: 0.8;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+        }
+        
+        .environment-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: var(--accent);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        
+        .coming-soon-badge {
+            background: #f39c12;
+        }
+        
+        .download-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s ease;
+            z-index: 2000;
+            padding: 1rem;
+        }
+        
+        .download-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .download-modal-content {
+            background: var(--gray);
+            padding: 2rem;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            text-align: center;
+            animation: fadeInUp 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .download-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .download-modal-header h3 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        
+        .download-environment-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+        
+        .download-environment-icon {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        .download-environment-details h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.2rem;
+        }
+        
+        .download-environment-details p {
+            margin: 0;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        .download-links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .alternative-downloads-section {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .alternative-downloads-section h4 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+            text-align: center;
+        }
+        
+        .alternative-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.5rem;
+        }
+        
+        .btn-alternative {
+            background: linear-gradient(to right, var(--accent), #16a085);
+            box-shadow: 0 4px 15px rgba(26, 188, 156, 0.4);
+        }
+        
+        .btn-alternative:hover {
+            box-shadow: 0 8px 25px rgba(26, 188, 156, 0.6);
+        }
+        
+        .btn-small {
+            padding: 0.7rem 1.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .no-downloads-message {
+            padding: 2rem;
+            text-align: center;
+            opacity: 0.7;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        
+        .change-environment-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--light);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0 auto 1rem auto;
+        }
+        
+        .change-environment-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--primary);
+        }
 
     </style>
 </head>
     
 <div class="download-modal" id="downloadModal">
     <div class="download-modal-content">
-        <h3 data-ru="Выберите способ загрузки" data-en="Choose download method">
-            Выберите способ загрузки
-        </h3>
+        <div class="download-modal-header">
+            <h3 data-ru="Скачать EN-OS" data-en="Download EN-OS">Скачать EN-OS</h3>
+            <button class="btn btn-outline btn-small" id="closeModal" style="margin: 0;">
+                ✖ <span data-ru="Закрыть" data-en="Close">Закрыть</span>
+            </button>
+        </div>
+        
+        <div class="download-environment-info" id="selectedEnvironmentInfo">
+            <div class="download-environment-icon">
+                <i id="selectedEnvIcon" class="fab fa-linux"></i>
+            </div>
+            <div class="download-environment-details">
+                <h4 id="selectedEnvName">KDE Plasma</h4>
+                <p id="selectedEnvDescription">Современное окружение рабочего стола с эффектами и настройками</p>
+            </div>
+        </div>
+        
+        <button class="change-environment-btn" id="changeEnvironmentBtn">
+            <i class="fas fa-exchange-alt"></i>
+            <span data-ru="Изменить окружение" data-en="Change Environment">Изменить окружение</span>
+        </button>
         
         <div id="primaryDownloadLinks" class="download-links-container">
-            <!-- Основные ссылки будут добавлены динамически -->
         </div>
         
         <div class="alternative-downloads-section" id="alternativeDownloadsSection">
@@ -1466,13 +1755,14 @@
                 Альтернативные зеркала
             </h4>
             <div id="alternativeDownloadLinks" class="download-links-container alternative-links">
-                <!-- Альтернативные ссылки будут добавлены динамически -->
             </div>
         </div>
         
-        <button class="btn btn-outline btn-small" id="closeModal">
-            ✖ <span data-ru="Закрыть" data-en="Close">Закрыть</span>
-        </button>
+        <div id="noDownloadsMessage" class="no-downloads-message" style="display: none;">
+            <p data-ru="Ссылки для скачивания скоро будут доступны" data-en="Download links will be available soon">
+                Ссылки для скачивания скоро будут доступны
+            </p>
+        </div>
     </div>
 </div>
     
@@ -1821,667 +2111,731 @@
         <i class="fas fa-arrow-up"></i>
     </div>
 
-    <script>
-        let currentEnvironment = config.environments ? config.environments.default : "kde";
+<script>
+    let currentEnvironment = config.environments ? config.environments.default : "kde";
+    let currentLanguage = localStorage.getItem('en-os-language') || 'ru';
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Config loaded:', config);
         
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Config loaded:', config);
+        if (typeof config === 'undefined') {
+            console.error('config.js не загружен!');
+            return;
+        }
+        
+        initPreloader();
+        initEnvironmentSelector();
+        initScreenshotModal();
+        initDownloadModal();
+        initMobileMenu();
+        initHeaderScroll();
+        initBackToTop();
+        initAnimations();
+        initSmoothScroll();
+        initLanguageSwitcher();
+        initMethodTabs();
+        initVideoControls();
+        
+        updateCopyright();
+        setInitialLanguage();
+        updateEnvironmentScreenshots(currentEnvironment);
+        
+        const downloadBtns = document.querySelectorAll('.btn[onclick*="openDownloadModal"]');
+        downloadBtns.forEach(btn => {
+            btn.onclick = null;
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openDownloadModal();
+            });
+        });
+        
+        const downloadCardBtn = document.querySelector('.download-card .btn');
+        if (downloadCardBtn) {
+            downloadCardBtn.onclick = null;
+            downloadCardBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openDownloadModal();
+            });
+        }
+        
+        const allDownloadsBtn = document.querySelector('.all-downloads-btn-container .btn');
+        if (allDownloadsBtn) {
+            allDownloadsBtn.href = 'downloads.html';
+        }
+    });
+    
+    function initEnvironmentSelector() {
+        const environmentsGrid = document.getElementById('environmentsGrid');
+        if (!environmentsGrid || !config.environments) return;
+        
+        environmentsGrid.innerHTML = '';
+        
+        const availableEnvs = config.environments.available || [];
+        const count = availableEnvs.length;
+        
+        environmentsGrid.className = 'environments-grid';
+        if (count === 1) {
+            environmentsGrid.classList.add('has-1-item');
+        } else if (count === 2) {
+            environmentsGrid.classList.add('has-2-items');
+        } else if (count === 3) {
+            environmentsGrid.classList.add('has-3-items');
+        } else if (count >= 4) {
+            environmentsGrid.classList.add('has-4-or-more');
+        }
+        
+        availableEnvs.forEach(env => {
+            const card = document.createElement('div');
+            card.className = `environment-card ${env.comingSoon ? 'coming-soon' : ''} ${env.id === currentEnvironment ? 'active' : ''}`;
+            card.dataset.env = env.id;
             
-            if (typeof config === 'undefined') {
-                console.error('config.js не загружен!');
-                return;
+            if (!env.comingSoon) {
+                card.addEventListener('click', () => selectEnvironment(env.id));
             }
             
-            initPreloader();
-            initEnvironmentSelector();
-            initScreenshotModal();
-            initDownloadModal();
-            initMobileMenu();
-            initHeaderScroll();
-            initBackToTop();
-            initAnimations();
-            initSmoothScroll();
-            initLanguageSwitcher();
-            initMethodTabs();
-            initVideoControls();
+            card.innerHTML = `
+                <div class="environment-icon">
+                    <i class="${env.icon || 'fab fa-linux'}"></i>
+                </div>
+                <h3 class="environment-name">${env.name}</h3>
+                <div class="environment-description">${env.description}</div>
+                ${env.comingSoon ? 
+                    '<span class="environment-badge coming-soon-badge">Coming Soon</span>' : 
+                    (env.id === currentEnvironment ? 
+                        '<span class="environment-badge">Выбрано</span>' : 
+                        '<span class="environment-badge">Доступно</span>')}
+            `;
             
-            updateCopyright();
+            const nameEl = card.querySelector('.environment-name');
+            const descEl = card.querySelector('.environment-description');
+            const badgeEl = card.querySelector('.environment-badge');
             
-            setInitialLanguage();
+            if (nameEl && env.nameRu && env.nameEn) {
+                nameEl.dataset.ru = env.nameRu;
+                nameEl.dataset.en = env.nameEn;
+            }
             
-            const downloadBtn = document.querySelector('.download-card .btn');
-            if (downloadBtn) {
-                downloadBtn.onclick = null;
-                downloadBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openDownloadModal();
-                });
+            if (descEl && env.descriptionRu && env.descriptionEn) {
+                descEl.dataset.ru = env.descriptionRu;
+                descEl.dataset.en = env.descriptionEn;
+            }
+            
+            if (badgeEl) {
+                if (env.comingSoon) {
+                    badgeEl.dataset.ru = "Скоро";
+                    badgeEl.dataset.en = "Coming Soon";
+                } else if (env.id === currentEnvironment) {
+                    badgeEl.dataset.ru = "Выбрано";
+                    badgeEl.dataset.en = "Selected";
+                } else {
+                    badgeEl.dataset.ru = "Доступно";
+                    badgeEl.dataset.en = "Available";
+                }
+            }
+            
+            environmentsGrid.appendChild(card);
+        });
+        
+        updateDownloadModalForEnvironment(currentEnvironment);
+    }
+    
+    function selectEnvironment(envId) {
+        if (!config.environments) return;
+        
+        const env = config.environments.available.find(e => e.id === envId);
+        if (!env || env.comingSoon) return;
+        
+        currentEnvironment = envId;
+        
+        document.querySelectorAll('.environment-card').forEach(card => {
+            card.classList.remove('active');
+            if (card.dataset.env === envId) {
+                card.classList.add('active');
+                
+                const badge = card.querySelector('.environment-badge');
+                if (badge) {
+                    badge.textContent = badge.dataset[currentLanguage] || (currentLanguage === 'ru' ? "Выбрано" : "Selected");
+                }
             }
         });
         
-        function initEnvironmentSelector() {
-            const environmentsGrid = document.getElementById('environmentsGrid');
-            if (!environmentsGrid || !config.environments) {
-                console.log('Environment selector not found or no environments config');
-                return;
-            }
-            
-            environmentsGrid.innerHTML = '';
-            
-            config.environments.available.forEach(env => {
-                const card = document.createElement('div');
-                card.className = `environment-card ${env.comingSoon ? 'coming-soon' : ''} ${env.id === currentEnvironment ? 'active' : ''}`;
-                card.dataset.env = env.id;
-                
-                if (!env.comingSoon) {
-                    card.addEventListener('click', () => selectEnvironment(env.id));
-                }
-                
-                card.innerHTML = `
-                    <div class="environment-icon">
-                        <i class="${env.icon || 'fab fa-linux'}"></i>
-                    </div>
-                    <h3 class="environment-name">${env.name}</h3>
-                    <p class="environment-description">${env.description}</p>
-                    ${env.comingSoon ? 
-                        '<span class="environment-badge coming-soon-badge">Coming Soon</span>' : 
-                        (env.id === currentEnvironment ? 
-                            '<span class="environment-badge">Selected</span>' : 
-                            '<span class="environment-badge">Available</span>')}
-                `;
-                
-                // Добавляем поддержку локализации
-                const nameEl = card.querySelector('.environment-name');
-                const descEl = card.querySelector('.environment-description');
-                const badgeEl = card.querySelector('.environment-badge');
-                
-                if (nameEl && env.nameRu && env.nameEn) {
-                    nameEl.dataset.ru = env.nameRu;
-                    nameEl.dataset.en = env.nameEn;
-                }
-                
-                if (descEl && env.descriptionRu && env.descriptionEn) {
-                    descEl.dataset.ru = env.descriptionRu;
-                    descEl.dataset.en = env.descriptionEn;
-                }
-                
-                if (badgeEl) {
-                    if (env.comingSoon) {
-                        badgeEl.dataset.ru = "Скоро";
-                        badgeEl.dataset.en = "Coming Soon";
-                    } else if (env.id === currentEnvironment) {
-                        badgeEl.dataset.ru = "Выбрано";
-                        badgeEl.dataset.en = "Selected";
-                    } else {
-                        badgeEl.dataset.ru = "Доступно";
-                        badgeEl.dataset.en = "Available";
-                    }
-                }
-                
-                environmentsGrid.appendChild(card);
-            });
-            
-            updateEnvironmentScreenshots(currentEnvironment);
-        }
+        updateDownloadModalForEnvironment(envId);
+        updateEnvironmentScreenshots(envId);
+        updateDownloadCardForEnvironment(envId);
+    }
+    
+    function updateEnvironmentScreenshots(envId) {
+        const env = config.environments.available.find(e => e.id === envId);
+        if (!env) return;
         
-        function selectEnvironment(envId) {
-            if (!config.environments) return;
-            
-            currentEnvironment = envId;
-            
-            document.querySelectorAll('.environment-card').forEach(card => {
-                card.classList.remove('active');
-                if (card.dataset.env === envId) {
-                    card.classList.add('active');
-                    
-                    const badge = card.querySelector('.environment-badge');
-                    if (badge) {
-                        const currentLang = document.querySelector('.lang-btn.active')?.dataset.lang || 'ru';
-                        badge.textContent = badge.dataset[currentLang] || (currentLang === 'ru' ? "Выбрано" : "Selected");
-                    }
-                }
-            });
-            
-            updateDownloadCardForEnvironment(envId);
-            
-            updateEnvironmentScreenshots(envId);
-            
-            console.log(`Environment selected: ${envId}`);
-        }
+        const screenshotsContainer = document.getElementById('environmentScreenshots');
+        if (!screenshotsContainer) return;
         
-        function updateDownloadCardForEnvironment(envId) {
-            if (!config.environments) return;
-            
-            const env = config.environments.available.find(e => e.id === envId);
-            if (!env) return;
-            
-            // Обновляем заголовок в карточке скачивания
-            const downloadCard = document.querySelector('.download-card');
-            if (!downloadCard) return;
-            
-            const titleEl = downloadCard.querySelector('h3');
-            if (titleEl) {
-                titleEl.textContent = `EN-OS 1.0 ${env.name}`;
-                titleEl.dataset.ru = `EN-OS 1.0 ${env.nameRu || env.name}`;
-                titleEl.dataset.en = `EN-OS 1.0 ${env.nameEn || env.name}`;
-            }
-            
-            const descEl = downloadCard.querySelector('.download-card-content p');
-            if (descEl && env.description) {
-                descEl.textContent = env.description;
-                descEl.dataset.ru = env.descriptionRu || env.description;
-                descEl.dataset.en = env.descriptionEn || env.description;
-            }
-        }
-        
-        function updateEnvironmentScreenshots(envId) {
-            const env = config.environments.available.find(e => e.id === envId);
-            if (!env) return;
-            
-            const screenshotsContainer = document.getElementById('environmentScreenshots');
-            if (!screenshotsContainer) return;
-            
-            if (env.screenshots && env.screenshots.length > 0) {
-                screenshotsContainer.innerHTML = `
-                    <h3 data-ru="Скриншоты ${env.nameRu || env.name}" data-en="${env.nameEn || env.name} Screenshots">
-                        Скриншоты ${env.nameRu || env.name}
-                    </h3>
-                    <div class="environment-screenshots-grid" id="environmentScreenshotsGrid">
-                        ${env.screenshots.map((screenshot, index) => `
-                            <div class="environment-screenshot animate-on-scroll" onclick="openScreenshotModal('${screenshot.src}', '${screenshot.alt}')">
-                                <img src="${screenshot.src}" alt="${screenshot.alt}" loading="lazy">
-                                <div class="environment-screenshot-caption">${screenshot.alt}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-                
-                setTimeout(() => {
-                    initAnimations();
-                }, 100);
-            } else {
-                screenshotsContainer.innerHTML = '';
-            }
-        }
-        
-        function initScreenshotModal() {
-            const modalHTML = `
-                <div class="screenshot-modal" id="screenshotModal">
-                    <div class="screenshot-modal-content">
-                        <img id="screenshotModalImage" src="" alt="">
-                        <button class="screenshot-modal-close" id="screenshotModalClose">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
+        if (env.screenshots && env.screenshots.length > 0) {
+            screenshotsContainer.innerHTML = `
+                <h3 data-ru="Скриншоты ${env.nameRu || env.name}" data-en="${env.nameEn || env.name} Screenshots">
+                    Скриншоты ${env.nameRu || env.name}
+                </h3>
+                <div class="environment-screenshots-grid" id="environmentScreenshotsGrid">
+                    ${env.screenshots.map((screenshot, index) => `
+                        <div class="environment-screenshot animate-on-scroll" onclick="openScreenshotModal('${screenshot.src}', '${screenshot.alt}')">
+                            <img src="${screenshot.src}" alt="${screenshot.alt}" loading="lazy">
+                            <div class="environment-screenshot-caption">${screenshot.alt}</div>
+                        </div>
+                    `).join('')}
                 </div>
             `;
             
-            document.body.insertAdjacentHTML('beforeend', modalHTML);
+            setTimeout(() => {
+                initAnimations();
+            }, 100);
             
-            const modal = document.getElementById('screenshotModal');
-            const closeBtn = document.getElementById('screenshotModalClose');
-            
-            if (closeBtn) {
-                closeBtn.addEventListener('click', closeScreenshotModal);
+            const titleEl = screenshotsContainer.querySelector('h3');
+            if (titleEl && titleEl.dataset[currentLanguage]) {
+                titleEl.textContent = titleEl.dataset[currentLanguage];
             }
-            
-            if (modal) {
-                modal.addEventListener('click', function(e) {
-                    if (e.target === modal) {
-                        closeScreenshotModal();
-                    }
+        } else {
+            screenshotsContainer.innerHTML = '';
+        }
+    }
+    
+    function updateDownloadCardForEnvironment(envId) {
+        if (!config.environments) return;
+        
+        const env = config.environments.available.find(e => e.id === envId);
+        if (!env) return;
+        
+        const downloadCard = document.querySelector('.download-card');
+        if (!downloadCard) return;
+        
+        const titleEl = downloadCard.querySelector('h3');
+        if (titleEl) {
+            titleEl.textContent = `EN-OS 1.0 ${env.name}`;
+            titleEl.dataset.ru = `EN-OS 1.0 ${env.nameRu || env.name}`;
+            titleEl.dataset.en = `EN-OS 1.0 ${env.nameEn || env.name}`;
+            if (titleEl.dataset[currentLanguage]) {
+                titleEl.textContent = titleEl.dataset[currentLanguage];
+            }
+        }
+        
+        const descEl = downloadCard.querySelector('.download-card-content p');
+        if (descEl && env.description) {
+            descEl.textContent = env.description;
+            descEl.dataset.ru = env.descriptionRu || env.description;
+            descEl.dataset.en = env.descriptionEn || env.description;
+            if (descEl.dataset[currentLanguage]) {
+                descEl.textContent = descEl.dataset[currentLanguage];
+            }
+        }
+    }
+    
+    function updateDownloadModalForEnvironment(envId) {
+        const env = config.environments.available.find(e => e.id === envId);
+        if (!env) return;
+        
+        const iconEl = document.getElementById('selectedEnvIcon');
+        const nameEl = document.getElementById('selectedEnvName');
+        const descEl = document.getElementById('selectedEnvDescription');
+        
+        if (iconEl) iconEl.className = env.icon || 'fab fa-linux';
+        if (nameEl) {
+            nameEl.textContent = env.name;
+            nameEl.dataset.ru = env.nameRu || env.name;
+            nameEl.dataset.en = env.nameEn || env.name;
+            if (nameEl.dataset[currentLanguage]) {
+                nameEl.textContent = nameEl.dataset[currentLanguage];
+            }
+        }
+        if (descEl) {
+            descEl.textContent = env.description;
+            descEl.dataset.ru = env.descriptionRu || env.description;
+            descEl.dataset.en = env.descriptionEn || env.description;
+            if (descEl.dataset[currentLanguage]) {
+                descEl.textContent = descEl.dataset[currentLanguage];
+            }
+        }
+        
+        updateDownloadLinksForEnvironment(envId);
+    }
+    
+    function updateDownloadLinksForEnvironment(envId) {
+        const env = config.environments.available.find(e => e.id === envId);
+        if (!env) return;
+        
+        const primaryLinksContainer = document.getElementById('primaryDownloadLinks');
+        const alternativeLinksContainer = document.getElementById('alternativeDownloadLinks');
+        const alternativeSection = document.getElementById('alternativeDownloadsSection');
+        const noDownloadsMessage = document.getElementById('noDownloadsMessage');
+        
+        const downloadLinks = env.downloadLinks || config.downloadLinks;
+        
+        if (!downloadLinks) {
+            showNoDownloadsMessage();
+            return;
+        }
+        
+        const primaryLinks = downloadLinks.primary || [];
+        const alternativeLinks = downloadLinks.alternative || [];
+        
+        if (primaryLinksContainer) {
+            primaryLinksContainer.innerHTML = '';
+            if (primaryLinks.length > 0) {
+                primaryLinks.forEach(link => {
+                    const button = createDownloadButton(link);
+                    primaryLinksContainer.appendChild(button);
                 });
+                if (noDownloadsMessage) noDownloadsMessage.style.display = 'none';
+            } else {
+                showNoDownloadsMessage();
+            }
+        }
+        
+        if (alternativeLinksContainer) {
+            alternativeLinksContainer.innerHTML = '';
+            alternativeLinks.forEach(link => {
+                const button = createDownloadButton(link);
+                alternativeLinksContainer.appendChild(button);
+            });
+        }
+        
+        if (alternativeSection) {
+            alternativeSection.style.display = alternativeLinks.length > 0 ? 'block' : 'none';
+        }
+        
+        function showNoDownloadsMessage() {
+            if (noDownloadsMessage) {
+                noDownloadsMessage.style.display = 'block';
+                if (noDownloadsMessage.dataset[currentLanguage]) {
+                    noDownloadsMessage.querySelector('p').textContent = noDownloadsMessage.dataset[currentLanguage];
+                }
+            }
+            if (primaryLinksContainer) {
+                primaryLinksContainer.innerHTML = '';
+            }
+        }
+    }
+    
+    function createDownloadButton(linkData) {
+        const button = document.createElement('a');
+        button.href = linkData.url || '#';
+        button.className = `btn ${linkData.colorClass || 'btn-primary'} btn-small`;
+        button.style.display = 'flex';
+        button.style.alignItems = 'center';
+        button.style.justifyContent = 'center';
+        button.style.gap = '8px';
+        button.style.marginBottom = '5px';
+        
+        const icon = document.createElement('i');
+        icon.className = linkData.icon || 'fas fa-download';
+        button.appendChild(icon);
+        
+        const textSpan = document.createElement('span');
+        if (linkData.nameRu && linkData.nameEn) {
+            textSpan.dataset.ru = linkData.nameRu;
+            textSpan.dataset.en = linkData.nameEn;
+            textSpan.textContent = currentLanguage === 'ru' ? linkData.nameRu : linkData.nameEn;
+        } else {
+            textSpan.textContent = linkData.name || 'Download';
+        }
+        button.appendChild(textSpan);
+        
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            if (linkData.type === 'magnet') {
+                window.location.href = linkData.url;
+            } else {
+                window.open(linkData.url, '_blank');
             }
             
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeDownloadModal();
+            return false;
+        });
+        
+        return button;
+    }
+    
+    function initScreenshotModal() {
+        const modalHTML = `
+            <div class="screenshot-modal" id="screenshotModal">
+                <div class="screenshot-modal-content">
+                    <img id="screenshotModalImage" src="" alt="">
+                    <button class="screenshot-modal-close" id="screenshotModalClose">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        
+        const modal = document.getElementById('screenshotModal');
+        const closeBtn = document.getElementById('screenshotModalClose');
+        
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeScreenshotModal);
+        }
+        
+        if (modal) {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
                     closeScreenshotModal();
                 }
             });
         }
         
-        function openScreenshotModal(src, alt) {
-            const modal = document.getElementById('screenshotModal');
-            const img = document.getElementById('screenshotModalImage');
-            
-            if (modal && img) {
-                img.src = src;
-                img.alt = alt;
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeScreenshotModal();
             }
+        });
+    }
+    
+    function openScreenshotModal(src, alt) {
+        const modal = document.getElementById('screenshotModal');
+        const img = document.getElementById('screenshotModalImage');
+        
+        if (modal && img) {
+            img.src = src;
+            img.alt = alt;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+    
+    function closeScreenshotModal() {
+        const modal = document.getElementById('screenshotModal');
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    }
+    
+    function initDownloadModal() {
+        const modal = document.getElementById('downloadModal');
+        if (!modal) return;
+        
+        const closeBtn = document.getElementById('closeModal');
+        const changeEnvBtn = document.getElementById('changeEnvironmentBtn');
+        
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeDownloadModal);
         }
         
-        function closeScreenshotModal() {
-            const modal = document.getElementById('screenshotModal');
-            if (modal) {
-                modal.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        }
-        
-        function initDownloadModal() {
-            const modal = document.getElementById('downloadModal');
-            if (!modal) return;
-            
-            const closeBtn = document.getElementById('closeModal');
-            
-            updateDownloadLinksForEnvironment(currentEnvironment);
-            
-            if (closeBtn) {
-                closeBtn.addEventListener('click', closeDownloadModal);
-            }
-            
-            modal.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    closeDownloadModal();
-                }
-            });
-            
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && modal.classList.contains('active')) {
-                    closeDownloadModal();
-                }
-            });
-        }
-        
-        function updateDownloadLinksForEnvironment(envId) {
-            const primaryLinksContainer = document.getElementById('primaryDownloadLinks');
-            const alternativeLinksContainer = document.getElementById('alternativeDownloadLinks');
-            const alternativeSection = document.getElementById('alternativeDownloadsSection');
-            
-            if (!config.downloadLinks) return;
-            
-            const filteredPrimary = config.downloadLinks.primary ? 
-                config.downloadLinks.primary.filter(link => 
-                    !link.environments || link.environments.includes(envId)
-                ) : [];
-            
-            const filteredAlternative = config.downloadLinks.alternative ? 
-                config.downloadLinks.alternative.filter(link => 
-                    !link.environments || link.environments.includes(envId)
-                ) : [];
-            
-            if (primaryLinksContainer) {
-                primaryLinksContainer.innerHTML = '';
-                if (filteredPrimary.length > 0) {
-                    filteredPrimary.forEach(link => {
-                        const button = createDownloadButton(link);
-                        primaryLinksContainer.appendChild(button);
-                    });
-                } else {
-                    primaryLinksContainer.innerHTML = '<p style="opacity: 0.7; text-align: center;" data-ru="Ссылки для скачивания скоро будут" data-en="Download links will be available soon">Ссылки для скачивания скоро будут</p>';
-                }
-            }
-            
-            if (alternativeLinksContainer) {
-                alternativeLinksContainer.innerHTML = '';
-                filteredAlternative.forEach(link => {
-                    const button = createDownloadButton(link);
-                    alternativeLinksContainer.appendChild(button);
-                });
-            }
-            
-            if (alternativeSection) {
-                alternativeSection.style.display = filteredAlternative.length > 0 ? 'block' : 'none';
-            }
-        }
-        
-        function createDownloadButton(linkData) {
-            const button = document.createElement('a');
-            button.href = linkData.url || '#';
-            button.className = `btn ${linkData.colorClass || 'btn-primary'} btn-small`;
-            button.style.display = 'flex';
-            button.style.alignItems = 'center';
-            button.style.justifyContent = 'center';
-            button.style.gap = '8px';
-            button.style.marginBottom = '5px';
-            
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-            });
-            
-            const icon = document.createElement('i');
-            icon.className = linkData.icon || 'fas fa-download';
-            button.appendChild(icon);
-            
-            const textSpan = document.createElement('span');
-            if (linkData.nameRu && linkData.nameEn) {
-                textSpan.dataset.ru = linkData.nameRu;
-                textSpan.dataset.en = linkData.nameEn;
-                textSpan.textContent = linkData.nameRu;
-            } else {
-                textSpan.textContent = linkData.name || 'Download';
-            }
-            button.appendChild(textSpan);
-            
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                console.log(`Download clicked: ${linkData.id}`);
-                
-                if (linkData.type === 'magnet') {
-                    window.location.href = linkData.url;
-                } else {
-                    window.open(linkData.url, '_blank');
-                }
-                
+        if (changeEnvBtn) {
+            changeEnvBtn.addEventListener('click', function() {
                 closeDownloadModal();
-                
-                return false;
-            });
-            
-            return button;
-        }
-        
-        function openDownloadModal() {
-            updateDownloadLinksForEnvironment(currentEnvironment);
-            
-            const modal = document.getElementById('downloadModal');
-            if (modal) {
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-        }
-        
-        function closeDownloadModal() {
-            const modal = document.getElementById('downloadModal');
-            if (modal) {
-                modal.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        }
-        
-        function setInitialLanguage() {
-            const savedLang = localStorage.getItem('en-os-language') || 'ru';
-            const langBtn = document.querySelector(`.lang-btn[data-lang="${savedLang}"]`);
-            
-            if (langBtn) {
-                langBtn.click();
-            } else {
-                updateLanguage('ru');
-            }
-        }
-        
-        function initLanguageSwitcher() {
-            const langBtns = document.querySelectorAll('.lang-btn');
-            if (langBtns.length === 0) return;
-            
-            langBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const lang = btn.dataset.lang;
-                    
-                    localStorage.setItem('en-os-language', lang);
-                    
-                    langBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    
-                    updateLanguage(lang);
-                });
-            });
-        }
-        
-        function updateLanguage(lang) {
-            document.documentElement.lang = lang;
-            
-            document.querySelectorAll('[data-ru], [data-en]').forEach(el => {
-                if (el.dataset[lang]) {
-                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                        el.value = el.dataset[lang];
-                    } else {
-                        el.textContent = el.dataset[lang];
-                    }
-                }
-            });
-            
-            updateSelectedEnvironmentText(lang);
-            
-            updateScreenshotTitles(lang);
-        }
-        
-        function updateSelectedEnvironmentText(lang) {
-            document.querySelectorAll('.environment-card .environment-badge').forEach(badge => {
-                if (badge.dataset[lang]) {
-                    badge.textContent = badge.dataset[lang];
-                }
-            });
-        }
-        
-        function updateScreenshotTitles(lang) {
-            const env = config.environments.available.find(e => e.id === currentEnvironment);
-            if (!env) return;
-            
-            const screenshotTitle = document.querySelector('.environment-screenshots h3');
-            if (screenshotTitle && screenshotTitle.dataset[lang]) {
-                screenshotTitle.textContent = screenshotTitle.dataset[lang];
-            }
-        }
-        
-        function initPreloader() {
-            const preloader = document.getElementById('preloader');
-            if (preloader) {
-                setTimeout(() => {
-                    preloader.classList.add('hidden');
-                }, 1000);
-            }
-        }
-        
-        function initMobileMenu() {
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const navLinks = document.querySelector('.nav-links');
-            
-            if (mobileMenuBtn && navLinks) {
-                mobileMenuBtn.addEventListener('click', () => {
-                    navLinks.classList.toggle('active');
-                    mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ?
-                        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-                });
-                
-                document.querySelectorAll('.nav-links a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        navLinks.classList.remove('active');
-                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                    });
-                });
-            }
-        }
-        
-        function initHeaderScroll() {
-            const header = document.getElementById('header');
-            if (header) {
-                window.addEventListener('scroll', () => {
-                    if (window.scrollY > 50) {
-                        header.classList.add('scrolled');
-                    } else {
-                        header.classList.remove('scrolled');
-                    }
-                });
-            }
-        }
-        
-        function initBackToTop() {
-            const backToTop = document.getElementById('backToTop');
-            if (backToTop) {
-                window.addEventListener('scroll', () => {
-                    if (window.scrollY > 300) {
-                        backToTop.classList.add('visible');
-                    } else {
-                        backToTop.classList.remove('visible');
-                    }
-                });
-                
-                backToTop.addEventListener('click', () => {
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                });
-            }
-        }
-        
-        function initAnimations() {
-            const animateElements = document.querySelectorAll('.animate-on-scroll');
-            if (animateElements.length > 0) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('visible');
-                        }
-                    });
-                }, {
-                    threshold: 0.1,
-                    rootMargin: '0px 0px -100px 0px'
-                });
-                
-                animateElements.forEach(el => observer.observe(el));
-            }
-        }
-        
-        function initSmoothScroll() {
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    const href = this.getAttribute('href');
-                    if (href === '#' || href === '#!') return;
-                    
-                    const target = document.querySelector(href);
-                    if (target) {
-                        e.preventDefault();
-                        const headerHeight = document.querySelector('header')?.offsetHeight || 80;
-                        window.scrollTo({
-                            top: target.offsetTop - headerHeight,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-        }
-        
-        function initMethodTabs() {
-            const methodTabs = document.querySelectorAll('.method-tab');
-            if (methodTabs.length === 0) return;
-            
-            methodTabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const method = tab.dataset.method;
-                    methodTabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    document.querySelectorAll('.method-content').forEach(content => {
-                        content.classList.remove('active');
-                    });
-                    document.getElementById(`${method}-method`)?.classList.add('active');
-                });
-            });
-        }
-        
-        function initVideoControls() {
-            const desktopVideo = document.getElementById('desktopVideo');
-            const desktopImage = document.getElementById('desktopImage');
-            const playPauseBtn = document.getElementById('playPauseBtn');
-            const playPauseIcon = document.getElementById('playPauseIcon');
-            const muteBtn = document.getElementById('muteBtn');
-            const muteIcon = document.getElementById('muteIcon');
-            
-            if (!desktopVideo || !playPauseBtn) return;
-            
-            function checkVideoSupport() {
-                if (desktopVideo.canPlayType) {
-                    desktopVideo.style.display = 'block';
-                    desktopImage.style.display = 'none';
-                    setupVideoControls();
-                } else {
-                    desktopVideo.style.display = 'none';
-                    desktopImage.style.display = 'block';
-                    const mediaControls = document.querySelector('.media-controls');
-                    if (mediaControls && mediaControls.style) {
-                        mediaControls.style.display = 'none';
-                    }
-                }
-            }
-            
-            function setupVideoControls() {
-                playPauseBtn.addEventListener('click', () => {
-                    if (desktopVideo.paused) {
-                        desktopVideo.play();
-                        playPauseIcon.className = 'fas fa-pause';
-                    } else {
-                        desktopVideo.pause();
-                        playPauseIcon.className = 'fas fa-play';
-                    }
-                });
-                
-                muteBtn.addEventListener('click', () => {
-                    desktopVideo.muted = !desktopVideo.muted;
-                    muteIcon.className = desktopVideo.muted ? 
-                        'fas fa-volume-mute' : 'fas fa-volume-up';
-                });
-                
-                const isMobile = window.innerWidth <= 768;
-                
-                if (!isMobile) {
-                    const videoObserver = new IntersectionObserver((entries) => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting) {
-                                desktopVideo.play().catch(e => {
-                                    console.log('Autoplay prevented:', e);
-                                });
-                            } else {
-                                desktopVideo.pause();
-                            }
-                        });
-                    }, { threshold: 0.5 });
-                    
-                    const desktopPreview = document.getElementById('desktopPreview');
-                    if (desktopPreview) videoObserver.observe(desktopPreview);
-                } else {
-                    desktopVideo.pause();
-                    playPauseIcon.className = 'fas fa-play';
-                }
-            }
-            
-            checkVideoSupport();
-            window.addEventListener('resize', () => {
-                const isMobile = window.innerWidth <= 768;
-                if (isMobile && desktopVideo) {
-                    desktopVideo.pause();
-                    playPauseIcon.className = 'fas fa-play';
-                }
-            });
-        }
-        
-        function updateCopyright() {
-            if (config.copyright) {
-                const el = document.querySelector('.copyright');
-                if (el) {
-                    el.textContent = config.copyright;
-                    el.dataset.ru = config.copyright;
-                    el.dataset.en = config.copyright;
-                }
-            }
-        }
-        
-        window.openDownloadModal = openDownloadModal;
-        window.closeDownloadModal = closeDownloadModal;
-        
-        if (typeof openScreenshotModal !== 'undefined') {
-            window.openScreenshotModal = openScreenshotModal;
-        }
-        if (typeof closeScreenshotModal !== 'undefined') {
-            window.closeScreenshotModal = closeScreenshotModal;
-        }
-        
-        window.addEventListener('load', function() {
-            const envSection = document.querySelector('.environment-selector-section');
-            if (envSection && window.location.hash === '#environments') {
-                setTimeout(() => {
+                const envSection = document.getElementById('environments');
+                if (envSection) {
                     const headerHeight = document.querySelector('header')?.offsetHeight || 80;
                     window.scrollTo({
                         top: envSection.offsetTop - headerHeight,
                         behavior: 'smooth'
                     });
-                }, 500);
+                }
+            });
+        }
+        
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeDownloadModal();
             }
         });
-    </script>
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeDownloadModal();
+            }
+        });
+    }
+    
+    function openDownloadModal() {
+        updateDownloadModalForEnvironment(currentEnvironment);
+        
+        const modal = document.getElementById('downloadModal');
+        if (modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+    
+    function closeDownloadModal() {
+        const modal = document.getElementById('downloadModal');
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    }
+    
+    function setInitialLanguage() {
+        const langBtn = document.querySelector(`.lang-btn[data-lang="${currentLanguage}"]`);
+        
+        if (langBtn) {
+            langBtn.click();
+        } else {
+            updateLanguage('ru');
+        }
+    }
+    
+    function initLanguageSwitcher() {
+        const langBtns = document.querySelectorAll('.lang-btn');
+        if (langBtns.length === 0) return;
+        
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.dataset.lang;
+                currentLanguage = lang;
+                localStorage.setItem('en-os-language', lang);
+                langBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                updateLanguage(lang);
+            });
+        });
+    }
+    
+    function updateLanguage(lang) {
+        document.documentElement.lang = lang;
+        
+        document.querySelectorAll('[data-ru], [data-en]').forEach(el => {
+            if (el.dataset[lang]) {
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.value = el.dataset[lang];
+                } else {
+                    el.textContent = el.dataset[lang];
+                }
+            }
+        });
+        
+        document.querySelectorAll('.environment-card .environment-badge').forEach(badge => {
+            if (badge.dataset[lang]) {
+                badge.textContent = badge.dataset[lang];
+            }
+        });
+        
+        updateDownloadModalForEnvironment(currentEnvironment);
+        updateEnvironmentScreenshots(currentEnvironment);
+        updateDownloadCardForEnvironment(currentEnvironment);
+    }
+    
+    function initPreloader() {
+        const preloader = document.getElementById('preloader');
+        if (preloader) {
+            setTimeout(() => {
+                preloader.classList.add('hidden');
+            }, 1000);
+        }
+    }
+    
+    function initMobileMenu() {
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        if (mobileMenuBtn && navLinks) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ?
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
+            
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+        }
+    }
+    
+    function initHeaderScroll() {
+        const header = document.getElementById('header');
+        if (header) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+        }
+    }
+    
+    function initBackToTop() {
+        const backToTop = document.getElementById('backToTop');
+        if (backToTop) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+            
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+    }
+    
+    function initAnimations() {
+        const animateElements = document.querySelectorAll('.animate-on-scroll');
+        if (animateElements.length > 0) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            });
+            animateElements.forEach(el => observer.observe(el));
+        }
+    }
+    
+    function initSmoothScroll() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#' || href === '#!') return;
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    const headerHeight = document.querySelector('header')?.offsetHeight || 80;
+                    window.scrollTo({
+                        top: target.offsetTop - headerHeight,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    }
+    
+    function initMethodTabs() {
+        const methodTabs = document.querySelectorAll('.method-tab');
+        if (methodTabs.length === 0) return;
+        
+        methodTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const method = tab.dataset.method;
+                methodTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                document.querySelectorAll('.method-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(`${method}-method`)?.classList.add('active');
+            });
+        });
+    }
+    
+    function initVideoControls() {
+        const desktopVideo = document.getElementById('desktopVideo');
+        const desktopImage = document.getElementById('desktopImage');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const playPauseIcon = document.getElementById('playPauseIcon');
+        const muteBtn = document.getElementById('muteBtn');
+        const muteIcon = document.getElementById('muteIcon');
+        
+        if (!desktopVideo || !playPauseBtn) return;
+        
+        function checkVideoSupport() {
+            if (desktopVideo.canPlayType) {
+                desktopVideo.style.display = 'block';
+                desktopImage.style.display = 'none';
+                setupVideoControls();
+            } else {
+                desktopVideo.style.display = 'none';
+                desktopImage.style.display = 'block';
+                const mediaControls = document.querySelector('.media-controls');
+                if (mediaControls) {
+                    mediaControls.style.display = 'none';
+                }
+            }
+        }
+        
+        function setupVideoControls() {
+            playPauseBtn.addEventListener('click', () => {
+                if (desktopVideo.paused) {
+                    desktopVideo.play();
+                    playPauseIcon.className = 'fas fa-pause';
+                } else {
+                    desktopVideo.pause();
+                    playPauseIcon.className = 'fas fa-play';
+                }
+            });
+            
+            muteBtn.addEventListener('click', () => {
+                desktopVideo.muted = !desktopVideo.muted;
+                muteIcon.className = desktopVideo.muted ? 
+                    'fas fa-volume-mute' : 'fas fa-volume-up';
+            });
+            
+            const isMobile = window.innerWidth <= 768;
+            
+            if (!isMobile) {
+                const videoObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            desktopVideo.play().catch(e => {
+                                console.log('Autoplay prevented:', e);
+                            });
+                        } else {
+                            desktopVideo.pause();
+                        }
+                    });
+                }, { threshold: 0.5 });
+                
+                const desktopPreview = document.getElementById('desktopPreview');
+                if (desktopPreview) videoObserver.observe(desktopPreview);
+            } else {
+                desktopVideo.pause();
+                playPauseIcon.className = 'fas fa-play';
+            }
+        }
+        
+        checkVideoSupport();
+        window.addEventListener('resize', () => {
+            const isMobile = window.innerWidth <= 768;
+            if (isMobile && desktopVideo) {
+                desktopVideo.pause();
+                playPauseIcon.className = 'fas fa-play';
+            }
+        });
+    }
+    
+    function updateCopyright() {
+        if (config.copyright) {
+            const el = document.querySelector('.copyright');
+            if (el) {
+                el.textContent = config.copyright;
+                el.dataset.ru = config.copyright;
+                el.dataset.en = config.copyright;
+            }
+        }
+    }
+    
+    window.openDownloadModal = openDownloadModal;
+    window.closeDownloadModal = closeDownloadModal;
+    window.openScreenshotModal = openScreenshotModal;
+    window.closeScreenshotModal = closeScreenshotModal;
+    window.selectEnvironment = selectEnvironment;
+    
+    window.addEventListener('load', function() {
+        const envSection = document.querySelector('.environment-selector-section');
+        if (envSection && window.location.hash === '#environments') {
+            setTimeout(() => {
+                const headerHeight = document.querySelector('header')?.offsetHeight || 80;
+                window.scrollTo({
+                    top: envSection.offsetTop - headerHeight,
+                    behavior: 'smooth'
+                });
+            }, 500);
+        }
+    });
+</script>
 </body>
 </html>
