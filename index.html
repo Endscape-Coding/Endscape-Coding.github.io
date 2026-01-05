@@ -2425,7 +2425,10 @@
                 } else {
                     desktopVideo.style.display = 'none';
                     desktopImage.style.display = 'block';
-                    document.querySelector('.media-controls')?.style.display = 'none';
+                    const mediaControls = document.querySelector('.media-controls');
+                    if (mediaControls && mediaControls.style) {
+                        mediaControls.style.display = 'none';
+                    }
                 }
             }
             
