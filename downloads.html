@@ -1071,12 +1071,29 @@
 
 <div class="download-modal" id="downloadModal">
     <div class="download-modal-content">
-        <h3 data-ru="Выберите способ загрузки" data-en="Choose download method">
-            Выберите способ загрузки
-        </h3>
+        <div class="download-modal-header">
+            <h3 data-ru="Скачать EN-OS" data-en="Download EN-OS">Скачать EN-OS</h3>
+            <button class="btn btn-outline btn-small" id="closeModal" style="margin: 0;">
+                ✖ <span data-ru="Закрыть" data-en="Close">Закрыть</span>
+            </button>
+        </div>
+        
+        <div class="download-environment-info" id="selectedEnvironmentInfo">
+            <div class="download-environment-icon">
+                <i id="selectedEnvIcon" class="fab fa-linux"></i>
+            </div>
+            <div class="download-environment-details">
+                <h4 id="selectedEnvName">KDE Plasma</h4>
+                <p id="selectedEnvDescription">Современное окружение рабочего стола с эффектами и настройками</p>
+            </div>
+        </div>
+        
+        <button class="change-environment-btn" id="changeEnvironmentBtn">
+            <i class="fas fa-exchange-alt"></i>
+            <span data-ru="Изменить окружение" data-en="Change Environment">Изменить окружение</span>
+        </button>
         
         <div id="primaryDownloadLinks" class="download-links-container">
-            <!-- Основные ссылки будут добавлены динамически -->
         </div>
         
         <div class="alternative-downloads-section" id="alternativeDownloadsSection">
@@ -1084,13 +1101,14 @@
                 Альтернативные зеркала
             </h4>
             <div id="alternativeDownloadLinks" class="download-links-container alternative-links">
-                <!-- Альтернативные ссылки будут добавлены динамически -->
             </div>
         </div>
         
-        <button class="btn btn-outline btn-small" id="closeModal">
-            ✖ <span data-ru="Закрыть" data-en="Close">Закрыть</span>
-        </button>
+        <div id="noDownloadsMessage" class="no-downloads-message" style="display: none;">
+            <p data-ru="Ссылки для скачивания скоро будут доступны" data-en="Download links will be available soon">
+                Ссылки для скачивания скоро будут доступны
+            </p>
+        </div>
     </div>
 </div>
 
@@ -1330,7 +1348,10 @@
         <i class="fas fa-arrow-up"></i>
     </div>
 
-    <script>
+<script>
+    let currentEnvironment = config.environments ? config.environments.default : "kde";
+    let currentLanguage = localStorage.getItem('en-os-language') || 'ru';
+    
     document.addEventListener('DOMContentLoaded', function() {
         console.log('Config loaded:', config);
         
@@ -1349,20 +1370,40 @@
         updateCopyright();
         
         setInitialLanguage();
+        
+        const downloadBtns = document.querySelectorAll('.download-item-actions .btn:not([disabled])');
+        downloadBtns.forEach(btn => {
+            if (!btn.hasAttribute('disabled')) {
+                btn.onclick = null;
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openDownloadModal();
+                });
+            }
+        });
     });
-    
-    let currentEnvironment = config.environments ? config.environments.default : "kde";
     
     function initEnvironmentSelector() {
         const environmentsGrid = document.getElementById('environmentsGrid');
-        if (!environmentsGrid || !config.environments) {
-            console.log('Environment selector not found or no environments config');
-            return;
-        }
+        if (!environmentsGrid || !config.environments) return;
         
         environmentsGrid.innerHTML = '';
         
-        config.environments.available.forEach(env => {
+        const availableEnvs = config.environments.available || [];
+        const count = availableEnvs.length;
+        
+        environmentsGrid.className = 'environments-grid';
+        if (count === 1) {
+            environmentsGrid.classList.add('has-1-item');
+        } else if (count === 2) {
+            environmentsGrid.classList.add('has-2-items');
+        } else if (count === 3) {
+            environmentsGrid.classList.add('has-3-items');
+        } else if (count >= 4) {
+            environmentsGrid.classList.add('has-4-or-more');
+        }
+        
+        availableEnvs.forEach(env => {
             const card = document.createElement('div');
             card.className = `environment-card ${env.comingSoon ? 'coming-soon' : ''} ${env.id === currentEnvironment ? 'active' : ''}`;
             card.dataset.env = env.id;
@@ -1376,12 +1417,12 @@
                     <i class="${env.icon || 'fab fa-linux'}"></i>
                 </div>
                 <h3 class="environment-name">${env.name}</h3>
-                <p class="environment-description">${env.description}</p>
+                <div class="environment-description">${env.description}</div>
                 ${env.comingSoon ? 
                     '<span class="environment-badge coming-soon-badge">Coming Soon</span>' : 
                     (env.id === currentEnvironment ? 
-                        '<span class="environment-badge">Selected</span>' : 
-                        '<span class="environment-badge">Available</span>')}
+                        '<span class="environment-badge">Выбрано</span>' : 
+                        '<span class="environment-badge">Доступно</span>')}
             `;
             
             const nameEl = card.querySelector('.environment-name');
@@ -1413,10 +1454,16 @@
             
             environmentsGrid.appendChild(card);
         });
+        
+        updateDownloadModalForEnvironment(currentEnvironment);
+        updateMainVersionForEnvironment(currentEnvironment);
     }
     
     function selectEnvironment(envId) {
         if (!config.environments) return;
+        
+        const env = config.environments.available.find(e => e.id === envId);
+        if (!env || env.comingSoon) return;
         
         currentEnvironment = envId;
         
@@ -1427,19 +1474,17 @@
                 
                 const badge = card.querySelector('.environment-badge');
                 if (badge) {
-                    const currentLang = document.querySelector('.lang-btn.active')?.dataset.lang || 'ru';
-                    badge.textContent = badge.dataset[currentLang] || (currentLang === 'ru' ? "Выбрано" : "Selected");
+                    badge.textContent = badge.dataset[currentLanguage] || (currentLanguage === 'ru' ? "Выбрано" : "Selected");
                 }
             }
         });
         
+        updateDownloadModalForEnvironment(envId);
         updateMainVersionForEnvironment(envId);
-        
-        console.log(`Environment selected: ${envId}`);
     }
     
     function updateMainVersionForEnvironment(envId) {
-        if (!config.environments || !config.versions) return;
+        if (!config.environments) return;
         
         const env = config.environments.available.find(e => e.id === envId);
         if (!env) return;
@@ -1449,10 +1494,12 @@
         
         const titleEl = mainVersionEl.querySelector('.download-item-title');
         if (titleEl) {
-            const versionInfo = config.versions.main;
             titleEl.textContent = `EN-OS 1.0 ${env.name}`;
             titleEl.dataset.ru = `EN-OS 1.0 ${env.nameRu || env.name}`;
             titleEl.dataset.en = `EN-OS 1.0 ${env.nameEn || env.name}`;
+            if (titleEl.dataset[currentLanguage]) {
+                titleEl.textContent = titleEl.dataset[currentLanguage];
+            }
         }
         
         const descEl = mainVersionEl.querySelector('.download-item-description');
@@ -1460,9 +1507,137 @@
             descEl.textContent = env.description;
             descEl.dataset.ru = env.descriptionRu || env.description;
             descEl.dataset.en = env.descriptionEn || env.description;
+            if (descEl.dataset[currentLanguage]) {
+                descEl.textContent = descEl.dataset[currentLanguage];
+            }
+        }
+    }
+    
+    function updateDownloadModalForEnvironment(envId) {
+        const env = config.environments.available.find(e => e.id === envId);
+        if (!env) return;
+        
+        const iconEl = document.getElementById('selectedEnvIcon');
+        const nameEl = document.getElementById('selectedEnvName');
+        const descEl = document.getElementById('selectedEnvDescription');
+        
+        if (iconEl) iconEl.className = env.icon || 'fab fa-linux';
+        if (nameEl) {
+            nameEl.textContent = env.name;
+            nameEl.dataset.ru = env.nameRu || env.name;
+            nameEl.dataset.en = env.nameEn || env.name;
+            if (nameEl.dataset[currentLanguage]) {
+                nameEl.textContent = nameEl.dataset[currentLanguage];
+            }
+        }
+        if (descEl) {
+            descEl.textContent = env.description;
+            descEl.dataset.ru = env.descriptionRu || env.description;
+            descEl.dataset.en = env.descriptionEn || env.description;
+            if (descEl.dataset[currentLanguage]) {
+                descEl.textContent = descEl.dataset[currentLanguage];
+            }
         }
         
         updateDownloadLinksForEnvironment(envId);
+    }
+    
+    function updateDownloadLinksForEnvironment(envId) {
+        const env = config.environments.available.find(e => e.id === envId);
+        if (!env) return;
+        
+        const primaryLinksContainer = document.getElementById('primaryDownloadLinks');
+        const alternativeLinksContainer = document.getElementById('alternativeDownloadLinks');
+        const alternativeSection = document.getElementById('alternativeDownloadsSection');
+        const noDownloadsMessage = document.getElementById('noDownloadsMessage');
+        
+        const downloadLinks = env.downloadLinks || config.downloadLinks;
+        
+        if (!downloadLinks) {
+            showNoDownloadsMessage();
+            return;
+        }
+        
+        const primaryLinks = downloadLinks.primary || [];
+        const alternativeLinks = downloadLinks.alternative || [];
+        
+        if (primaryLinksContainer) {
+            primaryLinksContainer.innerHTML = '';
+            if (primaryLinks.length > 0) {
+                primaryLinks.forEach(link => {
+                    const button = createDownloadButton(link);
+                    primaryLinksContainer.appendChild(button);
+                });
+                if (noDownloadsMessage) noDownloadsMessage.style.display = 'none';
+            } else {
+                showNoDownloadsMessage();
+            }
+        }
+        
+        if (alternativeLinksContainer) {
+            alternativeLinksContainer.innerHTML = '';
+            alternativeLinks.forEach(link => {
+                const button = createDownloadButton(link);
+                alternativeLinksContainer.appendChild(button);
+            });
+        }
+        
+        if (alternativeSection) {
+            alternativeSection.style.display = alternativeLinks.length > 0 ? 'block' : 'none';
+        }
+        
+        function showNoDownloadsMessage() {
+            if (noDownloadsMessage) {
+                noDownloadsMessage.style.display = 'block';
+                if (noDownloadsMessage.dataset[currentLanguage]) {
+                    noDownloadsMessage.querySelector('p').textContent = noDownloadsMessage.dataset[currentLanguage];
+                }
+            }
+            if (primaryLinksContainer) {
+                primaryLinksContainer.innerHTML = '';
+            }
+        }
+    }
+    
+    function createDownloadButton(linkData) {
+        const button = document.createElement('a');
+        button.href = linkData.url || '#';
+        button.className = `btn ${linkData.colorClass || 'btn-primary'} btn-small`;
+        button.style.display = 'flex';
+        button.style.alignItems = 'center';
+        button.style.justifyContent = 'center';
+        button.style.gap = '8px';
+        button.style.marginBottom = '5px';
+        
+        const icon = document.createElement('i');
+        icon.className = linkData.icon || 'fas fa-download';
+        button.appendChild(icon);
+        
+        const textSpan = document.createElement('span');
+        if (linkData.nameRu && linkData.nameEn) {
+            textSpan.dataset.ru = linkData.nameRu;
+            textSpan.dataset.en = linkData.nameEn;
+            textSpan.textContent = currentLanguage === 'ru' ? linkData.nameRu : linkData.nameEn;
+        } else {
+            textSpan.textContent = linkData.name || 'Download';
+        }
+        button.appendChild(textSpan);
+        
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            if (linkData.type === 'magnet') {
+                window.location.href = linkData.url;
+            } else {
+                window.open(linkData.url, '_blank');
+            }
+            
+            closeDownloadModal();
+            return false;
+        });
+        
+        return button;
     }
     
     function initDownloadModal() {
@@ -1470,11 +1645,24 @@
         if (!modal) return;
         
         const closeBtn = document.getElementById('closeModal');
-        
-        updateDownloadLinksForEnvironment(currentEnvironment);
+        const changeEnvBtn = document.getElementById('changeEnvironmentBtn');
         
         if (closeBtn) {
             closeBtn.addEventListener('click', closeDownloadModal);
+        }
+        
+        if (changeEnvBtn) {
+            changeEnvBtn.addEventListener('click', function() {
+                closeDownloadModal();
+                const envSection = document.getElementById('environments');
+                if (envSection) {
+                    const headerHeight = document.querySelector('header')?.offsetHeight || 80;
+                    window.scrollTo({
+                        top: envSection.offsetTop - headerHeight,
+                        behavior: 'smooth'
+                    });
+                }
+            });
         }
         
         modal.addEventListener('click', function(e) {
@@ -1490,98 +1678,8 @@
         });
     }
     
-    function updateDownloadLinksForEnvironment(envId) {
-        const primaryLinksContainer = document.getElementById('primaryDownloadLinks');
-        const alternativeLinksContainer = document.getElementById('alternativeDownloadLinks');
-        const alternativeSection = document.getElementById('alternativeDownloadsSection');
-        
-        if (!config.downloadLinks) return;
-        
-        const filteredPrimary = config.downloadLinks.primary ? 
-            config.downloadLinks.primary.filter(link => 
-                !link.environments || link.environments.includes(envId)
-            ) : [];
-        
-        const filteredAlternative = config.downloadLinks.alternative ? 
-            config.downloadLinks.alternative.filter(link => 
-                !link.environments || link.environments.includes(envId)
-            ) : [];
-        
-        if (primaryLinksContainer) {
-            primaryLinksContainer.innerHTML = '';
-            if (filteredPrimary.length > 0) {
-                filteredPrimary.forEach(link => {
-                    const button = createDownloadButton(link);
-                    primaryLinksContainer.appendChild(button);
-                });
-            } else {
-                primaryLinksContainer.innerHTML = '<p style="opacity: 0.7; text-align: center;" data-ru="Ссылки для скачивания скоро будут" data-en="Download links will be available soon">Ссылки для скачивания скоро будут</p>';
-            }
-        }
-        
-        if (alternativeLinksContainer) {
-            alternativeLinksContainer.innerHTML = '';
-            filteredAlternative.forEach(link => {
-                const button = createDownloadButton(link);
-                alternativeLinksContainer.appendChild(button);
-            });
-        }
-        
-        if (alternativeSection) {
-            alternativeSection.style.display = filteredAlternative.length > 0 ? 'block' : 'none';
-        }
-    }
-    
-    function createDownloadButton(linkData) {
-        const button = document.createElement('a');
-        button.href = linkData.url || '#';
-        button.className = `btn ${linkData.colorClass || 'btn-primary'} btn-small`;
-        button.style.display = 'flex';
-        button.style.alignItems = 'center';
-        button.style.justifyContent = 'center';
-        button.style.gap = '8px';
-        button.style.marginBottom = '5px';
-        
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-        });
-        
-        const icon = document.createElement('i');
-        icon.className = linkData.icon || 'fas fa-download';
-        button.appendChild(icon);
-        
-        const textSpan = document.createElement('span');
-        if (linkData.nameRu && linkData.nameEn) {
-            textSpan.dataset.ru = linkData.nameRu;
-            textSpan.dataset.en = linkData.nameEn;
-            textSpan.textContent = linkData.nameRu;
-        } else {
-            textSpan.textContent = linkData.name || 'Download';
-        }
-        button.appendChild(textSpan);
-        
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            console.log(`Download clicked: ${linkData.id}`);
-            
-            if (linkData.type === 'magnet') {
-                window.location.href = linkData.url;
-            } else {
-                window.open(linkData.url, '_blank');
-            }
-            
-            closeDownloadModal();
-            
-            return false;
-        });
-        
-        return button;
-    }
-    
     function openDownloadModal() {
-        updateDownloadLinksForEnvironment(currentEnvironment);
+        updateDownloadModalForEnvironment(currentEnvironment);
         
         const modal = document.getElementById('downloadModal');
         if (modal) {
@@ -1617,7 +1715,6 @@
                 if (el) {
                     el.textContent = value;
                     
-                    // Добавляем локализацию для текстовых полей
                     if (id === 'mainVersionText' || id === 'mainVersionDescription' || 
                         id === 'mainVersionSize' || id === 'mainVersionDate') {
                         el.dataset.ru = value;
@@ -1708,8 +1805,7 @@
     }
     
     function setInitialLanguage() {
-        const savedLang = localStorage.getItem('en-os-language') || 'ru';
-        const langBtn = document.querySelector(`.lang-btn[data-lang="${savedLang}"]`);
+        const langBtn = document.querySelector(`.lang-btn[data-lang="${currentLanguage}"]`);
         
         if (langBtn) {
             langBtn.click();
@@ -1725,12 +1821,10 @@
         langBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const lang = btn.dataset.lang;
-                
+                currentLanguage = lang;
                 localStorage.setItem('en-os-language', lang);
-                
                 langBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                
                 updateLanguage(lang);
             });
         });
@@ -1749,38 +1843,14 @@
             }
         });
         
-        updateDownloadLinksText(lang);
-        
-        updateSelectedEnvironmentText(lang);
-    }
-    
-    function updateDownloadLinksText(lang) {
-        const allDownloadButtons = document.querySelectorAll('#downloadModal .btn span[data-ru]');
-        allDownloadButtons.forEach(span => {
-            if (span.dataset[lang]) {
-                span.textContent = span.dataset[lang];
-            }
-        });
-        
-        const sectionTitles = document.querySelectorAll('#downloadModal h3[data-ru], #downloadModal h4[data-ru]');
-        sectionTitles.forEach(title => {
-            if (title.dataset[lang]) {
-                title.textContent = title.dataset[lang];
-            }
-        });
-        
-        const placeholder = document.querySelector('#downloadModal p[data-ru]');
-        if (placeholder && placeholder.dataset[lang]) {
-            placeholder.textContent = placeholder.dataset[lang];
-        }
-    }
-    
-    function updateSelectedEnvironmentText(lang) {
         document.querySelectorAll('.environment-card .environment-badge').forEach(badge => {
             if (badge.dataset[lang]) {
                 badge.textContent = badge.dataset[lang];
             }
         });
+        
+        updateDownloadModalForEnvironment(currentEnvironment);
+        updateMainVersionForEnvironment(currentEnvironment);
     }
     
     function initPreloader() {
@@ -1817,7 +1887,6 @@
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
                 if (href === '#' || href === '#!') return;
-                
                 const target = document.querySelector(href);
                 if (target) {
                     e.preventDefault();
@@ -1877,13 +1946,13 @@
                 threshold: 0.1,
                 rootMargin: '0px 0px -100px 0px'
             });
-            
             animateElements.forEach(el => observer.observe(el));
         }
     }
     
     window.openDownloadModal = openDownloadModal;
     window.closeDownloadModal = closeDownloadModal;
+    window.selectEnvironment = selectEnvironment;
     
     window.addEventListener('load', function() {
         const envSection = document.querySelector('.environment-selector-section');
