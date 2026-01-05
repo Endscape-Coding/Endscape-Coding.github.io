@@ -2,4 +2,4 @@
 
 Да, вайбкод, но чтож поделать
 
-[для прехода](endscape-coding.github.io)
+[для перехода](https://endscape-coding.github.io)
