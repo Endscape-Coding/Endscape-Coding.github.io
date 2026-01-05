@@ -1689,36 +1689,30 @@
             button.style.justifyContent = 'center';
             button.style.gap = '8px';
             
-            // Добавляем иконку
             const icon = document.createElement('i');
             icon.className = linkData.icon;
             button.appendChild(icon);
             
-            // Добавляем текст с поддержкой локализации
             const textSpan = document.createElement('span');
             if (linkData.nameRu && linkData.nameEn) {
                 textSpan.dataset.ru = linkData.nameRu;
                 textSpan.dataset.en = linkData.nameEn;
-                textSpan.textContent = linkData.nameRu; // По умолчанию русский
+                textSpan.textContent = linkData.nameRu;
             } else {
                 textSpan.textContent = linkData.name;
             }
             button.appendChild(textSpan);
             
-            // Обработчик клика
             button.addEventListener('click', function(e) {
                 if (linkData.type === 'magnet') {
                     e.preventDefault();
                     window.location.href = linkData.url;
                 } else {
-                    // Для обычных ссылок открываем в новой вкладке
                     window.open(linkData.url, '_blank');
                 }
                 
-                // Закрываем модальное окно
                 closeDownloadModal();
                 
-                // Можно добавить статистику/аналитику здесь
                 console.log(`Download clicked: ${linkData.id}`);
             });
             
