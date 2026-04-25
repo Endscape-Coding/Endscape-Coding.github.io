@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <link rel="shortcut icon" type="image/x-icon" href="images/favicon1.ico">  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Галерея скриншотов - EN-OS</title>
+  <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+  <meta name="description" content="Галерея скриншотов интерфейса EN-OS: рабочий стол, приложения, терминал и настройки.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="animate.min.css">
+</head>
+<body>
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="ru">RU</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
+
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-logo">
+        <img src="images/logofl.png" alt="EN-OS Logo" class="nav-logo-img">
+      </a>
+      <div class="nav-links">
+        <a href="index.html" data-ru="Главная" data-en="Home">Главная</a>
+        <a href="index.html#features" data-ru="Особенности" data-en="Features">Особенности</a>
+        <a href="#" class="active" data-ru="Скриншоты" data-en="Screenshots">Скриншоты</a>
+        <a href="downloads.html" data-ru="Скачать" data-en="Download">Скачать</a>
+        <a href="https://github.com/Endscape-Coding/EN-OS" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+      </div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <div class="container">
+      <h1 class="animate__animated animate__fadeInDown" data-ru="Галерея скриншотов" data-en="Screenshot Gallery">Галерея скриншотов</h1>
+      <p data-ru="Посмотрите, как выглядит и работает EN-OS в разных сценариях использования" 
+         data-en="See how EN-OS looks and works in different usage scenarios">
+        Посмотрите, как выглядит и работает EN-OS в разных сценариях использования
+      </p>
+    </div>
+  </header>
+
+  <section class="section" style="padding-top: 20px;">
+    <div class="container">
+      <div class="gallery-filters" id="gallery-filters">
+        <!-- Фильтры генерируются через JS -->
+      </div>
+    </div>
+  </section>
+
+  <main class="container" style="padding-bottom: 60px;">
+    <div class="gallery-grid-full" id="screenshots-container">
+    </div>
+    
+    <div id="no-screenshots-msg" class="text-center" style="display: none; padding: 40px;">
+      <i class="fas fa-images" style="font-size: 3rem; color: var(--text-muted); margin-bottom: 16px;"></i>
+      <p data-ru="Скриншоты для этой редакции скоро появятся" 
+         data-en="Screenshots for this edition will be available soon">
+        Скриншоты для этой редакции скоро появятся
+      </p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4 data-ru="EN-OS" data-en="EN-OS">EN-OS</h4>
+          <p data-ru="Современный дистрибутив Linux на базе Arch с KDE Plasma" 
+             data-en="Modern Linux distribution based on Arch with KDE Plasma">
+            Современный дистрибутив Linux на базе Arch с KDE Plasma
+          </p>
+        </div>
+        <div class="footer-section">
+          <h4 data-ru="Ссылки" data-en="Links">Ссылки</h4>
+          <ul>
+            <li><a href="https://github.com/Endscape-Coding/EN-OS" target="_blank">GitHub</a></li>
+            <li><a href="https://t.me/enos_community" target="_blank" data-ru="Форум" data-en="Forum">Форум</a></li>
+            <li><a href="https://distrowatch.com/table.php?distribution=enos" target="_blank">DistroWatch</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p id="copyright-text"></p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close"><i class="fas fa-times"></i></button>
+    <button class="lightbox-nav lightbox-prev"><i class="fas fa-chevron-left"></i></button>
+    <img id="lightbox-img" src="" alt="Screenshot">
+    <button class="lightbox-nav lightbox-next"><i class="fas fa-chevron-right"></i></button>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="locale.js"></script>
+  <script src="main.js"></script>
+  <script src="screenshots.js"></script>
+</body>
+</html>

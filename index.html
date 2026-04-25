@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ru">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<head>
+  <link rel="shortcut icon" type="image/x-icon" href="images/favicon1.ico">  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EN-OS - Modern Arch-based Distribution</title>
+  <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+  <meta name="description" content="EN-OS - современный дистрибутив на базе Arch Linux с предустановленным и настроенным графическим окружением. Оптимизирован для производительности и удобства прямо из коробки.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="all.min.css">
+  <link rel="stylesheet" href="animate.min.css">
+</head>
+<body>
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="ru">RU</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
+
+  <nav class="navbar">
+    <div class="container">
+      <a href="#" class="nav-logo">
+        <img src="images/logofl.png" alt="EN-OS Logo" class="nav-logo-img">
+      </a>
+      <div class="nav-links">
+        <a href="#features" data-ru="Особенности" data-en="Features">Особенности</a>
+        <a href="#screenshots" data-ru="Скриншоты" data-en="Screenshots">Скриншоты</a>
+        <a href="#installation" data-ru="Установка" data-en="Installation">Установка</a>
+        <a href="downloads.html" data-ru="Скачать" data-en="Download">Скачать</a>
+        <a href="https://github.com/Endscape-Coding/EN-OS" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+      </div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+<header class="hero animate__animated animate__fadeIn">
+  <div class="container">
+    <div class="hero-content">
+      <h1 data-ru="EN-OS - Современный дистрибутив на базе Arch Linux" data-en="EN-OS - Modern Arch Linux Distribution">EN-OS - Современный дистрибутив на базе Arch Linux</h1>
+      <p data-ru="Предустановленный KDE Plasma, оптимизация производительности и удобство прямо из коробки. Полностью готов к работе без дополнительных настроек." data-en="Pre-installed KDE Plasma, performance optimization and convenience out of the box. Completely ready to use without additional configuration.">Предустановленный KDE Plasma, оптимизация производительности и удобство прямо из коробки. Полностью готов к работе без дополнительных настроек.</p>
+      <div class="hero-buttons">
+        <a href="#download" class="btn btn-primary"><i class="fas fa-download"></i> <span data-ru="Скачать EN-OS" data-en="Download EN-OS">Скачать EN-OS</span></a>
+        <a href="#installation" class="btn btn-secondary"><i class="fas fa-book"></i> <span data-ru="Как поставить?" data-en="Guide">Как поставить?</span></a>
+      </div>
+    </div>
+    <div class="hero-video">
+  <div class="video-container">
+    <video id="desktopVideo" class="hero-video-player" autoplay muted loop playsinline>
+      <source src="videos/desktop-demo.mp4" type="video/mp4">
+    </video>
+    <div class="video-controls">
+      <button class="video-btn" id="playPauseBtn">
+        <i class="fas fa-pause" id="playPauseIcon"></i>
+      </button>
+      <button class="video-btn" id="muteBtn">
+        <i class="fas fa-volume-mute" id="muteIcon"></i>
+      </button>
+      <button class="video-btn" id="fullscreenBtn">
+        <i class="fas fa-expand"></i>
+      </button>
+    </div>
+  </div>
+</div>
+  </div>
+</header>
+
+  <main>
+    <section id="features" class="section">
+      <div class="container">
+        <h2 class="section-title" data-ru="Наши особенности" data-en="Key Features">Наши особенности</h2>
+        <div class="grid grid-3">
+          <div class="card animate__animated animate__fadeInUp">
+            <i class="fas fa-user-check"></i>
+            <h3 data-ru="Удобство для пользователя" data-en="User-Friendly">Удобство для пользователя</h3>
+            <p data-ru="Никаких лишних морок: драйверы, кодеки и приложения готовы к работе сразу после установки. Всё работает из коробки." data-en="No extra configuration: drivers, codecs and applications are ready to use right after installation. Everything works out of the box.">Никаких лишних настроек: драйверы, кодеки и приложения готовы к работе сразу после установки. Всё работает из коробки.</p>
+          </div>
+          <div class="card animate__animated animate__fadeInUp animate__delay-1s">
+            <i class="fas fa-paint-brush"></i>
+            <h3 data-ru="Красивый интерфейс" data-en="Beautiful Interface">Красивый интерфейс</h3>
+            <p data-ru="Красивая тема KDE Plasma с тёмными тонами и плавными анимациями для эстетического удовольствия. Полная настройка под ваш вкус." data-en="Custom KDE Plasma theme with dark tones and smooth animations for aesthetic pleasure. Full customization to your taste.">Кастомная тема KDE Plasma с тёмными тонами и плавными анимациями для эстетического удовольствия. Полная настройка под ваш вкус.</p>
+          </div>
+          <div class="card animate__animated animate__fadeInUp animate__delay-2s">
+            <i class="fas fa-shield-alt"></i>
+            <h3 data-ru="Безопасность" data-en="Security">Безопасность</h3>
+            <p data-ru="Последнее ядро Linux с актуальными исправлениями уязвимостей и графический сервер Wayland обеспечивают надёжную защиту и стабильность." data-en="Latest Linux kernel with up-to-date security patches and Wayland graphics server provide reliable protection and stability.">Последнее ядро Linux с актуальными исправлениями уязвимостей и графический сервер Wayland обеспечивают надёжную защиту и стабильность.</p>
+          </div>
+          <div class="card animate__animated animate__fadeInUp">
+            <i class="fas fa-tachometer-alt"></i>
+            <h3 data-ru="Высокая производительность" data-en="High Performance">Высокая производительность</h3>
+            <p data-ru="Новейшее ядро, файловая система BTRFS и Z-RAM обеспечивают максимальную отзывчивость и комфорт как на мощном, так и на слабом железе." data-en="Latest kernel, BTRFS file system and Z-RAM ensure maximum responsiveness and comfort on both powerful and weak hardware.">Новейшее ядро, файловая система BTRFS и Z-RAM обеспечивают максимальную отзывчивость и комфорт как на мощном, так и на слабом железе.</p>
+          </div>
+          <div class="card animate__animated animate__fadeInUp">
+            <i class="fas fa-cogs"></i>
+            <h3 data-ru="Простота установки" data-en="Easy Installation">Простота установки</h3>
+            <p data-ru="Интуитивный установщик Calamares делает процесс установки доступным даже для новичков. Просто следуйте инструкциям на экране." data-en="Intuitive Calamares installer makes the installation process accessible even for beginners. Just follow the on-screen instructions.">Интуитивный установщик Calamares делает процесс установки доступным даже для новичков. Просто следуйте инструкциям на экране.</p>
+          </div>
+          <div class="card animate__animated animate__fadeInUp">
+            <i class="fas fa-box-open"></i>
+            <h3 data-ru="Богатый набор ПО" data-en="Rich Software">Богатый набор ПО</h3>
+            <p data-ru="Предустановлены все необходимые приложения для работы, мультимедиа и разработки, включая браузер, офисный пакет и инструменты разработчика." data-en="Pre-installed all necessary applications for work, multimedia and development. Including browser, office suite and developer tools.">Предустановлены все необходимые приложения для работы, мультимедиа и разработки. Включая браузер, офисный пакет и инструменты разработчика.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<section id="screenshots" class="section bg-dark">
+  <div class="container">
+    <h2 class="section-title" data-ru="Скриншоты" data-en="Screenshots">Скриншоты</h2>
+    
+    <div class="screenshot-grid" id="screenshot-preview">
+    </div>
+    
+    <div class="text-center mt-4">
+      <a href="screenshots.html" class="btn btn-secondary">
+        <i class="fas fa-images"></i>
+        <span data-ru="Смотреть все скриншоты" data-en="View all screenshots">Смотреть все скриншоты</span>
+        <i class="fas fa-arrow-right" style="margin-left: 6px;"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="installation" class="section">
+  <div class="container">
+    <h2 class="section-title" data-ru="Создание Live USB" data-en="Creating Live USB">Создание Live USB</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h4 data-ru="Скачайте образ" data-en="Download the ISO">Скачайте образ</h4>
+          <p data-ru="Загрузите последнюю стабильную версию с нашей страницы загрузок." data-en="Download the latest stable version from our downloads page.">Загрузите последнюю стабильную версию с нашей страницы загрузок.</p>
+          <a href="#download" class="btn btn-small btn-primary"><i class="fas fa-download"></i> <span data-ru="Скачать" data-en="Download">Скачать</span></a>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h4 data-ru="Запишите на USB" data-en="Write to USB">Запишите на USB</h4>
+          <p data-ru="Используйте Rufus (Windows), dd (Linux/macOS) или Ventoy для безопасной записи." data-en="Use Rufus (Windows), dd (Linux/macOS) or Ventoy for safe recording.">Используйте Rufus (Windows), dd (Linux/macOS) или Ventoy для безопасной записи.</p>
+          <p class="wiki-note">
+            <i class="fas fa-book"></i> 
+            <span data-ru="Подробные инструкции с скриншотами для каждого метода — в нашей " data-en="Detailed instructions with screenshots for each method — in our ">Подробные инструкции с скриншотами для каждого метода — в нашей </span>
+            <a href="https://github.com/Endscape-Coding/EN-OS/wiki/Установка-EN‐OS" target="_blank" rel="noopener noreferrer" class="wiki-link" data-ru="Wiki-статье по установке" data-en="Installation Wiki article">Wiki-статье по установке</a>
+          </p>
+          <div class="method-tabs">
+            <button class="method-tab active" data-method="rufus">Rufus (Windows)</button>
+            <button class="method-tab" data-method="dd">dd (Linux/macOS)</button>
+            <button class="method-tab" data-method="ventoy">Ventoy</button>
+          </div>
+          <div class="method-content active" id="rufus-method">
+            <p data-ru="1. Запустите Rufus и выберите вашу USB-флешку" data-en="1. Run Rufus and select your USB drive">1. Запустите Rufus и выберите вашу USB-флешку</p>
+            <p data-ru="2. Нажмите 'ВЫБРАТЬ' и укажите скачанный ISO-образ" data-en="2. Click 'SELECT' and choose the downloaded ISO image">2. Нажмите 'ВЫБРАТЬ' и укажите скачанный ISO-образ</p>
+            <p data-ru="3. Оставьте остальные настройки по умолчанию" data-en="3. Leave other settings as default">3. Оставьте остальные настройки по умолчанию</p>
+            <p data-ru="4. Нажмите 'СТАРТ' и дождитесь завершения" data-en="4. Click 'START' and wait for completion">4. Нажмите 'СТАРТ' и дождитесь завершения</p>
+            <a href="https://github.com/Endscape-Coding/EN-OS/wiki/Установка-EN‐OS#rufus" target="_blank" rel="noopener noreferrer" class="btn btn-small btn-outline">
+              <i class="fas fa-external-link-alt"></i> 
+              <span data-ru="Подробнее с скриншотами" data-en="View with screenshots">Подробнее с скриншотами</span>
+            </a>
+          </div>
+          <div class="method-content" id="dd-method">
+            <p data-ru="Определите путь к вашему USB-устройству (например, /dev/sdX)" data-en="Identify your USB device path (e.g. /dev/sdX)">Определите путь к вашему USB-устройству (например, /dev/sdX)</p>
+            <p data-ru="Размонтируйте устройство, если оно смонтировано" data-en="Unmount the device if mounted">Размонтируйте устройство, если оно смонтировано</p>
+            <p data-ru="Выполните команду записи:" data-en="Run the write command:">Выполните команду записи:</p>
+            <code>sudo dd if=en-os.iso of=/dev/sdX bs=4M status=progress</code>
+            <p class="warning" data-ru="⚠️ ВАЖНО: Замените /dev/sdX на фактический путь к вашему устройству!" data-en="⚠️ IMPORTANT: Replace /dev/sdX with your actual device path!">⚠️ ВАЖНО: Замените /dev/sdX на фактический путь к вашему устройству!</p>
+            <a href="https://github.com/Endscape-Coding/EN-OS/wiki/Установка-EN‐OS#dd" target="_blank" rel="noopener noreferrer" class="btn btn-small btn-outline">
+              <i class="fas fa-external-link-alt"></i> 
+              <span data-ru="Подробнее с примерами" data-en="View with examples">Подробнее с примерами</span>
+            </a>
+          </div>
+          <div class="method-content" id="ventoy-method">
+            <p data-ru="1. Скачайте и установите Ventoy на вашу USB-флешку" data-en="1. Download and install Ventoy to your USB drive">1. Скачайте и установите Ventoy на вашу USB-флешку</p>
+            <p data-ru="2. Скопируйте ISO-образ EN-OS на флешку" data-en="2. Copy the EN-OS ISO image to the USB drive">2. Скопируйте ISO-образ EN-OS на флешку</p>
+            <p data-ru="3. Загрузитесь с USB и выберите образ EN-OS в меню Ventoy" data-en="3. Boot from USB and select the EN-OS image in the Ventoy menu">3. Загрузитесь с USB и выберите образ EN-OS в меню Ventoy</p>
+            <p data-ru="4. Запускайте установщик и следуйте инструкциям на экране" data-en="4. Run the installer and follow the on-screen instructions.">4. Запускайте установщик и следуйте инструкциям на экране</p>
+            <a href="https://github.com/Endscape-Coding/EN-OS/wiki/Установка-EN‐OS#ventoy" target="_blank" rel="noopener noreferrer" class="btn btn-small btn-outline">
+              <i class="fas fa-external-link-alt"></i> 
+              <span data-ru="Подробнее с скриншотами" data-en="View with screenshots">Подробнее с скриншотами</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h4 data-ru="Загрузитесь с USB" data-en="Boot from USB">Загрузитесь с USB</h4>
+          <p data-ru="Перезагрузите ПК, войдите в BIOS/UEFI и выберите ваш накопитель в меню загрузки." data-en="Reboot your PC, enter BIOS/UEFI and select your drive in the boot menu.">Перезагрузите ПК, войдите в BIOS/UEFI и выберите ваш накопитель в меню загрузки.</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Блок с основной ссылкой на вики -->
+    <div class="wiki-cta">
+      <a href="https://github.com/Endscape-Coding/EN-OS/wiki/Установка-EN‐OS" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-wiki">
+        <i class="fab fa-github"></i> 
+        <span data-ru="📖 Полное руководство по установке на GitHub Wiki" data-en="📖 Complete Installation Guide on GitHub Wiki">📖 Полное руководство по установке на GitHub Wiki</span>
+      </a>
+      <p class="wiki-hint" data-ru="Включает: проверку контрольных сумм, настройку UEFI/Legacy, решение частых проблем и видео-гайды" 
+         data-en="Includes: checksum verification, UEFI/Legacy setup, troubleshooting common issues, and video guides">
+        Включает: проверку контрольных сумм, настройку UEFI/Legacy, решение частых проблем и видео-гайды
+      </p>
+    </div>
+    
+  </div>
+</section>
+
+    <section class="section bg-dark" style="padding: 40px 0;">
+      <div class="container">
+        <div class="community-links">
+          <a href="https://github.com/Endscape-Coding/EN-OS" target="_blank" rel="noopener" class="community-link-card">
+            <div class="community-icon">
+              <i class="fab fa-github"></i>
+            </div>
+            <div class="community-info">
+              <h4>GitHub</h4>
+              <p data-ru="Исходный код и разработка" data-en="Source code & development">Исходный код и разработка</p>
+            </div>
+          </a>
+          <a href="https://t.me/enos_community" target="_blank" rel="noopener" class="community-link-card">
+            <div class="community-icon">
+              <i class="fab fa-telegram-plane"></i>
+            </div>
+            <div class="community-info">
+              <h4>Telegram</h4>
+              <p data-ru="Сообщество и поддержка" data-en="Community & support">Сообщество и поддержка</p>
+            </div>
+          </a>
+          <a href="https://sourceforge.net/projects/en-os/" target="_blank" rel="noopener" class="community-link-card">
+            <div class="community-icon">
+              <i class="fas fa-cloud-download-alt"></i>
+            </div>
+            <div class="community-info">
+              <h4>SourceForge</h4>
+              <p data-ru="Различные образы системы" data-en="OS images">Различные образы системы</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4 data-ru="EN-OS" data-en="EN-OS">EN-OS</h4>
+          <p data-ru="Arch-based Линукс для новичков" data-en="Arch-based Linux for beginners">Arch-based Линукс для новичков</p>
+        </div>
+        <div class="footer-section">
+          <h4 data-ru="Ссылки" data-en="Links">Ссылки</h4>
+          <ul>
+            <li><a href="https://github.com/Endscape-Coding/EN-OS" target="_blank">GitHub</a></li>
+            <li><a href="https://t.me/enos_community" target="_blank" data-ru="Форум" data-en="Forum">Форум</a></li>
+            <li><a href="https://distrowatch.com/table.php?distribution=enos" target="_blank">DistroWatch</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p id="copyright-text"></p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close"><i class="fas fa-times"></i></button>
+    <button class="lightbox-nav lightbox-prev"><i class="fas fa-chevron-left"></i></button>
+    <img id="lightbox-img" src="" alt="Screenshot">
+    <button class="lightbox-nav lightbox-next"><i class="fas fa-chevron-right"></i></button>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="locale.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
