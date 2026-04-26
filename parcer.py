@@ -7,7 +7,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 
 URL = 'https://distrowatch.com/table.php?distribution=enos'
-OUTPUT = 'data/dw-stats.json'
+OUTPUT = 'dw-stats.json'
 
 headers = {'User-Agent': 'EN-OS-Site/1.0 (contact@en-os.ru)'}
 
