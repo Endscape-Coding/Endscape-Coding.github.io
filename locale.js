@@ -103,7 +103,7 @@ const translations = {
     'footer.about': 'Современный дистрибутив Linux на базе Arch с KDE Plasma',
     'footer.links': 'Ссылки',
     'footer.forum': 'Форум',
-    'footer.copyright': '© 2026 EN-OS. Все права защищены.'
+    'footer.copyright': '© 2026 EN-OS. Все права защищены.',
 
     'dw.title': 'Статистика DistroWatch',
     'dw.view-on-dw': 'Смотреть на DistroWatch',
@@ -220,7 +220,7 @@ const translations = {
     'footer.about': 'Modern Linux distribution based on Arch with KDE Plasma',
     'footer.links': 'Links',
     'footer.forum': 'Forum',
-    'footer.copyright': '© 2026 EN-OS. All rights reserved.'
+    'footer.copyright': '© 2026 EN-OS. All rights reserved.',
 
     'dw.title': 'DistroWatch Statistics',
     'dw.view-on-dw': 'View on DistroWatch',
