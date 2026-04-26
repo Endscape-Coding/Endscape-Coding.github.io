@@ -104,6 +104,16 @@ const translations = {
     'footer.links': 'Ссылки',
     'footer.forum': 'Форум',
     'footer.copyright': '© 2026 EN-OS. Все права защищены.'
+
+    'dw.title': 'Статистика DistroWatch',
+    'dw.view-on-dw': 'Смотреть на DistroWatch',
+    'dw.updated': 'Обновлено: ',
+    'dw.popularity': 'Рейтинг популярности',
+    'dw.hits': 'Просмотров в день',
+    'dw.rating': 'Оценка пользователей',
+    'dw.reviews': 'Отзывов',
+    'dw.votes': 'голосов',
+    'dw.loading': 'Загрузка статистики...',
   },
   
   en: {
@@ -211,6 +221,16 @@ const translations = {
     'footer.links': 'Links',
     'footer.forum': 'Forum',
     'footer.copyright': '© 2026 EN-OS. All rights reserved.'
+
+    'dw.title': 'DistroWatch Statistics',
+    'dw.view-on-dw': 'View on DistroWatch',
+    'dw.updated': 'Updated: ',
+    'dw.popularity': 'Popularity Rank',
+    'dw.hits': 'Hits per day',
+    'dw.rating': 'User Rating',
+    'dw.reviews': 'Reviews',
+    'dw.votes': 'votes',
+    'dw.loading': 'Loading statistics...',
   }
 };
 
