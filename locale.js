@@ -113,7 +113,7 @@ const translations = {
     'dw.rating': 'Оценка пользователей',
     'dw.reviews': 'Отзывов',
     'dw.votes': 'голосов',
-    'dw.loading': 'Загрузка статистики...',
+    'dw.loading': 'Загрузка статистики...'
   },
   
   en: {
@@ -230,7 +230,7 @@ const translations = {
     'dw.rating': 'User Rating',
     'dw.reviews': 'Reviews',
     'dw.votes': 'votes',
-    'dw.loading': 'Loading statistics...',
+    'dw.loading': 'Loading statistics...'
   }
 };
 
