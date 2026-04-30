@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <link rel="shortcut icon" type="image/x-icon" href="images/favicon1.ico">  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ - EN-OS</title>
+  <link rel="preload" href="style.css" as="style">
+  <meta name="description" content="Часто задаваемые вопросы о EN-OS">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="ru">RU</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
+
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-logo">
+        <img src="images/logofl.png" alt="EN-OS Logo" class="nav-logo-img">
+      </a>
+      <div class="nav-links">
+        <a href="index.html#features" data-ru="Особенности" data-en="Features">Особенности</a>
+        <a href="index.html#screenshots" data-ru="Скриншоты" data-en="Screenshots">Скриншоты</a>
+        <a href="index.html#installation" data-ru="Установка" data-en="Installation">Установка</a>
+        <a href="downloads.html" data-ru="Скачать" data-en="Download">Скачать</a>
+        <a href="faq.html" class="active">FAQ</a>
+        <a href="https://github.com/Endscape-Coding/EN-OS" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+      </div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <h1 data-ru="FAQ" data-en="FAQ">FAQ</h1>
+    <p data-ru="Часто задаваемые вопросы и ответы" data-en="Frequently Asked Questions">Часто задаваемые вопросы и ответы</p>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="faq-section">
+          <div class="faq-search">
+            <input type="text" id="faqSearch" placeholder="Поиск по вопросам..." data-ru-placeholder="Поиск по вопросам..." data-en-placeholder="Search questions...">
+            <div class="faq-search-icon">
+              <i class="fas fa-search"></i>
+            </div>
+          </div>
+
+          <div class="faq-categories">
+            <button class="faq-category-btn active" data-category="all">
+              <i class="fas fa-list"></i>
+              <span data-ru="Все вопросы" data-en="All Questions">Все вопросы</span>
+            </button>
+            <button class="faq-category-btn" data-category="installation">
+              <i class="fas fa-download"></i>
+              <span data-ru="Установка" data-en="Installation">Установка</span>
+            </button>
+            <button class="faq-category-btn" data-category="usage">
+              <i class="fas fa-desktop"></i>
+              <span data-ru="Использование" data-en="Usage">Использование</span>
+            </button>
+            <button class="faq-category-btn" data-category="troubleshooting">
+              <i class="fas fa-tools"></i>
+              <span data-ru="Решение проблем" data-en="Troubleshooting">Решение проблем</span>
+            </button>
+            <button class="faq-category-btn" data-category="technical">
+              <i class="fas fa-cogs"></i>
+              <span data-ru="Технические вопросы" data-en="Technical">Технические вопросы</span>
+            </button>
+          </div>
+
+          <div class="faq-list">
+            <div class="faq-item" data-category="installation" id="faq-minimum-requirements">
+              <div class="faq-question">
+                <span class="faq-question-text" data-ru="Какие минимальные системные требования?" data-en="What are the minimum system requirements?">Какие минимальные системные требования?</span>
+                <div class="faq-question-icon">
+                  <i class="fas fa-plus"></i>
+                </div>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer-content">
+                  <p data-ru="Минимальные системные требования для EN-OS:" data-en="Minimum system requirements for EN-OS:">Минимальные системные требования для EN-OS:</p>
+                  <ul>
+                    <li><strong data-ru="Процессор:" data-en="CPU:">Процессор:</strong> <span data-ru="2 ГГц, двухъядерный" data-en="2 GHz dual-core">2 ГГц, двухъядерный</span></li>
+                    <li><strong data-ru="ОЗУ:" data-en="RAM:">ОЗУ:</strong> <span data-ru="2 ГБ (рекомендуется 4-8 ГБ)" data-en="2 GB (4-8 GB recommended)">2 ГБ (рекомендуется 4-8 ГБ)</span></li>
+                    <li><strong data-ru="Диск:" data-en="Storage:">Диск:</strong> <span data-ru="15 ГБ свободного места" data-en="15 GB free space">15 ГБ свободного места</span></li>
+                    <li><strong data-ru="Графика:" data-en="Graphics:">Графика:</strong> <span data-ru="Поддержка OpenGL 3.0+" data-en="OpenGL 3.0+ support">Поддержка OpenGL 3.0+</span></li>
+                  </ul>
+                  <p data-ru="Системные требования сильно зависят от оболочки: например легкий IceWM требует всего 1 гигабайт ОЗУ для комфортной работы в нетребовательных программах, когда тяжелому KDE нужно 3-4 гигабайта." data-en="System requirements vary greatly depending on the shell: for example, the lightweight IceWM requires only 1 gigabyte of RAM for comfortable use in low-demanding programs, while the heavy KDE requires 3-4 gigabytes.">Системные требования сильно зависят от оболочки: например легкий IceWM требует всего 1 гигабайт ОЗУ для комфортной работы в нетребовательных программах, когда тяжелому KDE нужно 3-4 гигабайта.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" data-category="installation" id="faq-create-usb">
+              <div class="faq-question">
+                <span class="faq-question-text" data-ru="Как создать загрузочную флешку?" data-en="How to create a bootable USB?">Как создать загрузочную флешку?</span>
+                <div class="faq-question-icon">
+                  <i class="fas fa-plus"></i>
+                </div>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer-content">
+                  <p data-ru="Есть несколько способов создания загрузочной флешки:" data-en="There are several ways to create a bootable USB:">Есть несколько способов создания загрузочной флешки:</p>
+                  <ol>
+                    <li>
+                      <strong>Rufus (Windows):</strong> 
+                      <span data-ru="Скачайте Rufus, выберите ISO-образ EN-OS и USB-накопитель, нажмите 'Старт'" data-en="Download Rufus, select EN-OS ISO and USB drive, click 'Start'">Скачайте Rufus, выберите ISO-образ EN-OS и USB-накопитель, нажмите 'Старт'</span>
+                    </li>
+                    <li>
+                      <strong>dd (Linux/macOS):</strong><br>
+                      <code>sudo dd if=en-os.iso of=/dev/sdX bs=4M status=progress</code>
+                    </li>
+                    <li>
+                      <strong>Ventoy:</strong> 
+                      <span data-ru="Установите Ventoy на USB, затем просто скопируйте ISO-образ" data-en="Install Ventoy to USB, then simply copy the ISO image">Установите Ventoy на USB, затем просто скопируйте ISO-образ</span>
+                    </li>
+                  </ol>
+                  <div class="warning-box">
+                    <i class="fas fa-exclamation-triangle"></i> 
+                    <span data-ru="Важно: Все данные на USB-накопителе будут удалены!" data-en="Important: All data on the USB drive will be erased!">Важно: Все данные на USB-накопителе будут удалены!</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" data-category="installation" id="faq-dual-boot">
+              <div class="faq-question">
+                <span class="faq-question-text" data-ru="Можно ли установить EN-OS рядом с Windows?" data-en="Can I install EN-OS alongside Windows?">Можно ли установить EN-OS рядом с Windows?</span>
+                <div class="faq-question-icon">
+                  <i class="fas fa-plus"></i>
+                </div>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer-content">
+                  <p data-ru="Да, EN-OS поддерживает dual-boot с Windows. Установщик автоматически определит Windows и предложит вам установку рядом (работает как с windows так и с другими linux системах на выбранном диске)." data-en="Yes, EN-OS supports dual-boot with Windows! The Calamares installer will automatically detect Windows and offer installation alongside.">Да, EN-OS поддерживает dual-boot с Windows. Установщик автоматически определит Windows и предложит установку рядом.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" data-category="usage" id="faq-update-system">
+              <div class="faq-question">
+                <span class="faq-question-text" data-ru="Как обновлять систему?" data-en="How to update the system?">Как обновлять систему?</span>
+                <div class="faq-question-icon">
+                  <i class="fas fa-plus"></i>
+                </div>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer-content">
+                  <p data-ru="Обновление EN-OS выполняется через пакетный менеджер pacman:" data-en="Updating EN-OS is done through the pacman package manager:">Обновление EN-OS выполняется через пакетный менеджер pacman:</p>
+                  <code>sudo pacman -Syu</code>
+                  <p data-ru="Эта команда синхронизирует базы пакетов и обновит все установленные пакеты до последних версий." data-en="This command synchronizes package databases and updates all installed packages to the latest versions.">Эта команда синхронизирует базы пакетов и обновит все установленные пакеты до последних версий.</p>
+                  <div class="note">
+                    <i class="fas fa-info-circle"></i> 
+                    <span data-ru="Рекомендуется обновлять систему регулярно (раз в неделю) для получения актуальных исправлений безопасности." data-en="It's recommended to update the system regularly (once a week) to get the latest security patches.">Рекомендуется обновлять систему регулярно (раз в неделю) для получения актуальных исправлений безопасности.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" data-category="troubleshooting" id="faq-nvidia-drivers">
+              <div class="faq-question">
+                <span class="faq-question-text" data-ru="Как установить драйверы NVIDIA?" data-en="How to install NVIDIA drivers?">Как установить драйверы NVIDIA?</span>
+                <div class="faq-question-icon">
+                  <i class="fas fa-plus"></i>
+                </div>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer-content">
+                  <p data-ru="Для установки проприетарных драйверов NVIDIA используйте EN-OS Driver Manager: его Вы найдете в EN-OS System Manager." data-en="To install NVIDIA proprietary drivers, use the EN-OS Driver Manager, which you can find in the EN-OS System Manager.">Для установки проприетарных драйверов NVIDIA используйте EN-OS Driver Manager: его Вы найдете в EN-OS System Manager.</p>
+                  <p data-ru="Программа сама определит вашу видеокарту и подберет под нее драйверы, после чего установит их." data-en="The program will detect your video card and select the appropriate drivers, which it will then install.">Программа сама определит вашу видеокарту и подберет под нее драйверы, после чего установит их.</p>
+                                    
+				</div>
+              </div>
+            </div>
+
+            <div class="faq-item" data-category="troubleshooting" id="faq-nvme-install">
+              <div class="faq-question">
+                <span class="faq-question-text" data-ru="У меня SSD/Nmve накопитель, я перехожу с Windows, и установщик не может разделить раздел. Что делать?" data-en="I have an SSD/Nmve drive, and I'm switching from Windows, but the installer can't split the partition. What should I do?">У меня SSD/Nmve накопитель, я перехожу с Windows, и установщик не может разделить раздел. Что делать?</span>
+                <div class="faq-question-icon">
+                  <i class="fas fa-plus"></i>
+                </div>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer-content">
+                  <p data-ru="Попробуйте следующие шаги:" data-en="Try these steps:">Попробуйте следующие шаги:</p>
+                  <ol>
+                    <li data-ru="Перезагрузите установщик." data-en="Try restarting the installer.">Перезагрузите установщик.</li>
+                    <li data-ru="Разделите диск вручную через программу работы с дисками в прошлой системе." data-en="Manually partition the disk using the disk management software in the previous system.">Разделите диск вручную через программу работы с дисками в прошлой системе.</li>
+					<li data-ru="Если ничего не помогает, спросите решение в нашем Telegram чате: @enos_community" data-en="If nothing helps, ask for a solution in our Telegram chat: @enos_community">Если ничего не помогает, спросите решение в нашем Telegram чате: @enos_community"</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" data-category="technical" id="faq-kernel-version">
+              <div class="faq-question">
+                <span class="faq-question-text" data-ru="Какое ядро используется в EN-OS?" data-en="What kernel is used in EN-OS?">Какое ядро используется в EN-OS?</span>
+                <div class="faq-question-icon">
+                  <i class="fas fa-plus"></i>
+                </div>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer-content">
+                  <p data-ru="На данный момент EN-OS использует последнее стабильное ядро Linux, но в версии 1.1 планируется использовать более быстрое ядро linux-zen." data-en="Currently, EN-OS uses the latest stable Linux kernel, but version 1.1 plans to use the faster linux-zen kernel.">На данный момент EN-OS использует последнее стабильное ядро Linux, но в версии 1.1 планируется использовать более быстрое ядро linux-zen</p>
+                  <p data-ru="Узнать текущую версию:" data-en="To check the current version:">Узнать текущую версию:</p>
+                  <code>uname -r</code>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" data-category="technical" id="faq-desktop-environment">
+              <div class="faq-question">
+                <span class="faq-question-text" data-ru="Какое окружение рабочего стола используется?" data-en="What desktop environment is used?">Какое окружение рабочего стола используется?</span>
+                <div class="faq-question-icon">
+                  <i class="fas fa-plus"></i>
+                </div>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer-content">
+                  <p data-ru="По умолчанию EN-OS поставляется с KDE Plasma, но планируется расширить список DE и WM, интегрированных в нашу систему:" data-en="By default, EN-OS comes with KDE Plasma, but we plan to expand the list of DEs and WMs integrated into our system:">По умолчанию EN-OS поставляется с KDE Plasma, но планируется расширить список DE и WM, интегрированных в нашу систему:</p>
+                  <ul>
+				    <li data-ru="XFCE - рабочее окружение, которое имеет удобный и настраиваемый интерфейс, но работает быстрее и стабильнее, чем KDE. Подойдет людям, ценящим простоту использования и стабильность, но не имеющим достаточно мощным компьютером." data-en="XFCE is a desktop environment that has a user-friendly and customizable interface, but it is faster and more stable than KDE. It is suitable for people who value ease of use and stability, but do not have a powerful enough computer.">XFCE - рабочее окружение, которое имеет удобный и настраиваемый интерфейс, но работает быстрее и стабильнее, чем KDE. Подойдет людям, ценящим простоту использования и стабильность, но не имеющим достаточно мощным компьютером.</li>
+                    <li data-ru="Sway - минималистичный менеджер окон, потребляет мало ресурсов, использует безопасный и быстрый Wayland. Подойдет продвинутым пользователям." data-en="Sway is a minimalistic window manager that consumes few resources and uses the secure and fast Wayland. It is suitable for advanced users.">Sway - минималистичный менеджер окон, потребляет мало ресурсов, использует безопасный и быстрый Wayland. Подойдет продвинутым пользователям.</li>
+                    <li data-ru="IceWM - так же минималистичный менеджер окон, но имеет привычное меню пуск, работает на стабильном X11. Идеально подойдет пользователям старых компьютеров (быстрее, чем XFCE)." data-en="IceWM is also a minimalistic window manager, but it has a familiar start menu and runs on stable X11. It is ideal for users of older computers.">IceWM - так же минималистичный менеджер окон, но имеет привычное меню пуск, работает на стабильном X11. Идеально подойдет пользователям старых компьютеров.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+			
+		    <div class="faq-item" data-category="technical" id="faq-AI-usage">
+              <div class="faq-question">
+                <span class="faq-question-text" data-ru="Насколько много ИИ кода в EN-OS, и как вы относитесь к ИИ в целом?" data-en="How much AI code is there in EN-OS, and how do you feel about AI in general?">Насколько много ИИ кода в EN-OS, и как вы относитесь к ИИ в целом?</span>
+                <div class="faq-question-icon">
+                  <i class="fas fa-plus"></i>
+                </div>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer-content">
+                  <p data-ru="В версии 1.0, вышедшей 1 января 2026 года ИИ кода было довольно много: 40-50%. В основном это постустановочные скрипты и некоторые программы из System-Manager. Я могу это обьяснить недостатком времени и знаний на тот момент, однако стоит подчеркнуть: даже при использовании ИИ я не жертвовал качеством. Код тщательно проверялся и тестировался в различных сценариях." data-en="In version 1.0, which was released on January 1, 2026, there was quite a lot of AI code: 40-50%. This mainly includes post-installation scripts and some programs from System-Manager. I can explain this by the lack of time and knowledge at that time. However, it is worth noting that even when using AI, I did not compromise on quality. The code was thoroughly reviewed and tested in various scenarios.">В версии 1.0, вышедшей 1 января 2026 года ИИ кода было довольно много: 40-50%. В основном это постустановочные скрипты и некоторые программы из System-Manager. Я могу это обьяснить недостатком времени и знаний на тот момент. Однако стоит подчеркнуть: даже при использовании ИИ я не жертвовал качеством. Код тщательно проверялся и тестировался в различных сценариях.</p>
+                  <p data-ru="На данный момент большинство компонентов с нуля переписаны на более быстрые и безопасные языки: вместо Python C++ и Rust, в которых количество ИИ кода не превышает 15-20%. Эти 15-20% в основном являеюся фронтендом, компоновкой интерфейса, и некоторыми скриптами. Все остальные системные программы написаны без ИИ на Rust и C++." data-en="At the moment, most of the components have been rewritten from scratch in faster languages: instead of Python, C++ and Rust, in which the amount of AI code does not exceed 15-20%. These 15-20% are mostly frontend and interface layout, and some scripts. All other system programs are written without AI in Rust and C++.">На данный момент большинство компонентов с нуля переписаны на более быстрые языки: вместо Python C++ и Rust, в которых количество ИИ кода не превышает 15-20%. Эти 15-20% в основном является фронтенд и компоновка интерфейса, и некоторые скрипты. Все остальные системные программы написаны без ИИ на Rust и C++.</p>
+                  <p data-ru="Сейчас я отношусь к использованию ИИ осторожно, используя его только для рутинных задач и фронтенда. Да, в последнее время он стал умнее, но доверять алгоритмам надежность системы и безопасность своих пользователей все еще опасно. Весь ИИ код всегда проверяется и тщательно тестируется на реальном железе." data-en="I'm now cautious about using AI, using it for routine tasks and frontend. Yes, it has become smarter lately, but it's still dangerous to trust algorithms with the system's reliability and the safety of its users. All AI code is checked and thoroughly tested on real hardware.">Сейчас я отношусь к использованию ИИ осторожно, используя его для рутинных задач и фронтенда. Да, в последнее время он стал умнее, но доверять алгоритмам надежность системы и безопасность своих пользователей все еще опасно. Весь ИИ код проверяется и тщательно тестируется на реальном железе.</p>
+                </div>
+              </div>
+            </div>
+		  
+		    <div class="faq-item" data-category="technical" id="faq-philosophy">
+                <div class="faq-question">
+                <span class="faq-question-text" data-ru="Чем отличается ваша система от конкурентов и какая цель системы?" data-en="How does your system differ from your competitors, and what is its purpose?">Чем отличается ваша система от конкурентов и какая цель системы?</span>
+                <div class="faq-question-icon">
+                  <i class="fas fa-plus"></i>
+                </div>
+              </div>
+              <div class="faq-answer">
+				<div class="faq-answer-content">
+					<p data-ru="Задача EN-OS - сделать мир Linux доступным для каждого, не жертвуя при этом производительностью и стабильностью. «Из коробки» система включает новейшие технологии Linux, но при этом сохраняет простой и понятный интерфейс, удобный для начинающих."
+					   data-en="The goal of EN-OS is to make the Linux world accessible to everyone, without sacrificing performance and stability. Out of the box, the system includes the latest Linux features, while maintaining a simple and user-friendly interface for beginners.">
+					   Задача EN-OS - сделать мир Linux доступным для каждого, не жертвуя при этом производительностью и стабильностью. «Из коробки» система включает новейшие технологии Linux, но при этом сохраняет простой и понятный интерфейс, удобный для начинающих.
+					</p>
+					<ul>
+						<li data-ru="В состав системы входят удобные графические утилиты, которые делают работу с компьютером доступной даже для новичков. Среди них - установщик проприетарных драйверов, магазин приложений, сборщик Remote Assistant и другие простые инструменты. Вам не придётся изучать терминал, чтобы пользоваться системой."
+							data-en="The system includes convenient graphical utilities that make working with a computer accessible even for beginners. These include a proprietary driver installer, an app store, a Remote Assistant collector, and other simple tools. You won't need to learn the terminal to use the system.">
+							В состав системы входят удобные графические утилиты, которые делают работу с компьютером доступной даже для новичков. Среди них - установщик проприетарных драйверов, магазин приложений, сборщик Remote Assistant и другие простые инструменты. Вам не придётся изучать терминал, чтобы пользоваться системой.
+						</li>
+						<li data-ru="В системе используется одна из самых современных файловых систем - BTRFS, изначально включён Zram, оптимизирующий расход ОЗУ, а также применяются последние версии ядра. Пользователю не нужно включать это самостоятельно."
+							data-en="The system uses one of the most modern file systems, BTRFS, includes Zram by default to optimize RAM usage, and runs the latest kernel versions. The user does not have to enable these features manually.">
+							В системе используется одна из самых современных файловых систем - BTRFS, изначально включён Zram, оптимизирующий расход ОЗУ, а также применяются последние версии ядра. Пользователю не нужно включать это самостоятельно.
+						</li>
+					</ul>
+				</div>
+			</div>
+            </div>
+          </div>
+
+          <div class="faq-no-results" id="faqNoResults">
+            <i class="fas fa-search"></i>
+            <h3 data-ru="Ничего не найдено" data-en="Nothing found">Ничего не найдено</h3>
+            <p data-ru="Попробуйте изменить поисковый запрос или выбрать другую категорию" data-en="Try changing your search query or selecting a different category">Попробуйте изменить поисковый запрос или выбрать другую категорию</p>
+          </div>
+
+          <div class="faq-contact">
+            <h3 data-ru="Не нашли ответ на свой вопрос?" data-en="Didn't find an answer to your question?">Не нашли ответ на свой вопрос?</h3>
+            <p data-ru="Присоединяйтесь к нашему сообществу для получения помощи" data-en="Join our community for help">Присоединяйтесь к нашему сообществу для получения помощи</p>
+            <div class="faq-contact-links">
+              <a href="https://t.me/enos_community" target="_blank" class="btn btn-primary">
+                <i class="fab fa-telegram-plane"></i> Telegram
+              </a>
+              <a href="https://github.com/Endscape-Coding/EN-OS" target="_blank" class="btn btn-secondary">
+                <i class="fab fa-github"></i> GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4 data-ru="EN-OS" data-en="EN-OS">EN-OS</h4>
+          <p data-ru="Arch-based Линукс для новичков" data-en="Arch-based Linux for beginners">Arch-based Линукс для новичков</p>
+        </div>
+        <div class="footer-section">
+          <h4 data-ru="Ссылки" data-en="Links">Ссылки</h4>
+          <ul>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="https://github.com/Endscape-Coding/EN-OS" target="_blank">GitHub</a></li>
+            <li><a href="https://t.me/enos_community" target="_blank" data-ru="Форум" data-en="Forum">Форум</a></li>
+            <li><a href="https://distrowatch.com/table.php?distribution=enos" target="_blank">DistroWatch</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p id="copyright-text"></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="locale.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
