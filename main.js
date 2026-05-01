@@ -1,3 +1,85 @@
+window.currentEditionIndex = 0;
+window.currentImgIndex = 0;
+window.currentScreenshots = [];
+window.allScreenshots = [];
+
+const isScreenshotsPage = window.location.pathname.includes('screenshots.html');
+
+function getAllScreenshotsFromConfig() {
+  if (typeof screenshotsConfig !== 'undefined' && screenshotsConfig.screenshots) {
+    return screenshotsConfig.screenshots.map(s => s.src);
+  }
+  return [];
+}
+
+function getEditionScreenshots(editionIndex) {
+  const edition = config.editions[editionIndex];
+  return edition.variants[0]?.screenshots || [];
+}
+
+window.openLightbox = function(editionIndex, imgIndex) {
+  let screenshots = [];
+  let captions = []; 
+  
+  if (isScreenshotsPage) {
+    screenshots = getAllScreenshotsFromConfig();
+    if (typeof screenshotsConfig !== 'undefined' && screenshotsConfig.screenshots) {
+      captions = screenshotsConfig.screenshots.map(s => {
+        const lang = typeof currentLang !== 'undefined' ? currentLang : 'ru';
+        return s.caption ? (s.caption[lang] || s.caption.ru || 'Screenshot') : 'Screenshot';
+      });
+    }
+    if (typeof screenshotsIndexMap !== 'undefined') {
+      imgIndex = screenshotsIndexMap[editionIndex]?.[imgIndex] || 0;
+    }
+    window.currentEditionIndex = -1;
+  } else {
+    screenshots = getEditionScreenshots(editionIndex);
+    const defaultCaptions = {
+      ru: ['Рабочий стол', 'Приложения', 'Терминал', 'Настройки'],
+      en: ['Desktop', 'Applications', 'Terminal', 'Settings']
+    };
+    const lang = typeof currentLang !== 'undefined' ? currentLang : 'ru';
+    captions = screenshots.map((_, idx) => (defaultCaptions[lang] || defaultCaptions.ru)[idx] || 'Screenshot');
+    window.currentEditionIndex = editionIndex;
+  }
+  
+  if (!screenshots.length) return;
+  
+  window.currentImgIndex = imgIndex;
+  window.currentScreenshots = screenshots;
+  window.currentCaptions = captions; 
+  
+  document.getElementById('lightbox-img').src = screenshots[imgIndex];
+  const captionEl = document.getElementById('lightbox-caption');
+  if (captionEl && captions[imgIndex]) {
+    captionEl.textContent = captions[imgIndex];
+  }
+  const lightbox = document.getElementById('lightbox');
+  lightbox?.classList.add('active');
+  document.body.style.overflow = 'hidden';
+};
+
+window.closeLightbox = function() {
+  const lightbox = document.getElementById('lightbox');
+  lightbox?.classList.remove('active');
+  document.body.style.overflow = '';
+};
+
+window.changeLightboxImg = function(direction) {
+  const screenshots = window.currentScreenshots || [];
+  const captions = window.currentCaptions || [];
+  if (screenshots.length === 0) return;
+  
+  window.currentImgIndex = (window.currentImgIndex + direction + screenshots.length) % screenshots.length;
+  document.getElementById('lightbox-img').src = screenshots[window.currentImgIndex];
+  
+  const captionEl = document.getElementById('lightbox-caption');
+  if (captionEl && captions[window.currentImgIndex]) {
+    captionEl.textContent = captions[window.currentImgIndex];
+  }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   const editionsContainer = document.getElementById('editions-container');
   if (editionsContainer && config.editions) {
@@ -78,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
       item.addEventListener('click', () => {
         const editionIndex = parseInt(item.dataset.edition);
         const imgIndex = parseInt(item.dataset.img);
-        openLightbox(editionIndex, imgIndex);
+        window.openLightbox(editionIndex, imgIndex);
       });
     });
   }
@@ -130,43 +212,12 @@ document.addEventListener('DOMContentLoaded', () => {
     copyrightEl.textContent = config.copyright;
   }
 
-  window.currentEditionIndex = 0;
-  window.currentImgIndex = 0;
-  window.currentScreenshots = [];
   window.allScreenshots = config.editions.flatMap(ed => ed.variants[0]?.screenshots || []);
 
   const lightbox = document.getElementById('lightbox');
   const lightboxClose = document.querySelector('.lightbox-close');
   const lightboxPrev = document.querySelector('.lightbox-prev');
   const lightboxNext = document.querySelector('.lightbox-next');
-
-  window.openLightbox = function(editionIndex, imgIndex) {
-    const edition = config.editions[editionIndex];
-    const screenshots = edition.variants[0]?.screenshots || [];
-
-    if (!screenshots.length) return;
-
-    window.currentEditionIndex = editionIndex;
-    window.currentImgIndex = imgIndex;
-    window.currentScreenshots = screenshots;
-
-    document.getElementById('lightbox-img').src = screenshots[imgIndex];
-    lightbox?.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  };
-
-  window.closeLightbox = function() {
-    lightbox?.classList.remove('active');
-    document.body.style.overflow = '';
-  };
-
-  window.changeLightboxImg = function(direction) {
-    const screenshots = window.currentScreenshots || [];
-    if (screenshots.length === 0) return;
-
-    window.currentImgIndex = (window.currentImgIndex + direction + screenshots.length) % screenshots.length;
-    document.getElementById('lightbox-img').src = screenshots[window.currentImgIndex];
-  };
 
   if (lightboxClose) {
     lightboxClose.addEventListener('click', window.closeLightbox);
@@ -259,18 +310,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function toggleFullscreen() {
-    const container = videoContainer || video;
-    if (!container) return;
+	function toggleFullscreen() {
+	  const container = videoContainer || video;
+	  if (!container) return;
 
-    if (container.requestFullscreen) {
-      container.requestFullscreen();
-    } else if (container.webkitRequestFullscreen) {
-      container.webkitRequestFullscreen();
-    } else if (container.msRequestFullscreen) {
-      container.msRequestFullscreen();
-    }
-  }
+	  const isFullscreen = document.fullscreenElement ||
+						   document.webkitFullscreenElement ||
+						   document.msFullscreenElement;
+
+	  if (!isFullscreen) {
+		if (container.requestFullscreen) {
+		  container.requestFullscreen();
+		} else if (container.webkitRequestFullscreen) {
+		  container.webkitRequestFullscreen();
+		} else if (container.msRequestFullscreen) {
+		  container.msRequestFullscreen();
+		}
+	  } else {
+		if (document.exitFullscreen) {
+		  document.exitFullscreen();
+		} else if (document.webkitExitFullscreen) {
+		  document.webkitExitFullscreen();
+		} else if (document.msExitFullscreen) {
+		  document.msExitFullscreen();
+		}
+	  }
+	}
 
   if (playPauseBtn) {
     playPauseBtn.addEventListener('click', togglePlayPause);
@@ -313,39 +378,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  document.addEventListener('fullscreenchange', () => {
+  function handleFullscreenChange() {
     const container = videoContainer || video;
     if (!container) return;
 
-    if (document.fullscreenElement === container) {
+    const isFullscreen = !!(
+      document.fullscreenElement ||
+      document.webkitFullscreenElement ||
+      document.msFullscreenElement
+    );
+
+    if (isFullscreen) {
       container.classList.add('fullscreen');
     } else {
       container.classList.remove('fullscreen');
     }
-  });
+  }
 
-  document.addEventListener('webkitfullscreenchange', () => {
-    const container = videoContainer || video;
-    if (!container) return;
-
-    if (document.webkitFullscreenElement === container) {
-      container.classList.add('fullscreen');
-    } else {
-      container.classList.remove('fullscreen');
-    }
-  });
-
-  document.addEventListener('msfullscreenchange', () => {
-    const container = videoContainer || video;
-    if (!container) return;
-
-    if (document.msFullscreenElement === container) {
-      container.classList.add('fullscreen');
-    } else {
-      container.classList.remove('fullscreen');
-    }
-  });
+  document.addEventListener('fullscreenchange', handleFullscreenChange);
+  document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+  document.addEventListener('msfullscreenchange', handleFullscreenChange);
 });
+
+
 
 function renderScreenshotPreview() {
   const previewContainer = document.getElementById('screenshot-preview');
@@ -366,8 +421,8 @@ function renderScreenshotPreview() {
           allScreenshots.push({
             src,
             alt: (captions[lang] || captions.ru)[imgIdx] || 'Screenshot',
-                              editionIndex: edIdx,
-                              imgIndex: imgIdx
+            editionIndex: edIdx,
+            imgIndex: imgIdx
           });
         }
       });
@@ -398,19 +453,15 @@ function renderScreenshotPreview() {
     card.addEventListener('click', () => {
       const editionIndex = parseInt(card.dataset.edition);
       const imgIndex = parseInt(card.dataset.img);
-      if (typeof openLightbox === 'function') {
-        openLightbox(editionIndex, imgIndex);
-      }
+      window.openLightbox(editionIndex, imgIndex);
     });
   });
 }
 
-// Вызов renderScreenshotPreview исправлен
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(renderScreenshotPreview, 150);
 });
 
-// Функции для DistroWatch stats
 function renderDistroWatchStats(stats) {
   const container = document.getElementById('dw-stats-container');
   if (!container) return;
@@ -527,8 +578,6 @@ function initFAQ() {
     question.addEventListener('click', () => {
       const isActive = item.classList.contains('active');
       
-      // faqItems.forEach(i => i.classList.remove('active'));
-      
       if (!isActive) {
         item.classList.add('active');
       } else {
@@ -553,7 +602,6 @@ function initFAQ() {
           }
         });
         
-        // Reset search
         if (searchInput) {
           searchInput.value = '';
           filterFAQ('');
@@ -601,10 +649,6 @@ function initFAQ() {
     
     const category = activeCategory.dataset.category;
     return category === 'all' || item.dataset.category === category;
-  }
-  
-  if (faqItems.length > 0 && !window.location.hash) {
-    // faqItems[0].classList.add('active');
   }
   
   if (window.location.hash) {
