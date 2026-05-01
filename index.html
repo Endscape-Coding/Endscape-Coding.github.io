@@ -205,7 +205,6 @@
       </div>
     </div>
     
-    <!-- Блок с основной ссылкой на вики -->
     <div class="wiki-cta">
       <a href="https://github.com/Endscape-Coding/EN-OS/wiki/Установка-EN‐OS" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-wiki">
         <i class="fab fa-github"></i> 
@@ -276,12 +275,15 @@
     </div>
   </footer>
 
-  <div class="lightbox" id="lightbox">
-    <button class="lightbox-close"><i class="fas fa-times"></i></button>
-    <button class="lightbox-nav lightbox-prev"><i class="fas fa-chevron-left"></i></button>
-    <img id="lightbox-img" src="" alt="Screenshot">
-    <button class="lightbox-nav lightbox-next"><i class="fas fa-chevron-right"></i></button>
-  </div>
+	<div class="lightbox" id="lightbox">
+		<button class="lightbox-close"><i class="fas fa-times"></i></button>
+		<button class="lightbox-nav lightbox-prev"><i class="fas fa-chevron-left"></i></button>
+		<div class="lightbox-content">
+			<img id="lightbox-img" src="" alt="Screenshot">
+			<div class="lightbox-caption" id="lightbox-caption"></div>
+		</div>
+		<button class="lightbox-nav lightbox-next"><i class="fas fa-chevron-right"></i></button>
+	</div>
 
   <script src="config.js"></script>
   <script src="locale.js"></script>
