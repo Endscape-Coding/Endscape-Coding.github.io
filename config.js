@@ -44,8 +44,7 @@ const config = {
 
           screenshots: [
             "images/environments/kde/desktop.png",
-            "images/environments/kde/apps.png",
-	    "images/environments/kde/terminal.png",
+			"images/environments/kde/terminal.png",
             "images/environments/kde/settings.png"
           ],
 
